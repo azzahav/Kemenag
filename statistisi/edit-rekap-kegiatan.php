@@ -425,7 +425,7 @@ while($user_data = mysqli_fetch_array($result))
                                                 <input type="hidden" class="edit" name="id" value="<?php echo $_GET['id'];?>">
                                                     <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update">Save
                                                         Changes</button>
-                                                    <button type="reset" class="btn btn-outline-warning">Reset</button>
+                                                    <button type="delete" class="btn btn-outline-warning" href="./delete.php?id_rekap=<?php echo $user_data['id_rekap']; ?>">Delete</button>
                                                 </div>
                                             </div>
                                         </form>
