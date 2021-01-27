@@ -169,6 +169,7 @@
             </div>
         </div>
     </div>
+    
     <!-- END: Content-->
 
     <div class="sidenav-overlay"></div>

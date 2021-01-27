@@ -98,7 +98,7 @@
                             </ul>
                         </li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Penilai</span><span class="user-status">Available</span></div><span><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Statistisi</span><span class="user-status">Available</span></div><span><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="../logout.php"><i class="feather icon-power"></i> Logout</a>
@@ -121,8 +121,9 @@
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.php">
-                        <h2 class="brand-text mb-0">Kemenag RI</h2>
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="./html/ltr/vertical-menu-template-semi-dark/index.html">
+                        <div class="brand-logo"></div>
+                        <h2 class="brand-text mb-0">Kementerian Agama RI</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
             </ul>
@@ -130,25 +131,13 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="../app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><span class="menu-title" data-i18n="Ecommerce">Pengajuan</span></a>
-                    <ul class="menu-content">
-                        <li><a href="./data-list-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Pengajuan Tersimpan</span></a>
-                        </li>
-                        <li><a href="./data-list-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">Riwayat Pengajuan</span></a>
-                        </li>
-                        <li><a href="./app-ecommerce-wishlist.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">SK Saya</span></a>
-                        </li>
-                        <li><a href="./app-user-edit.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Checkout">Pengaturan</span></a>
-                        </li>
-                    </ul>
+                <li class=" navigation-header"><span>Statistisi</span>
                 </li>
-                <li class=" navigation-header"><span>Tim Penilai</span>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
                 </li>
-                <li class=" nav-item"><a href="./data-list-berkas.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Colors">Berkas Penilaian</span></a>
-                </li>
-                <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan</span></a>
+                <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
                 </li>
             </ul>
         </div>
@@ -163,7 +152,7 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
-            <div><h1>Welcome back, <?php echo $login_session; ?>:)</h1></div>
+            <div><h1>Welcome back, <?php echo $login_session; ?></h1></div>
                 <!-- page users view start -->
                 <section class="page-users-view">
                     <div class="row">
