@@ -1,3 +1,12 @@
+<?php
+ session_start();
+
+ // cek apakah yang mengakses halaman ini sudah login
+ if($_SESSION['role']==""){
+    header("location:../auth-login.php?pesan=gagal");
+ }
+
+ ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->

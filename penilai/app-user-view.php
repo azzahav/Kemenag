@@ -1,14 +1,7 @@
-<!DOCTYPE html>
 <?php
- session_start();
-
- // cek apakah yang mengakses halaman ini sudah login
- if($_SESSION['role']==""){
-    header("location:../auth-login.php?pesan=gagal");
- }
-
- ?>
-
+   include('../session_co.php');
+?>
+<!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
@@ -26,6 +19,9 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -40,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/app-user.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/toastr.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -225,7 +222,7 @@
                                         </div>
                                         <div class="col-12">
                                             <a href="./app-user-edit.php" class="btn btn-primary mr-1"><i class="feather icon-edit-1"></i> Edit</a>
-                                            <a class="btn btn-outline-danger" href="./delete.php?id_pengguna=<?php echo $user_data['id_pengguna']; ?>"><i class="feather icon-trash-2"></i> Delete</a>
+                                            <a class="btn btn-outline-primary mb-2" id="confirm-color"></i> Delete</a>
                                         </div>
                                     </div>
                                 </div>
@@ -315,6 +312,9 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
+    <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -325,6 +325,8 @@
 
     <!-- BEGIN: Page JS-->
     <script src="../app-assets/js/scripts/pages/app-user.js"></script>
+    <script src="../app-assets/js/scripts/extensions/toastr.js"></script>
+    <script src="../app-assets/js/scripts/extensions/sweet-alerts.js"></script>
     <!-- END: Page JS-->
 
 </body>

@@ -17,30 +17,29 @@ $cek = mysqli_num_rows($login);
 
 // cek apakah nip dan password di temukan pada database
 if($cek > 0){
-
+  $_SESSION['login']=$nip;
  $data = mysqli_fetch_assoc($login);
-
  // cek jika user login sebagai admin
- if($data['role']=="Admin"){
+ if($data['role']=="admin"){
 
   // buat session login dan nip
   $_SESSION['nip'] = $nip;
-  $_SESSION['role'] = "Admin";
+  $_SESSION['role'] = "admin";
   // alihkan ke halaman dashboard admin
-  header("location:admin/pengguna.php");
+  header("location:admin/index.php");
 
  // cek jika user login sebagai pegawai
- }else if($data['role']=="Penilai"){
+ }else if($data['role']=="penilai"){
   // buat session login dan nip
   $_SESSION['nip'] = $nip;
-  $_SESSION['role'] = "Penilai";
+  $_SESSION['role'] = "penilai";
   // alihkan ke halaman dashboard pegawai
-  header("location:penilai/app-user-view.php");
+  header("location:penilai/index.php");
 
-}else if($data['role']=="Statistisi"){
+}else if($data['role']=="statistisi"){
 	// buat session login dan nip
 	$_SESSION['nip'] = $nip;
-	$_SESSION['role'] = "Statistisi";
+	$_SESSION['role'] = "statistisi";
 	// alihkan ke halaman dashboard pegawai
 	header("location:statistisi/index.php");
  }else{

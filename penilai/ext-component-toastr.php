@@ -10,31 +10,31 @@
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>Toastr - Vuexy - Bootstrap HTML admin template</title>
-    <link rel="apple-touch-icon" href="./app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="./app-assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/toastr.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/semi-dark-layout.css">
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/css/plugins/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/toastr.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="./assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
     <!-- END: Custom CSS-->
 
 </head>
@@ -55,14 +55,12 @@
             
              
                         
-                        <div class="card-content">
-                            <div class="card-body">
+                      
                                 <button type="button" class="btn btn-outline-success mr-1 mb-1" id="type-success">Success</button>
-                                <button type="button" class="btn btn-outline-info mr-1 mb-1" id="type-info">Info</button>
+                                <a class="feather icon-trash"  href="#" id="type-info"></a>
                                 <button type="button" class="btn btn-outline-warning mr-1 mb-1" id="type-warning">Warning</button>
                                 <button type="button" class="btn btn-outline-danger mr-1 mb-1" id="type-error">Error</button>
-                            </div>
-                        </div>
+                            
                     
                 <!-- // Types section end -->
 
@@ -83,21 +81,21 @@
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="./app-assets/vendors/js/vendors.min.js"></script>
+    <script src="../app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="./app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="./app-assets/js/core/app-menu.js"></script>
-    <script src="./app-assets/js/core/app.js"></script>
-    <script src="./app-assets/js/scripts/components.js"></script>
+    <script src="../app-assets/js/core/app-menu.js"></script>
+    <script src="../app-assets/js/core/app.js"></script>
+    <script src="../app-assets/js/scripts/components.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="./app-assets/js/scripts/extensions/toastr.js"></script>
+    <script src="../app-assets/js/scripts/extensions/toastr.js"></script>
     <!-- END: Page JS-->
 
 </body>

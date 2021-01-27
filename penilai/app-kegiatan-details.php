@@ -18,6 +18,8 @@
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/toastr.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -32,6 +34,7 @@
     <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/app-ecommerce-details.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/toastr.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -125,7 +128,7 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="../app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><span class="menu-title" data-i18n="Ecommerce">Pengajuan</span></a>
                     <ul class="menu-content">
@@ -300,7 +303,7 @@
                                     <td><?php echo $user_data['tanggal']; ?></td>
                                     <td class="product-action">
                                         <a  class="feather icon-edit" href='./edit_detail.php'></a>
-                                        <a class="feather icon-trash" href="./delete.php?id_rekap=<?php echo $user_data['id_rekap']; ?>"></a>
+                                        <a class="feather icon-trash"  href="./delete.php?id_rekap=<?php echo $user_data['id_rekap']; ?>" id="type-info"></a>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -309,8 +312,9 @@
                         </table>
                     </div>
                 </section>
+                <a class="feather icon-trash"  href="#" id="type-info"></a>
                 <!-- app ecommerce details end -->
-
+                
             </div>
         </div>
     </div>
@@ -329,23 +333,25 @@
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="./app-assets/vendors/js/vendors.min.js"></script>
+    <script src="../app-assets/vendors/js/vendors.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="./app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
-    <script src="./app-assets/vendors/js/extensions/swiper.min.js"></script>
+    <script src="../app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
+    <script src="../app-assets/vendors/js/extensions/swiper.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="./app-assets/js/core/app-menu.js"></script>
-    <script src="./app-assets/js/core/app.js"></script>
-    <script src="./app-assets/js/scripts/components.js"></script>
+    <script src="../app-assets/js/core/app-menu.js"></script>
+    <script src="../app-assets/js/core/app.js"></script>
+    <script src="../app-assets/js/scripts/components.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="./app-assets/js/scripts/pages/app-ecommerce-details.js"></script>
-    <script src="./app-assets/js/scripts/forms/number-input.js"></script>
+    <script src="../app-assets/js/scripts/pages/app-ecommerce-details.js"></script>
+    <script src="../app-assets/js/scripts/forms/number-input.js"></script>
+    <script src="../app-assets/js/scripts/extensions/toastr.js"></script>
     <!-- END: Page JS-->
 
 </body>
