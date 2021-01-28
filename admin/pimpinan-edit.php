@@ -1,3 +1,43 @@
+<?php
+// include database connection file
+include_once("../config.php");
+
+// Check if form is submitted for user update, then redirect to homepage after update
+if(isset($_POST['update']))
+{   
+    $id_pimpinan = isset($_POST['id_pimpinan']) ? $_POST['id_pimpinan'] : '';
+    $nip = isset($_POST['nip']) ? $_POST['nip'] : '';
+    $nama = isset($_POST['nama']) ? $_POST['nama'] : '';
+    $pangkat_golongan = isset($_POST['pangkat_golongan']) ? $_POST['pangkat_golongan'] : '';
+    $jabatan = isset($_POST['jabatan']) ? $_POST['jabatan'] : '';
+    $unit_kerja = isset($_POST['unit_kerja']) ? $_POST['unit_kerja'] : '';
+
+    // update user data
+    $result = mysqli_query($mysqli, "UPDATE pimpinan SET nip='$nip',nama='$nama',pangkat_golongan='$pangkat_golongan',jabatan='$jabatan',unit_kerja='$unit_kerja' WHERE id_pimpinan LIKE '%".$id_pimpinan."%'");
+
+    // Redirect to homepage to display updated user in list
+    header("Location: ./pimpinan.php");
+}
+?>
+<?php
+// Display selected user data based on id
+// Getting id from url
+$id_pimpinan = isset($_GET['id_pimpinan']) ? $_GET['id_pimpinan'] : null;
+
+// Fetech user data based on id
+
+$result = mysqli_query($mysqli, "SELECT * FROM pimpinan WHERE id_pimpinan LIKE '%".$id_pimpinan."%'");
+
+while($user_data = mysqli_fetch_array($result))
+{
+    $id_pimpinan =$user_data ['id_pimpinan'];
+    $nip = $user_data ['nip'];
+    $nama = $user_data ['nama'];
+    $pangkat_golongan=$user_data ['pangkat_golongan'];
+    $jabatan=$user_data ['jabatan'];
+    $unit_kerja=$user_data ['unit_kerja'];
+}
+?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -9,7 +49,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Kelola Pimpinan</title>
+    <title>Edit Kelola Pimpinan</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -56,9 +96,14 @@
                         <ul class="nav navbar-nav">
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
-                       
+
                         <ul class="nav navbar-nav">
-                            
+                            <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
+                                <div class="bookmark-input search-input">
+                                    <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
+                                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="0" data-search="template-list">
+                                    <ul class="search-list search-list-bookmark"></ul>
+                                </div>
                                 <!-- select.bookmark-select-->
                                 <!--   option Chat-->
                                 <!--   option email-->
@@ -186,7 +231,7 @@
                             </ul>
                         </li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Kelola Pimpinan</span><span class="user-status">Available</span></div><span><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Admin</span><span class="user-status">Available</span></div><span><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="../logout.php"><i class="feather icon-power"></i> Logout</a>
@@ -295,7 +340,7 @@
                     <ul class="menu-content">
                         <li class="active"><a href="./pengguna.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Kelola Pengguna</span></a>
                         </li>
-                        <li><a href="./pimpinan.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="eCommerce">Kelola Informasi</span></a>
+                        <li><a href="./pimpinan.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="eCommerce">Kelola Pimpinan</span></a>
                         </li>
                     </ul>
                 </li>
@@ -325,25 +370,25 @@
                                         </a>
                                     </li>
                                     </ul>
-    <form novalidate>
+    <form name="update" method="post" action="./pimpinan-edit.php">
         <div class="row">
         <div class="col-12 col-sm-6">
         <div class="form-group">
         <div class="controls">
         <label>Nama</label>
-    <input type="text" class="form-control" placeholder="Nama" value="abdscd" required data-validation-required-message="This Nama field is required">
+    <input type="text" class="form-control" name="nama" value="<?php echo $nama;?>">
     </div>
     </div>
         <div class="form-group">
         <div class="controls">
         <label>NIP</label>
-    <input type="text" class="form-control" placeholder="NIP" value="11111" required data-validation-required-message="This NIP field is required">
+    <input type="text" class="form-control" name="nip" value="<?php echo $nip;?>">
     </div>
     </div>
         <div class="form-group">
         <div class="controls">
         <label>Pangkat/Golongan Ruang</label>
-    <input type="text" class="form-control" placeholder="Pangkat" value="-" required data-validation-required-message="This Pangkat/Golongan Ruang field is required">
+    <input type="text" class="form-control" name="pangkat_golongan" value="<?php echo $pangkat_golongan;?>">
     </div>
     </div>
     </div>
@@ -352,22 +397,24 @@
     <div class="form-group">
         <div class="controls">
         <label>Jabatan</label>
-    <input type="text" class="form-control" placeholder="Jabatan" value="-" required data-validation-required-message="This Jabatan field is required">
+    <input type="text" class="form-control" name="jabatan" value="<?php echo $jabatan;?>">
     </div>
     </div>
     <div class="form-group">
     <div class="controls">
         <label>Unit Kerja</label>
-    <input type="text" class="form-control" placeholder="Unit Kerja" value="-" required data-validation-required-message="This Unit Kerja field is required">
+    <input type="text" class="form-control" name="unit_kerja" value="<?php echo $unit_kerja;?>">
     </div>
     </div>
     </div>
    
     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-        <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Save Changes</button>
-        <button type="reset" class="btn btn-outline-danger">Cancel</button>
+        <input type="hidden"  name="id_pimpinan" value="<?php echo $_GET['id_pimpinan'];?>">
+        <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
+        <button type="reset" class="btn btn-outline-danger" href="pimpinan.php">Cancel</button>
     </div>
     </div>
+    </form>
     </div>
    </section> 
    </div>

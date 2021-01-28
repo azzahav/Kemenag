@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 // include database connection file
 include_once("../config.php");
@@ -13,10 +12,10 @@ if(isset($_POST['update']))
     $total_nilai = isset($_POST['total_nilai']) ? $_POST['total_nilai'] : '';
 
     // update user data
-    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET angka_kredit='$angka_kredit',jumlah_kredit='$jumlah_kredit',jumlah_volume='$jumlah_volume',total_nilai='$total_nilai' WHERE id_rekap=$id_rekap");
+    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET angka_kredit='$angka_kredit',jumlah_kredit='$jumlah_kredit',jumlah_volume='$jumlah_volume',total_nilai='$total_nilai' WHERE id_rekap LIKE '%".$id_rekap."%'");
 
     // Redirect to homepage to display updated user in list
-    header("Location: ../app-kegiatan-details.php");
+    header("Location: app-kegiatan-details.php");
 }
 ?>
 <?php
@@ -26,7 +25,7 @@ $id_rekap = isset($_GET['id_rekap']) ? $_GET['id_rekap'] : null;
 
 // Fetech user data based on id
 
-$result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap='$id_rekap'");
+$result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap LIKE '%".$id_rekap."%'");
 
 while($user_data = mysqli_fetch_array($result))
 {
@@ -38,6 +37,7 @@ while($user_data = mysqli_fetch_array($result))
    
 }
 ?>
+<!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 
@@ -50,7 +50,7 @@ while($user_data = mysqli_fetch_array($result))
     <meta name="author" content="PIXINVENT">
     <title>Edit Detail</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/favicon.ico">
+    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
@@ -198,9 +198,7 @@ while($user_data = mysqli_fetch_array($result))
                             <h2 class="content-header-title float-left mb-0">Edit Angka Kredit</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item active"><a href="#">Form Layouts</a>
+                                    <li class="breadcrumb-item"><a href="app-kegiatan-details.php">Rekap Kegiatan</a>
                                     </li>
                                 </ol>
                             </div>
@@ -226,11 +224,9 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Angka Kredit</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative">
                                                                     <input type="text" id="fname-icon" class="form-control" name="angka_kredit" value="<?php echo $angka_kredit;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-user"></i>
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -241,11 +237,9 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Jumlah Angka Kredit</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative">
                                                                     <input type="text" id="email-icon" class="form-control" name="jumlah_kredit" value="<?php echo $jumlah_kredit;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-mail"></i>
-                                                                    </div>
+                                                                  
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -256,11 +250,9 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Jumlah Volume kegiatan</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative">
                                                                     <input type="text" id="pass-icon" class="form-control" name="jumlah_volume" value="<?php echo $jumlah_volume;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-lock"></i>
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -271,18 +263,16 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Total Nilai</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative">
                                                                     <input type="text" id="pass-icon" class="form-control" name="total_nilai" value="<?php echo $total_nilai;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-lock"></i>
-                                                                    </div>
+                                                                    
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-8 offset-md-4">
                                                     <input type="hidden"  name="id_rekap" value="<?php echo $_GET['id_rekap'];?>">
-			                                        <input type="submit"  name="update" value="Update">
+			                                        <input type="submit"  class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update">
                                                     </div>
                                                 </div>
                                             </div>

@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <?php
 // include database connection file
 include_once("../config.php");
@@ -15,7 +14,7 @@ if(isset($_POST['update']))
     
 
     // update user data
-    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET unsur='$unsur', sub_unsur='$sub_unsur', butir_kegiatan='$butir_kegiatan', uraian_kegiatan='$uraian_kegiatan', satuan_hasil='$satuan_hasil', tanggal='$tanggal' WHERE id_rekap='$id_rekap'");
+    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET unsur='$unsur', sub_unsur='$sub_unsur', butir_kegiatan='$butir_kegiatan', uraian_kegiatan='$uraian_kegiatan', satuan_hasil='$satuan_hasil', tanggal='$tanggal' WHERE id_rekap LIKE '%".$id_rekap."%'");
 
     // Redirect to homepage to display updated user in list
     header("Location: ./index.php");
@@ -28,7 +27,7 @@ $id_rekap = isset($_GET['id_rekap']) ? $_GET['id_rekap'] : null;
 
 // Fetech user data based on id
 
-$result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap='$id_rekap' ");
+$result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap LIKE '%".$id_rekap."%'");
 
 while($user_data = mysqli_fetch_array($result))
 {
@@ -41,7 +40,7 @@ while($user_data = mysqli_fetch_array($result))
    
 }
 ?>
-
+<!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
 

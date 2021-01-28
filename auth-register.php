@@ -1,3 +1,31 @@
+<?php 
+    error_reporting(0);
+        // Check If form submitted, insert form data into users table.
+    if(isset($_POST['Submit'])) {
+        $nama = $_POST['nama'];
+        $nip = $_POST['nip'];
+        $no_seri_kapreg = $_POST['no_seri_kapreg'];
+        $tempat_tanggal_lahir = $_POST['tempat_tanggal_lahir'];
+        $jenis_kelamin = $_POST['jenis_kelamin'];
+        $pendidikan = $_POST['pendidikan'];
+        $pangkat = $_POST['pangkat'];
+        $jabatan = $_POST['jabatan'];
+        $masa_kerja = $_POST['pendidikan'];
+        $unit_kerja = $_POST['unit_kerja'];
+        $role = $_POST['role'];
+
+
+        // include database connection file
+        include_once("config.php");
+
+        // Insert user data into table
+        $result = mysqli_query($mysqli, "INSERT INTO pengguna(nama,nip,no_seri_kapreg,tempat_tanggal_lahir,jenis_kelamin,pendidikan,pangkat,jabatan,masa_kerja,unit_kerja,role) VALUES('$nama','$nip','$no_seri_kapreg','$tempat_tanggal_lahir','$jenis_kelamin','$pendidikan','$pangkat','$jabatan','$masa_kerja','$unit_kerja','$role')");
+
+        // Show message when user added
+       
+        header("location: auth-login.php",  true,  301 );  exit;
+    }
+    ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -191,35 +219,6 @@
         </div>
     </div>
     <!-- END: Content-->
-
-    <?php 
-    error_reporting(0);
-        // Check If form submitted, insert form data into users table.
-    if(isset($_POST['Submit'])) {
-        $nama = $_POST['nama'];
-        $nip = $_POST['nip'];
-        $no_seri_kapreg = $_POST['no_seri_kapreg'];
-        $tempat_tanggal_lahir = $_POST['tempat_tanggal_lahir'];
-        $jenis_kelamin = $_POST['jenis_kelamin'];
-        $pendidikan = $_POST['pendidikan'];
-        $pangkat = $_POST['pangkat'];
-        $jabatan = $_POST['jabatan'];
-        $masa_kerja = $_POST['pendidikan'];
-        $unit_kerja = $_POST['unit_kerja'];
-        $role = $_POST['role'];
-
-
-        // include database connection file
-        include_once("config.php");
-
-        // Insert user data into table
-        $result = mysqli_query($mysqli, "INSERT INTO pengguna(nama,nip,no_seri_kapreg,tempat_tanggal_lahir,jenis_kelamin,pendidikan,pangkat,jabatan,masa_kerja,unit_kerja,role) VALUES('$nama','$nip','$no_seri_kapreg','$tempat_tanggal_lahir','$jenis_kelamin','$pendidikan','$pangkat','$jabatan','$masa_kerja','$unit_kerja','$role')");
-
-        // Show message when user added
-       
-        header("location: app-kegiatan-details.php",  true,  301 );  exit;
-    }
-    ?>
 
     <!-- BEGIN: Vendor JS-->
     <script src="./app-assets/vendors/js/vendors.min.js"></script>

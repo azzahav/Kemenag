@@ -185,44 +185,30 @@
                                     <th></th>
                                     <th>No</th>
                                     <th>Anggota</th>
+                                    <th>NIP</th>
                                     <th>Total Nilai</th>
-                                    <th>ACTION</th>
                                     <th>Verifikasi</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php 
+                               // Create database connection using config file
+                                error_reporting(0);
+                                include_once("../config.php");
+
+                                // Fetch all users data from database
+                                $result = mysqli_query($mysqli, "SELECT * FROM rekap_harian ORDER BY id_rekap ASC");
+
+                                while($user_data = mysqli_fetch_array($result)) {  
+
+                                ?>
                                 <tr>
-                                    <td></td>
-                                    <td class="no">1</td>
-                                    <td class="anggota">Nurjannah Sri : Anggota 2</td>
-                                    <td class="totalnilai">Belum ada</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                    <td class="verifikasi">
-                                         <fieldset class="checkbox">
-                                            <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox">                                                <span class="vs-checkbox">
-                                             <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
-                                              </span>
-                                              </span>
-                                             <span class="">Done</span>
-                                           </div>
-                                         </fieldset>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td class="no">2</td>
-                                    <td class="anggota">Sri Mulyani : Anggota 1</td>
-                                    <td class="totalnilai">Belum ada</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                    <td class="verifikasi">
+                                <td></td>
+                                    <td><?php echo $user_data['id_rekap']; ?></td>
+                                    <td><?php echo $user_data['nama']; ?></td>
+                                    <td><?php echo $user_data['nip']; ?></td>
+                                    <td><?php echo $user_data['total_nilai']; ?></td>
+                                    <td><?php echo $user_data['verifikasi']; ?>
                                     <fieldset class="checkbox">
                                             <div class="vs-checkbox-con vs-checkbox-primary">
                                             <input type="checkbox">                                                <span class="vs-checkbox">
@@ -234,29 +220,7 @@
                                            </div>
                                          </fieldset>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td class="no">3</td>
-                                    <td class="anggota">Nurjannah Sri : Anggota 2</td>
-                                    <td class="totalnilai">Belum ada</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                    <td class="verifikasi">
-                                    <fieldset class="checkbox">
-                                            <div class="vs-checkbox-con vs-checkbox-primary">
-                                            <input type="checkbox">                                                <span class="vs-checkbox">
-                                             <span class="vs-checkbox--check">
-                                                <i class="vs-icon feather icon-check"></i>
-                                              </span>
-                                              </span>
-                                             <span class="">Done</span>
-                                           </div>
-                                         </fieldset>
-                                    </td>
-                                </tr>
+                                   <?php } ?>  
                             </tbody>
                         </table>
                     </div>
@@ -302,8 +266,8 @@
                                     <td><?php echo $user_data['jumlah_volume']; ?></td>
                                     <td><?php echo $user_data['tanggal']; ?></td>
                                     <td class="product-action">
-                                        <a  class="feather icon-edit" href='./edit_detail.php'></a>
-                                        <a class="feather icon-trash"  href="./delete.php?id_rekap=<?php echo $user_data['id_rekap']; ?>" id="type-info"></a>
+                                        <a  class="feather icon-edit" href="edit_detail.php?id_rekap=<?php echo $user_data['id_rekap']; ?>"></a>
+                                        <a class="feather icon-trash"  href="delete.php?id_rekap=<?php echo $user_data['id_rekap']; ?>" id="type-info"></a>
                                     </td>
                                 </tr>
                                 <?php } ?>
@@ -312,9 +276,7 @@
                         </table>
                     </div>
                 </section>
-                <a class="feather icon-trash"  href="#" id="type-info"></a>
                 <!-- app ecommerce details end -->
-                
             </div>
         </div>
     </div>

@@ -56,9 +56,14 @@
                         <ul class="nav navbar-nav">
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
-                       
+
                         <ul class="nav navbar-nav">
-                            
+                            <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
+                                <div class="bookmark-input search-input">
+                                    <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
+                                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="0" data-search="template-list">
+                                    <ul class="search-list search-list-bookmark"></ul>
+                                </div>
                                 <!-- select.bookmark-select-->
                                 <!--   option Chat-->
                                 <!--   option email-->
@@ -186,7 +191,7 @@
                             </ul>
                         </li>
                         <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Kelola Pimpinan</span><span class="user-status">Available</span></div><span><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Admin</span><span class="user-status">Available</span></div><span><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
                                 <div class="dropdown-divider"></div><a class="dropdown-item" href="../logout.php"><i class="feather icon-power"></i> Logout</a>
@@ -351,8 +356,7 @@
                         <table class="table data-list-view">
                             <thead>
                                 <tr>
-                                    
-                                   
+                                    <th></th>
                                     <th>Nama</th>
                                     <th>NIP</th>
                                     <th>Pangkat/Golongan Ruang</th>
@@ -374,7 +378,7 @@
 
                                 ?>
                                 <tr>
-                                   
+                                    <td></td>
                                     <td><?php echo $user_data['nama']; ?></td>
                                     <td><?php echo $user_data['nip']; ?></td>
                                     <td><?php echo $user_data['pangkat_golongan']; ?></td>
@@ -382,7 +386,7 @@
                                     <td><?php echo $user_data['unit_kerja']; ?></td>
                                     <td class="product-action">
 
-                                    <a href="./pimpinan-edit.php"span class="action-edit"><i class="feather icon-edit"></i></span>
+                                    <a href="pimpinan-edit.php?id_pimpinan=<?php echo $user_data['id_pimpinan']; ?>" class="feather icon-edit"></a>
                                     <a class="feather icon-trash" href="./delete.php?id_pimpinan=<?php echo $user_data['id_pimpinan']; ?>"></a>
                                     </td>
                                     </tr>
