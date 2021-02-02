@@ -26,7 +26,7 @@ if($cek > 0){
   $_SESSION['nip'] = $nip;
   $_SESSION['role'] = "admin";
   // alihkan ke halaman dashboard admin
-  header("location:admin/app-user-view.php");
+  echo"<script>alert('login berhasil');document.location.href='admin/app-user-view.php'</script>";
 
  // cek jika user login sebagai pegawai
  }else if($data['role']=="penilai"){
@@ -34,14 +34,14 @@ if($cek > 0){
   $_SESSION['nip'] = $nip;
   $_SESSION['role'] = "penilai";
   // alihkan ke halaman dashboard pegawai
-  header("location:penilai/app-user-view.php");
+  echo"<script>alert('login berhasil');document.location.href='penilai/app-user-view.php'</script>";
 
 }else if($data['role']=="statistisi"){
 	// buat session login dan nip
 	$_SESSION['nip'] = $nip;
 	$_SESSION['role'] = "statistisi";
 	// alihkan ke halaman dashboard pegawai
-	header("location:statistisi/app-user-view.php");
+	echo"<script>alert('login berhasil');document.location.href='statistisi/app-user-view.php'</script>";
  }else{
 
   // alihkan ke halaman login kembali

@@ -1,10 +1,28 @@
-<?php
-error_reporting(0);
-include('../session_co.php');
-session_start();
-if( !isset($_SESSION['login'])){
-    header('location:../auth-login.php');
-}
+<?php 
+    error_reporting(0);
+    include('../session_co.php');
+    session_start();
+    if( !isset($_SESSION['login'])){
+        header('location:../auth-login.php');
+    }
+        // Check If form submitted, insert form data into users table.
+    if(isset($_POST['Submit'])) {
+        $nama = $_POST['nama'];
+        $nip = $_POST['nip'];
+        $pangkat_golongan = $_POST['pangkat_golongan'];
+        $jabatan = $_POST['jabatan'];
+        $unit_kerja = $_POST['unit_kerja'];
+
+        // include database connection file
+        include_once("../config.php");
+
+        // Insert user data into table
+        $result = mysqli_query($mysqli, "INSERT INTO pimpinan(nama,nip,pangkat_golongan,jabatan,unit_kerja) VALUES('$nama','$nip','$pangkat_golongan','$jabatan','$unit_kerja')");
+
+        // Show message when user added
+       
+        header("location: pimpinan.php",  true,  301 );  exit;
+    }
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -17,7 +35,7 @@ if( !isset($_SESSION['login'])){
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Berkas Penilaian</title>
+    <title>Kelola Pimpinan</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -106,7 +124,8 @@ if( !isset($_SESSION['login'])){
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.php">
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.html">
+                        <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
@@ -115,18 +134,24 @@ if( !isset($_SESSION['login'])){
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
                 </li>
-                <li class=" navigation-header"><span>Tim Penilai</span>
+                <li class=" navigation-header"><span>Statistisi</span>
                 </li>
-                <li class=" nav-item"><a href="../data-list-berkas.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Colors">Berkas Penilaian</span></a>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
                 </li>
-                <li class=" nav-item"><a href="../data-list-rekap.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan</span></a>
+                <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
+                </li>
+                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">List Rekap</span></a>
+                </li>
+                <li class=" navigation-header"><span>Pimpinan</span>
+                </li>
+                <li class=" nav-item"><a href="./pimpinan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Kelola Pimpinan</span></a>
                 </li>
             </ul>
         </div>
+        </div>
     </div>
-                  
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
@@ -138,21 +163,21 @@ if( !isset($_SESSION['login'])){
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Riwayat Pengajuan</h2>
+                            <h2 class="content-header-title float-left mb-0">Pimpinan</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../index.php">Home</a>
+                                    <li class="breadcrumb-item"><a href="index.html">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Data List</a>
+                                    <li class="breadcrumb-item"><a href="#">Kelola Pimpinan</a>
                                     </li>
-                                    <li class="breadcrumb-item active">List View
+                                    <li class="breadcrumb-item active">Data Pimpinan
                                     </li>
                                 </ol>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
             <div class="content-body">
                 <!-- Data list view starts -->
                 <section id="data-list-view" class="data-list-view-header">
@@ -166,117 +191,64 @@ if( !isset($_SESSION['login'])){
                                     <a class="dropdown-item" href="#"><i class="feather icon-trash"></i>Delete</a>
                                     <a class="dropdown-item" href="#"><i class="feather icon-archive"></i>Archive</a>
                                     <a class="dropdown-item" href="#"><i class="feather icon-file"></i>Print</a>
-                                    <a class="dropdown-item" href="#"><i class="feather icon-save"></i>Another Action</a>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                     <!-- DataTable starts -->
                     <div class="table-responsive">
                         <table class="table data-list-view">
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>No</th>
-                                    <th>No Pengajuan</th>
-                                    <th>NIP</th>
                                     <th>Nama</th>
-                                    <th>Dibuat Pada</th>
-                                    <th>ACTION</th>
+                                    <th>NIP</th>
+                                    <th>Pangkat/Golongan Ruang</th>
+                                    <th>Jabatan</th>
+                                    <th>Unit Kerja</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
+                            <?php 
+                               // Create database connection using config file
+                                
+                                include_once("../config.php");
+
+                                // Fetch all users data from database
+                                $result = mysqli_query($mysqli, "SELECT * FROM pimpinan ORDER BY id_pimpinan ASC");
+
+                                while($user_data = mysqli_fetch_array($result)) {  
+
+                                ?>
                                 <tr>
                                     <td></td>
-                                    <td class="berkas-no">1</td>
-                                    <td class="berkas-pengajuan">12345678</td>
-                                    <td class="berkas-nip">12345678</td>
-                                    <td class="berkas-nama">Azzah Afifah Veronica
-                                    </td>
-                                    <td class="product-buat">08-09-2020 12:20</td>
+                                    <td><?php echo $user_data['nama']; ?></td>
+                                    <td><?php echo $user_data['nip']; ?></td>
+                                    <td><?php echo $user_data['pangkat_golongan']; ?></td>
+                                    <td><?php echo $user_data['jabatan']; ?></td>
+                                    <td><?php echo $user_data['unit_kerja']; ?></td>
                                     <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
+
+                                    <a href="pimpinan-edit.php?id_pimpinan=<?php echo $user_data['id_pimpinan']; ?>" class="feather icon-edit"></a>
+                                    <a class="feather icon-trash" href="./delete.php?id_pimpinan=<?php echo $user_data['id_pimpinan']; ?>"></a>
                                     </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td class="berkas-no">2</td>
-                                    <td class="berkas-pengajuan">23456734</td>
-                                    <td class="berkas-nip">5678903</td>
-                                    <td class="berkas-nama">Winda Naibaho
-                                    </td>
-                                    <td class="product-buat">07-09-2020 12:20</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td class="berkas-no">3</td>
-                                    <td class="berkas-pengajuan">88889999777</td>
-                                    <td class="berkas-nip">999988888</td>
-                                    <td class="berkas-nama">Dewina Putri Firmani
-                                    </td>
-                                    <td class="product-buat">08-09-2020 12:20</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td class="berkas-no">4</td>
-                                    <td class="berkas-pengajuan">666633344422</td>
-                                    <td class="berkas-nip">7777111223</td>
-                                    <td class="berkas-nama">Purningrum
-                                    </td>
-                                    <td class="product-buat">08-09-2020 12:20</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td class="berkas-no">6</td>
-                                    <td class="berkas-pengajuan">12345678</td>
-                                    <td class="berkas-nip">12345678</td>
-                                    <td class="berkas-nama">Azzah Afifah Veronica
-                                    </td>
-                                    <td class="product-buat">08-09-2020 12:20</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td class="berkas-no">7</td>
-                                    <td class="berkas-pengajuan">12345678</td>
-                                    <td class="berkas-nip">12345678</td>
-                                    <td class="berkas-nama">Azzah Afifah Veronica
-                                    </td>
-                                    <td class="product-buat">08-09-2020 12:20</td>
-                                    <td class="product-action">
-                                        <span class="action-edit"><i class="feather icon-edit"></i></span>
-                                        <span class="action-delete"><i class="feather icon-trash"></i></span>
-                                    </td>
-                                </tr>
+                                    </tr>
+                                    <?php } ?>
                             </tbody>
                         </table>
                     </div>
                     <!-- DataTable ends -->
-
-                    <!-- add new sidebar starts -->
-                    <div class="add-new-data-sidebar">
+                                        
+                <!-- Data list view end -->
+                        <!-- add new sidebar starts -->
+                        <div class="add-new-data-sidebar">
                         <div class="overlay-bg"></div>
                         <div class="add-new-data">
+                        
                             <div class="div mt-2 px-2 d-flex new-data-title justify-content-between">
                                 <div>
-                                    <h4 class="text-uppercase">List View Data</h4>
+                                    <h4 class="text-uppercase">ADD NEW</h4>
                                 </div>
                                 <div class="hide-data-sidebar">
                                     <i class="feather icon-x"></i>
@@ -285,54 +257,47 @@ if( !isset($_SESSION['login'])){
                             <div class="data-items pb-3">
                                 <div class="data-fields px-2 mt-3">
                                     <div class="row">
+                                    <form  action=""  method="post"  name="form5">
                                         <div class="col-sm-12 data-field-col">
-                                            <label for="data-name">Name</label>
-                                            <input type="text" class="form-control" id="data-name">
+                                            <label for="data-name">Nama</label>
+                                            <input type="text" class="form-control" name="nama" required>
                                         </div>
                                         <div class="col-sm-12 data-field-col">
-                                            <label for="data-category"> Category </label>
-                                            <select class="form-control" id="data-category">
-                                                <option>Audio</option>
-                                                <option>Computers</option>
-                                                <option>Fitness</option>
-                                                <option>Appliance</option>
+                                            <label for="data-name">NIP</label>
+                                            <input type="text" class="form-control" name="nip" required>
+                                        </div>
+                                        <div class="col-sm-12 data-field-col">
+                                            <label for="data-name">Pangkat</label>
+                                            <input type="text" class="form-control" name="pangkat_golongan" required>
+                                        </div>
+                                        <div class="col-sm-12 data-field-col">
+                                            <label for="data-status">Jabatan</label>
+                                            <select class="form-control" id="data-status" name="jabatan">
+                                                <option value="Muda">Muda</option>
+                                                <option value="madya">madya</option>
                                             </select>
                                         </div>
                                         <div class="col-sm-12 data-field-col">
-                                            <label for="data-status">Order Status</label>
-                                            <select class="form-control" id="data-status">
-                                                <option>Pending</option>
-                                                <option>Canceled</option>
-                                                <option>Delivered</option>
-                                                <option>On Hold</option>
-                                            </select>
+                                            <label for="data-price">Unit Kerja</label>
+                                            <input type="text" class="form-control" name="unit_kerja">
                                         </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-price">Price</label>
-                                            <input type="text" class="form-control" id="data-price">
-                                        </div>
-                                        <div class="col-sm-12 data-field-col data-list-upload">
-                                            <form action="#" class="dropzone dropzone-area" id="dataListUpload">
-                                                <div class="dz-message">Upload Image</div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="add-data-footer d-flex justify-content-around px-3 mt-2">
+                                        <div class="add-data-footer d-flex justify-content-around px-3 mt-2">
                                 <div class="add-data-btn">
-                                    <button class="btn btn-primary">Add Data</button>
+                                <button type="submit" name="Submit" value="Add"  class="btn btn-primary float-right btn-inline mb-50">Register</a>
                                 </div>
                                 <div class="cancel-data-btn">
                                     <button class="btn btn-outline-danger">Cancel</button>
                                 </div>
+                                </form>
                             </div>
+                                    </div>
+                                </div>
+                            </div>
+                           
+                       
                         </div>
                     </div>
                     <!-- add new sidebar ends -->
-                </section>
-                <!-- Data list view end -->
-
             </div>
         </div>
     </div>
@@ -343,7 +308,7 @@ if( !isset($_SESSION['login'])){
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Biro Humas, Data, dan Informasi,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
             <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
         </p>
     </footer>

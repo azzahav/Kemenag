@@ -7,48 +7,40 @@ session_start();
 if( !isset($_SESSION['login'])){
     header('location:../auth-login.php');
 }
-
 // Check if form is submitted for user update, then redirect to homepage after update
 if(isset($_POST['update']))
 {   
-    $id_pengguna = isset($_POST['id_pengguna']) ? $_POST['id_pengguna'] : '';
+    $id_pimpinan = isset($_POST['id_pimpinan']) ? $_POST['id_pimpinan'] : '';
     $nip = isset($_POST['nip']) ? $_POST['nip'] : '';
     $nama = isset($_POST['nama']) ? $_POST['nama'] : '';
-    $no_seri_kapreg = isset($_POST['no_seri_kapreg']) ? $_POST['no_seri_kapreg'] : '';
-    $pendidikan = isset($_POST['pendidikan']) ? $_POST['pendidikan'] : '';
-    $pangkat = isset($_POST['pangkat']) ? $_POST['pangkat'] : '';
+    $pangkat_golongan = isset($_POST['pangkat_golongan']) ? $_POST['pangkat_golongan'] : '';
     $jabatan = isset($_POST['jabatan']) ? $_POST['jabatan'] : '';
     $unit_kerja = isset($_POST['unit_kerja']) ? $_POST['unit_kerja'] : '';
-    $role = isset($_POST['role']) ? $_POST['role'] : '';
 
     // update user data
-    $result = mysqli_query($mysqli, "UPDATE pengguna SET nip='$nip',nama='$nama',no_seri_kapreg='$no_seri_kapreg',pendidikan='$pendidikan',pangkat='$pangkat',jabatan='$jabatan',unit_kerja='$unit_kerja',role='$role' WHERE id_pengguna LIKE '%".$id_pengguna."%'");
+    $result = mysqli_query($mysqli, "UPDATE pimpinan SET nip='$nip',nama='$nama',pangkat_golongan='$pangkat_golongan',jabatan='$jabatan',unit_kerja='$unit_kerja' WHERE id_pimpinan LIKE '%".$id_pimpinan."%'");
 
     // Redirect to homepage to display updated user in list
-    header("Location: ./pengguna.php");
+    header("Location: ./pimpinan.php");
 }
 ?>
 <?php
 // Display selected user data based on id
 // Getting id from url
-$id_pengguna = isset($_GET['id_pengguna']) ? $_GET['id_pengguna'] : null;
+$id_pimpinan = isset($_GET['id_pimpinan']) ? $_GET['id_pimpinan'] : null;
 
 // Fetech user data based on id
 
-$result = mysqli_query($mysqli, "SELECT * FROM pengguna WHERE id_pengguna LIKE '%".$id_pengguna."%'");
+$result = mysqli_query($mysqli, "SELECT * FROM pimpinan WHERE id_pimpinan LIKE '%".$id_pimpinan."%'");
 
 while($user_data = mysqli_fetch_array($result))
 {
-    $id_pengguna =$user_data ['id_pengguna'];
+    $id_pimpinan =$user_data ['id_pimpinan'];
     $nip = $user_data ['nip'];
     $nama = $user_data ['nama'];
-    $no_seri_kapreg=$user_data ['no_seri_kapreg'];
-    $pendidikan=$user_data ['pendidikan'];
-    $pangkat=$user_data ['pangkat'];
+    $pangkat_golongan=$user_data ['pangkat_golongan'];
     $jabatan=$user_data ['jabatan'];
     $unit_kerja=$user_data ['unit_kerja'];
-    $role=$user_data ['role'];
-   
 }
 ?>
 <!DOCTYPE html>
@@ -62,7 +54,7 @@ while($user_data = mysqli_fetch_array($result))
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Kelola Pengguna</title>
+    <title>Edit Kelola Pimpinan</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -151,8 +143,8 @@ while($user_data = mysqli_fetch_array($result))
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.html">
-                <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.html">
+                        <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
@@ -161,13 +153,22 @@ while($user_data = mysqli_fetch_array($result))
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="./index.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Admin</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
-                    <ul class="menu-content">
-                        <li class="active"><a href="./pengguna.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Kelola Pengguna</span></a>
-                        </li>
-                    </ul>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
                 </li>
-
+                <li class=" navigation-header"><span>Statistisi</span>
+                </li>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
+                </li>
+                <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
+                </li>
+                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">List Rekap</span></a>
+                </li>
+                <li class=" navigation-header"><span>Pimpinan</span>
+                </li>
+                <li class=" nav-item"><a href="./pimpinan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Kelola Pimpinan</span></a>
+                </li>
+            </ul>
+        </div>
         </div>
     </div>
     <!-- END: Main Menu-->
@@ -189,19 +190,13 @@ while($user_data = mysqli_fetch_array($result))
                                 <ul class="nav nav-tabs mb-3" role="tablist">
                                     <li class="nav-item">
                                         <a class="nav-link d-flex align-items-center" id="account-tab"  aria-controls="account">
-                                            <i class="feather icon-user mr-25"></i><span class="d-none d-sm-block">Edit Data Pengguna</span>
+                                            <i class="feather icon-user mr-25"></i><span class="d-none d-sm-block">Edit Data Pimpinan</span>
                                         </a>
                                     </li>
                                     </ul>
-    <form  name="update" method="post" action="./pengguna-edit.php">
+    <form name="update" method="post" action="./pimpinan-edit.php">
         <div class="row">
         <div class="col-12 col-sm-6">
-        <div class="form-group">
-        <div class="controls">
-        <label>NIP</label>
-    <input type="text" class="form-control" name="nip" value="<?php echo $nip;?>">
-    </div>
-    </div>
         <div class="form-group">
         <div class="controls">
         <label>Nama</label>
@@ -210,27 +205,21 @@ while($user_data = mysqli_fetch_array($result))
     </div>
         <div class="form-group">
         <div class="controls">
-        <label>No Seri</label>
-    <input type="text" class="form-control" name="no_seri_kapreg" value="<?php echo $no_seri_kapreg;?>">
+        <label>NIP</label>
+    <input type="text" class="form-control" name="nip" value="<?php echo $nip;?>">
     </div>
     </div>
-    <div class="form-group">
+        <div class="form-group">
         <div class="controls">
-        <label>Pendidikan</label>
-    <input type="text" class="form-control" name="pendidikan" value="<?php echo $pendidikan;?>">
+        <label>Pangkat/Golongan Ruang</label>
+    <input type="text" class="form-control" name="pangkat_golongan" value="<?php echo $pangkat_golongan;?>">
     </div>
     </div>
     </div>
-    
+
     <div class="col-12 col-sm-6">
     <div class="form-group">
-    <div class="controls">
-        <label>Pangkat</label>
-    <input type="text" class="form-control" name="pangkat" value="<?php echo $pangkat;?>">
-    </div>
-    </div>
-    <div class="form-group">
-    <div class="controls">
+        <div class="controls">
         <label>Jabatan</label>
     <input type="text" class="form-control" name="jabatan" value="<?php echo $jabatan;?>">
     </div>
@@ -241,17 +230,12 @@ while($user_data = mysqli_fetch_array($result))
     <input type="text" class="form-control" name="unit_kerja" value="<?php echo $unit_kerja;?>">
     </div>
     </div>
-    <div class="form-group">
-    <div class="controls">
-        <label>Role</label>
-    <input type="text" class="form-control" name="role" value="<?php echo $role;?>">
     </div>
-    </div>
-    </div>
+   
     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-        <input type="hidden"  name="id_pengguna" value="<?php echo $_GET['id_pengguna'];?>">
+        <input type="hidden"  name="id_pimpinan" value="<?php echo $_GET['id_pimpinan'];?>">
         <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
-        <button type="reset" class="btn btn-outline-danger">Cancel</button>
+        <button type="reset" class="btn btn-outline-danger" href="pimpinan.php">Cancel</button>
     </div>
     </div>
     </form>

@@ -1,10 +1,17 @@
 <?php
+error_reporting(0);
+include('../session_co.php');
 // include database connection file
 include_once("../config.php");
-
+session_start();
+if( !isset($_SESSION['login'])){
+    header('location:../auth-login.php');
+}
 // Check if form is submitted for user update, then redirect to homepage after update
 if(isset($_POST['update']))
 {   
+    $nama = $_POST['nama'];
+    $nip = $_POST['nip'];
     $unsur = $_POST['unsur'];
     $sub_unsur = $_POST['sub_unsur'];
     $butir_kegiatan = $_POST['butir_kegiatan'];
@@ -14,7 +21,7 @@ if(isset($_POST['update']))
     
 
     // update user data
-    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET unsur='$unsur', sub_unsur='$sub_unsur', butir_kegiatan='$butir_kegiatan', uraian_kegiatan='$uraian_kegiatan', satuan_hasil='$satuan_hasil', tanggal='$tanggal' WHERE id_rekap LIKE '%".$id_rekap."%'");
+    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET nama='$nama',nip='$nip',unsur='$unsur', sub_unsur='$sub_unsur', butir_kegiatan='$butir_kegiatan', uraian_kegiatan='$uraian_kegiatan', satuan_hasil='$satuan_hasil', tanggal='$tanggal' WHERE id_rekap LIKE '%".$id_rekap."%'");
 
     // Redirect to homepage to display updated user in list
     header("Location: ./index.php");
@@ -31,6 +38,8 @@ $result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap LIKE 
 
 while($user_data = mysqli_fetch_array($result))
 {
+    $nama = $user_data['nama'];
+    $nip = $user_data['nip'];
     $unsur = $user_data['unsur'];
     $sub_unsur = $user_data['sub_unsur'];
     $butir_kegiatan = $user_data['butir_kegiatan'];
@@ -40,6 +49,7 @@ while($user_data = mysqli_fetch_array($result))
    
 }
 ?>
+
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -51,17 +61,16 @@ while($user_data = mysqli_fetch_array($result))
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Penilai</title>
+    <title>Profil</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/charts/apexcharts.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/tether-theme-arrows.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/tether.min.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/shepherd-theme-default.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/toastr.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -75,9 +84,8 @@ while($user_data = mysqli_fetch_array($result))
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/core/colors/palette-gradient.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/dashboard-analytics.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/card-analytics.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/tour/tour.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/app-user.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/toastr.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -115,37 +123,17 @@ while($user_data = mysqli_fetch_array($result))
                             </li>
                         </ul>
                     </div>
-                    <ul class="nav navbar-nav float-right">
-                        <li class="dropdown dropdown-language nav-item"><a class="dropdown-toggle nav-link" id="dropdown-flag" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#" data-language="fr"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#" data-language="de"><i class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#" data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>
-                        </li>
-                        <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon feather icon-maximize"></i></a></li>
-                        <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon feather icon-search"></i></a>
-                            <div class="search-input">
-                                <div class="search-input-icon"><i class="feather icon-search primary"></i></div>
-                                <input class="input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="template-list">
-                                <div class="search-input-close"><i class="feather icon-x"></i></div>
-                                <ul class="search-list search-list-main"></ul>
-                            </div>
-                        </li>
-                          <li class="dropdown dropdown-notification nav-item"><a class="nav-link nav-link-label" href="#" data-toggle="dropdown"><i class="ficon feather icon-bell"></i></a>
-                            <ul class="dropdown-menu dropdown-menu-media dropdown-menu-right">
-                                <li class="dropdown-menu-header">
-                                    <div class="dropdown-header m-0 p-2">
-                                        <h3 class="white">5 New</h3><span class="notification-title">App Notifications</span>
-                                    </div>
-                                </li>
-                               
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
-                                <div class="user-nav d-sm-flex d-none"><span class="user-name text-bold-600">Statistisi</span><span class="user-status">Available</span></div><span><img class="round" src="../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="page-user-profile.html"><i class="feather icon-user"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="feather icon-mail"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="feather icon-check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="feather icon-message-square"></i> Chats</a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="../logout.php"><i class="feather icon-power"></i> Logout</a>
-                            </div>
-                        </li>
-                    </ul>
+                    <li class="dropdown dropdown-user nav-item ">      				
+                        <a class="dropdown-toggle nav-link dropdown-user-link section_userinfo" href="#" data-toggle="dropdown">
+                            <span class="avatar avatar-online">
+                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 50px;" alt="foto"><i></i></span>
+                            <span class="user-name" style="margin-bottom: 1rem;" >  <?php echo $login_session; ?></span></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a class="dropdown-item menu_changepass" href="#"><i class="ft-unlock"></i> Ganti Password</a>
+                                    <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="ft-power"></i> Logout</a>
+                                </div>
+                                                
+                    </li>
                 </div>
             </div>
         </div>
@@ -162,9 +150,9 @@ while($user_data = mysqli_fetch_array($result))
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="./html/ltr/vertical-menu-template-semi-dark/index.html">
-                        <div class="brand-logo"></div>
-                        <h2 class="brand-text mb-0">Kementerian Agama RI</h2>
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.html">
+                        <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
+                        <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
             </ul>
@@ -180,11 +168,17 @@ while($user_data = mysqli_fetch_array($result))
                 </li>
                 <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
                 </li>
+                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">List Rekap</span></a>
+                </li>
+                <li class=" navigation-header"><span>Pimpinan</span>
+                </li>
+                <li class=" nav-item"><a href="./pimpinan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Kelola Pimpinan</span></a>
+                </li>
             </ul>
+        </div>
         </div>
     </div>
     <!-- END: Main Menu-->
-
 
     <!-- BEGIN: Content-->
     <div class="app-content content">
@@ -215,17 +209,38 @@ while($user_data = mysqli_fetch_array($result))
                                     <form class="form form-horizontal"  method="post" action="./update.php">
                                             <div class="form-body">
                                                 <div class="row">
+                                                <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-4">
+                                                                <span>Nama</span>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="position-relative ">
+                                                                    <input type="text" id="fname-icon" class="form-control" name="nama" value="<?php echo $nama;?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-4">
+                                                                <span>NIP</span>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="position-relative ">
+                                                                    <input type="text" id="fname-icon" class="form-control" name="nip" value="<?php echo $nip;?>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                     <div class="col-12">
                                                         <div class="form-group row">
                                                             <div class="col-md-4">
                                                                 <span>Unsur</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative ">
                                                                     <input type="text" id="fname-icon" class="form-control" name="unsur" value="<?php echo $unsur;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-user"></i>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -236,11 +251,8 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Sub Unsur</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative ">
                                                                     <input type="text" id="email-icon" class="form-control" name="sub_unsur" value="<?php echo $sub_unsur;?>" >
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-mail"></i>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -265,11 +277,8 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Uraian kegiatan</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative ">
                                                                     <input type="text" id="pass-icon" class="form-control" name="uraian_kegiatan" value="<?php echo $uraian_kegiatan;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-lock"></i>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -280,11 +289,8 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Satuan kegiatan</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative ">
                                                                     <input type="text" id="pass-icon" class="form-control" name="satuan_hasil" value="<?php echo $satuan_hasil;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-lock"></i>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -295,11 +301,8 @@ while($user_data = mysqli_fetch_array($result))
                                                                 <span>Tanggal kegiatan</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative has-icon-left">
+                                                                <div class="position-relative ">
                                                                     <input type="text" id="pass-icon" class="form-control" name="tanggal" value="<?php echo $tanggal;?>">
-                                                                    <div class="form-control-position">
-                                                                        <i class="feather icon-lock"></i>
-                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -335,14 +338,14 @@ while($user_data = mysqli_fetch_array($result))
         </div>
     </div>
     <!-- END: Content-->
-    
- 
-    <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
 
+
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>                      
+                                          
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Biro Humas, Data, dan Informasi,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2"  target="_blank">Biro Humas Data dan Informasi,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
             <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
         </p>
     </footer>
@@ -354,9 +357,9 @@ while($user_data = mysqli_fetch_array($result))
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="../app-assets/vendors/js/charts/apexcharts.min.js"></script>
-    <script src="../app-assets/vendors/js/extensions/tether.min.js"></script>
-    <script src="../app-assets/vendors/js/extensions/shepherd.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -366,7 +369,9 @@ while($user_data = mysqli_fetch_array($result))
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="../app-assets/js/scripts/pages/dashboard-analytics.js"></script>
+    <script src="../app-assets/js/scripts/pages/app-user.js"></script>
+    <script src="../app-assets/js/scripts/extensions/toastr.js"></script>
+    <script src="../app-assets/js/scripts/extensions/sweet-alerts.js"></script>
     <!-- END: Page JS-->
 
 </body>

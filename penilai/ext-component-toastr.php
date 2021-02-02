@@ -56,7 +56,7 @@
              
                         
                       
-                                <button type="button" class="btn btn-outline-success mr-1 mb-1" id="type-success">Success</button>
+                                <button type="button" class="btn btn-outline-success mr-1 mb-1" >Success</button>
                                 <a class="feather icon-trash"  href="#" id="type-info"></a>
                                 <button type="button" class="btn btn-outline-warning mr-1 mb-1" id="type-warning">Warning</button>
                                 <button type="button" class="btn btn-outline-danger mr-1 mb-1" id="type-error">Error</button>

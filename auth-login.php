@@ -16,6 +16,8 @@
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/extensions/sweetalert2.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -84,9 +86,9 @@
                                                     }
                                                     ?>
                                             <div class="card-body pt-1">
-                                                <form method="post" action="cek_login.php">
+                                                <form method="post" action="cek_login.php" onsubmit="ajax_login(); return false;">
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="text" class="form-control"  name="nip" placeholder="Masukkan nip" required autofocus>
+                                                        <input type="text" class="form-control"  name="nip"  id="user-name" placeholder="Masukkan nip" required autofocus>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-user"></i>
                                                         </div>
@@ -94,7 +96,7 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                        <input type="password" class="form-control" name="password" placeholder="Masukkan Password" required autofocus>
+                                                        <input type="password" class="form-control" name="password" id="user-password" placeholder="Masukkan Password" required autofocus>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-lock"></i>
                                                         </div>
@@ -114,22 +116,14 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right"><a href="auth-forgot-password.html" class="card-link">Forgot Password?</a></div>
                                                     </div>
-                                                    <a href="auth-register.php" class="btn btn-outline-primary float-left btn-inline">Register</a>
-                                                    <button type="submit" class="btn btn-primary float-right btn-inline" name="btnlogin" >Login</button>
-                                                </form>
+                                        <div class="login-footer">
+                                            <div class="footer-btn d-inline">
+                                                <a href="auth-register.php" class="btn btn-outline-primary float-left btn-inline">Register</a>
+                                                <button type="submit" class="btn btn-primary float-right btn-inline" name="btnlogin">Login</button>
                                             </div>
                                         </div>
-                                        <div class="login-footer">
-                                            <div class="divider">
-                                                <div class="divider-text">OR</div>
-                                            </div>
-                                            <div class="footer-btn d-inline">
-                                                <a href="#" class="btn btn-facebook"><span class="fa fa-facebook"></span></a>
-                                                <a href="#" class="btn btn-twitter white"><span class="fa fa-twitter"></span></a>
-                                                <a href="#" class="btn btn-google"><span class="fa fa-google"></span></a>
-                                                <a href="#" class="btn btn-github"><span class="fa fa-github-alt"></span></a>
+                                        </form>
                                             </div>
                                         </div>
                                     </div>
@@ -151,6 +145,8 @@
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
+    <script src="./app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="./app-assets/vendors/js/extensions/polyfill.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -160,6 +156,7 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
+    <script src="./app-assets/js/scripts/extensions/sweet-alerts.js"></script>
     <!-- END: Page JS-->
 
 </body>
