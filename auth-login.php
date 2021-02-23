@@ -9,7 +9,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Login Page</title>
+    <title>Login-DUPAK</title>
     <link rel="apple-touch-icon" href="./app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="./app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -54,7 +54,7 @@
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                                    <img src="./app-assets/images/pages/kemenag2.png" alt="branding logo">
+                                    <img src="./app-assets/images/pages/kemenag10.png" alt="branding logo">
                                 </div>
                                 <div class="col-lg-6 col-12 p-0">
                                     <div class="card rounded-0 mb-0 px-2">
@@ -68,25 +68,27 @@
                                         <?php 
                                                     if(isset($_GET['pesan'])){
                                                         if($_GET['pesan'] == "gagal"){ ?>
-                                                            <div class="row">
-                                                                <div class="col-lg-90 col-lg-offset-3">
-                                                                    <div class="alert alert-danger no-border alert-dismissible bg-danger bg-lighten-2 m-0" role="alert"  style="color: #fff !important;">
+                                                                    <div class="alert alert-danger no-border alert-dismissible bg-danger bg-lighten-2 " role="alert"  style="color: #fff !important;">
                                                                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                                                                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                                                                         <strong>Login Gagal!</strong> Username / Password Salah
                                                                     </div>
-                                                                </div>
-                                                            </div>   
                                                             <?php        
                                                         }else if($_GET['pesan'] == "logout"){
-                                                            echo "Anda telah berhasil logout";
+                                                            ?>
+                                                                    <div class="alert alert-danger no-border alert-dismissible bg-success bg-lighten-2" role="alert"  style="color: #fff !important;">
+                                                                        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                                        <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                                                                        <strong>Berhasil</strong> Logout!!
+                                                                    </div>
+                                                            <?php        
                                                         }else if($_GET['pesan'] == "belum_login"){
                                                             echo "Anda harus login untuk mengakses halaman admin";
                                                         }
                                                     }
                                                     ?>
                                             <div class="card-body pt-1">
-                                                <form method="post" action="cek_login.php" onsubmit="ajax_login(); return false;">
+                                                <form method="post" action="cek_login.php">
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
                                                         <input type="text" class="form-control"  name="nip"  id="user-name" placeholder="Masukkan nip" required autofocus>
                                                         <div class="form-control-position">

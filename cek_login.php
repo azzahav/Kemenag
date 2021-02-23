@@ -2,6 +2,7 @@
 // mengaktifkan session pada php
 session_start();
 
+
 // menghubungkan php dengan koneksi database
 include 'config.php';
 
@@ -20,26 +21,26 @@ if($cek > 0){
   $_SESSION['login']=$nip;
  $data = mysqli_fetch_assoc($login);
  // cek jika user login sebagai admin
- if($data['role']=="admin"){
+ if($data['role']=="Admin"){
 
   // buat session login dan nip
   $_SESSION['nip'] = $nip;
-  $_SESSION['role'] = "admin";
+  $_SESSION['role'] = "Admin";
   // alihkan ke halaman dashboard admin
   echo"<script>alert('login berhasil');document.location.href='admin/app-user-view.php'</script>";
 
  // cek jika user login sebagai pegawai
- }else if($data['role']=="penilai"){
+ }else if($data['role']=="Penilai"){
   // buat session login dan nip
   $_SESSION['nip'] = $nip;
-  $_SESSION['role'] = "penilai";
+  $_SESSION['role'] = "Penilai";
   // alihkan ke halaman dashboard pegawai
   echo"<script>alert('login berhasil');document.location.href='penilai/app-user-view.php'</script>";
 
-}else if($data['role']=="statistisi"){
+}else if($data['role']=="Statistisi"){
 	// buat session login dan nip
 	$_SESSION['nip'] = $nip;
-	$_SESSION['role'] = "statistisi";
+	$_SESSION['role'] = "Statistisi";
 	// alihkan ke halaman dashboard pegawai
 	echo"<script>alert('login berhasil');document.location.href='statistisi/app-user-view.php'</script>";
  }else{
@@ -50,5 +51,4 @@ if($cek > 0){
 }else{
 header("location:auth-login.php?pesan=gagal");
 }
-
 ?>

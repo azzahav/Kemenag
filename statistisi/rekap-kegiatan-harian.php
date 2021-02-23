@@ -6,6 +6,7 @@
         header('location:../auth-login.php');
     }
 ?>
+
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -17,7 +18,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Profil</title>
+    <title>Rekap Kegiatan Harian</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -25,8 +26,7 @@
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/toastr.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -36,6 +36,7 @@
     <link rel="stylesheet" type="text/css" href="../app-assets/css/components.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/dark-layout.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/semi-dark-layout.css">
+    <script src="../aset/js/jquery.min.js"></script>
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
@@ -52,7 +53,7 @@
 <!-- END: Head-->
 
 <!-- BEGIN: Body-->
-
+ 
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
 
     <!-- BEGIN: Header-->
@@ -65,48 +66,67 @@
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
-                                <div class="bookmark-input search-input">
-                                    <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
-                                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="0" data-search="template-list">
-                                    <ul class="search-list search-list-bookmark"></ul>
-                                </div>
-                                <!-- select.bookmark-select-->
-                                <!--   option Chat-->
-                                <!--   option email-->
-                                <!--   option todo-->
-                                <!--   option Calendar-->
+                            <li class="nav-item d-none d-lg-block"><img src="../app-assets/images/pages/kemenag25.png"><a class="h4"> KEMENTERIAN AGAMA RI</a>
                             </li>
                         </ul>
                     </div>
-                    <li class="dropdown dropdown-user nav-item ">      				
                         <a class="dropdown-toggle nav-link dropdown-user-link section_userinfo" href="#" data-toggle="dropdown">
                             <span class="avatar avatar-online">
-                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 50px;" alt="foto"><i></i></span>
+                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 45px;" alt="foto"><i></i></span>
                             <span class="user-name" style="margin-bottom: 1rem;" >  <?php echo $login_session; ?></span></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item menu_changepass" href="#"><i class="ft-unlock"></i> Ganti Password</a>
-                                    <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="ft-power"></i> Logout</a>
-                                </div>
-                                                
+                                <a class="dropdown-item"><i class="feather icon-user"></i> <?php echo $login_session5; ?></a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item menu_changepass" href="#" data-toggle="modal" data-target="#inlineForm"><i class="feather icon-unlock"></i> Ganti Password</a>
+                                <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="feather icon-power"></i> Logout</a>   
+                                </div>                   
                     </li>
                 </div>
             </div>
         </div>
     </nav>
-    <ul class="main-search-list-defaultlist-other-list d-none">
-        <li class="auto-suggestion d-flex align-items-center justify-content-between cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100 py-50">
-                <div class="d-flex justify-content-start"><span class="mr-75 feather icon-alert-circle"></span><span>No results found.</span></div>
-            </a></li>
-    </ul>
     <!-- END: Header-->
+    <!-- Modal -->
+    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title" id="myModalLabel33">Ganti Password </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <form action="./forgot.php" method="post">
+            <input type="hidden" name="nip" value="<?= $_SESSION['nip'] ?>">
+                <div class="modal-body">
+                    <label>Password Lama: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_lama" required>
+                  </div>
+
+                    <label>Password Baru: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_baru" required>
+                  </div>
+
+                    <label>Konfirmasi Password: </label>
+                   <div class="form-group">
+                        <input type="password" class="form-control" name="konfirmasi_pass" required>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Proses</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
 
     <!-- BEGIN: Main Menu-->
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.html">
+            <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
                         <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
@@ -120,15 +140,15 @@
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
-                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
                 </li>
-                <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
+                <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-edit-1"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
                 </li>
                 <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">List Rekap</span></a>
                 </li>
                 <li class=" navigation-header"><span>Pimpinan</span>
                 </li>
-                <li class=" nav-item"><a href="./pimpinan.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Kelola Pimpinan</span></a>
+                <li class=" nav-item"><a href="./pimpinan.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Kelola Pimpinan</span></a>
                 </li>
             </ul>
         </div>
@@ -148,22 +168,12 @@
                             <h2 class="content-header-title float-left mb-0">Statistisi</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="./index.php">Home</a>
+                                    <li class="breadcrumb-item"><a href="./app-user-view.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="#">Statistisi</a>
-                                    </li>
-                                    <li class="breadcrumb-item active">Rekap Kegiatan Harian
+                                    <li class="breadcrumb-item active">Rekap Kegiatan Harian Statistisi
                                     </li>
                                 </ol>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-header-right text-md-right col-md-3 col-12 d-md-block d-none">
-                    <div class="form-group breadcrum-right">
-                        <div class="dropdown">
-                            <button class="btn-icon btn btn-primary btn-round btn-sm dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="feather icon-settings"></i></button>
-                            <div class="dropdown-menu dropdown-menu-right"><a class="dropdown-item" href="#">Chat</a><a class="dropdown-item" href="#">Email</a><a class="dropdown-item" href="#">Calendar</a></div>
                         </div>
                     </div>
                 </div>
@@ -171,7 +181,7 @@
             <div class="content-body">
                 
                 <!-- Basic Inputs start -->
-                <section id="basic-input">
+                <section id="basic-input" >
                     <div class="row">
                         <div class="col-md-12">
                             <div class="card">
@@ -180,17 +190,16 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                    <form class="form form-horizontal"  action="./rekap-kegiatan-harian.php" method="post"  name="form">
-                                            <div class="form-body">
-                                                <div class="row">
+                    
+                                    <form class="form form-horizontal"  action="./detail-rekap.php" method="post"  name="form" enctype="multipart/form-data">
                                                     <div class="col-12">
                                                         <div class="form-group row">
                                                             <div class="col-md-4">
                                                                 <span>Nama</span>
                                                             </div>
-                                                            <div class="col-md-8">
+                                                            <div class="col-md">
                                                                 <div class="position-relative">
-                                                                    <input type="text" id="fname-icon" class="form-control" name="nama" placeholder="Nama ex : Azzah Afifah Veronica S.T" required autofocus>
+                                                                <input class="form-control" readonly name="nama" value="<?php echo $login_session; ?>"> </input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -200,10 +209,9 @@
                                                             <div class="col-md-4">
                                                                 <span>NIP</span>
                                                             </div>
-                                                            <div class="col-md-8">
+                                                            <div class="col-md">
                                                                 <div class="position-relative">
-                                                                    <input type="text" id="fname-icon" class="form-control" name="nip" placeholder="NIP ex : 19123112233" required autofocus>
-                                                                    
+                                                                <input class="form-control" readonly onkeypress="validate(event)" id="nip" min="0" maxlength="19" type="number" class="form-control" name="nip" value="<?php echo $login_session2; ?>"> </input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -214,12 +222,11 @@
                                                                 <span>Unsur</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id="fname-icon" class="form-control" name="unsur" placeholder="Unsur dari Kegiatan" required autofocus>
-                                                                    
-                                                                </div>
-                                                            </div>
+                                                            <select class="form-control" id="data_unsur" name="unsur">
+                                                                <option value=""> </option>
+                                                            </select>
                                                         </div>
+                                                    </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group row">
@@ -227,10 +234,9 @@
                                                                 <span>Sub Unsur</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                                <div class="position-relative">
-                                                                    <input type="text" id="email-icon" class="form-control" name="sub_unsur" placeholder="Sub Unsur" required autofocus>
-                                                                    
-                                                                </div>
+                                                            <select class="form-control" id="data_subunsur" name="sub_unsur">
+                                                                <option value=""></option>
+                                                            </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -240,10 +246,9 @@
                                                                 <span>Butir kegiatan</span>
                                                             </div>
                                                             <div class="col-md-8">
-                                                            <select class="custom-select form-control" id="location1" name="butir_kegiatan" required autofocus>
-                                                                <option value="Doktor/Spesialis II (S3)">Doktor/Spesialis II (S3)</option>
-                                                                <option value="Pasca Sarjana/Spesialis I (S2)">Pasca Sarjana/Spesialis I (S2)</option>
-                                                                <option value="Sarjana (S1)/Diploma IV">Sarjana (S1)/Diploma IV</option>
+                                                            <select class="custom-select form-control" name="butir_kegiatan" onchange='changeValue(this.value)' id="data_butir" >
+                                                            <option value=""></option>
+
                                                             </select>
                                                         </div>
                                                     </div>
@@ -253,10 +258,33 @@
                                                             <div class="col-md-4">
                                                                 <span>Uraian kegiatan</span>
                                                             </div>
-                                                            <div class="col-md-8">
+                                                            <div class="col-md">
                                                                 <div class="position-relative">
-                                                                    <input type="textarea" id="pass-icon" class="form-control" name="uraian_kegiatan" placeholder="Uraian Kegiatan" required autofocus>
-                                                                    
+                                                                <textarea class="form-control" id="pass-icon" rows="3" placeholder="Uraian Kegiatan" name="uraian_kegiatan" required autofocus></textarea>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-4">
+                                                                <span for="quantity">Volume kegiatan</span>
+                                                            </div>
+                                                            <div class="col-md">
+                                                                <div class="input-group">
+                                                                <input name="volume_kegiatan" type="number" class="touchspin" value="50" ></input>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-4">
+                                                                <span >Angka Kredit</span>
+                                                            </div>
+                                                            <div class="col-md">
+                                                                <div class="position-relative">
+                                                                <input class="form-control" readonly name="angka_kredit" type="text" id="angka_kredit" required autofocus></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -281,19 +309,68 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="position-relative">
-                                                                    <input type="text" id="pass-icon" class="form-control" name="tanggal" placeholder="tanggal" required autofocus>
-                                                                    
+                                                                    <input type="date" id="pass-icon" class="form-control" name="tanggal" placeholder="Tanggal" required autofocus>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-8 offset-md-4">
-                                                        <button type="submit" name="Submit" value="Add" class="btn btn-primary mr-1 mb-1" onclick="return confirm('Yakin')" id="type-error">Submit</button>
+                                                    </div>   
+                                                    <div class="col-12">
+                                                        <div class="form-group row">
+                                                            <div class="col-md-4">
+                                                                <span>Unggah Bukti</span>
+                                                            </div>
+                                                            <div class="col-md-8">
+                                                                <div class="position-relative">
+                                                                <input  id="inputGroupFile01" name="unggah_bukti"  type="file" class="form-control-file" multiple >
+                                                            </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>   
+                                                    <div class="col-md-8 offset-md-4" >
+                                                        <button type="submit" name="Submit" value="Add" class="btn btn-primary mr-1 mb-1" onclick="return confirm('Yakin')" id="type-success">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
-                                        
+                                        <script type="text/javascript">
+                                            $(document).ready(function(){
+                                                $.ajax({
+                                                    type: 'POST',
+                                                    url: "get_unsur.php",
+                                                    cache: false, 
+                                                    success: function(msg){
+                                                    $("#data_unsur").html(msg);
+                                                    }
+                                                });
+
+                                                $("#data_unsur").change(function(){
+                                                var data_unsur = $("#data_unsur").val();
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: "get_subunsur.php",
+                                                        data: {data_unsur: data_unsur},
+                                                        cache: false,
+                                                        success: function(msg){
+                                                        $("#data_subunsur").html(msg);
+                                                        }
+                                                    });
+                                                });
+
+                                                $("#data_subunsur").change(function(){
+                                                var data_subunsur = $("#data_subunsur").val();
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: "get_butir.php",
+                                                        data: {data_subunsur: data_subunsur},
+                                                        cache: false,
+                                                        success: function(msg){
+                                                        $("#data_butir").html(msg);
+                                                        }
+                                                    });
+                                                });
+                                            });
+                                        </script>       
+                                
                                 </div>
                             </div>
                         </div>
@@ -306,34 +383,6 @@
         </div>
     </div>
     <!-- END: Content-->
-
-    <?php
-
-    // Check If form submitted, insert form data into users table.
-    if(isset($_POST['Submit'])) {
-        $nama = $_POST['nama'];
-        $nip = $_POST['nip'];
-        $unsur = $_POST['unsur'];
-        $sub_unsur = $_POST['sub_unsur'];
-        $butir_kegiatan = $_POST['butir_kegiatan'];
-        $uraian_kegiatan = $_POST['uraian_kegiatan'];
-        $satuan_hasil = $_POST['satuan_hasil'];
-        $tanggal = $_POST['tanggal'];
-
-
-        // include database connection file
-        include_once("../config.php");
-
-        // Insert user data into table
-        $result = mysqli_query($mysqli, "INSERT INTO rekap_harian(nama,nip,unsur,sub_unsur,butir_kegiatan,uraian_kegiatan,satuan_hasil,tanggal) VALUES('$nama','$nip','$unsur','$sub_unsur','$butir_kegiatan','$uraian_kegiatan','$satuan_hasil','$tanggal')");
-
-        // Show message when user added
-        
-        echo "User added successfully.";
-    }
-    ?>
-
-
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>                         
                                           
@@ -348,27 +397,36 @@
 
     <!-- BEGIN: Vendor JS-->
     <script src="../app-assets/vendors/js/vendors.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
     <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
-    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
-    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>
+    <script src="../app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
     <script src="../app-assets/js/core/app-menu.js"></script>
     <script src="../app-assets/js/core/app.js"></script>
     <script src="../app-assets/js/scripts/components.js"></script>
+    <script src="../aset/js/jquery-chained.min.js"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
     <script src="../app-assets/js/scripts/pages/app-user.js"></script>
     <script src="../app-assets/js/scripts/extensions/toastr.js"></script>
-    <script src="../app-assets/js/scripts/extensions/sweet-alerts.js"></script>
+    <script src="../app-assets/js/scripts/forms/number-input.js"></script>
     <!-- END: Page JS-->
 
 </body>
 <!-- END: Body-->
 
 </html>
+
+
+
+
+
+
+

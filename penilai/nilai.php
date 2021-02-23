@@ -1,9 +1,47 @@
 <?php
-error_reporting(0);
-include('../session_co.php');
-session_start();
-if( !isset($_SESSION['login'])){
-    header('location:../auth-login.php');
+    error_reporting(0);
+   include('../session_co.php');
+    if( !isset($_SESSION['login'])){
+        header('location:../auth-login.php');
+    }
+    if(isset($_POST['update']))
+{   
+    $id_rekap = isset($_POST['id_rekap']) ? $_POST['id_rekap'] : '';
+    $angka_kredit = isset($_POST['angka_kredit']) ? $_POST['angka_kredit'] : '';
+    $status = isset($_POST['status']) ? $_POST['status'] : '';
+    
+
+    // update user data
+    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET angka_kredit='$angka_kredit',status='$status' WHERE id_rekap LIKE '%".$id_rekap."%'");
+
+    // Redirect to homepage to display updated user in list
+    header("Location: ./detail-rekap.php");
+}
+?>
+<?php
+// Display selected user data based on id
+// Getting id from url
+$id_rekap = isset($_GET['id_rekap']) ? $_GET['id_rekap'] : null;
+
+// Fetech user data based on id
+
+$result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap LIKE '%".$id_rekap."%'");
+
+while($user_data = mysqli_fetch_array($result))
+{
+    $id_rekap =$user_data ['id_rekap'];
+    $angka_kredit = $user_data ['angka_kredit'];
+    $status = $user_data ['status'];
+    $unsur = $user_data ['unsur'];
+    $sub_unsur = $user_data ['sub_unsur'];
+    $butir_kegiatan = $user_data ['butir_kegiatan'];
+    $uraian_kegiatan = $user_data ['uraian_kegiatan'];
+    $satuan_hasil = $user_data ['satuan_hasil'];
+    $volume_kegiatan = $user_data ['volume_kegiatan'];
+    $jumlah_kredit = $user_data ['status'];
+    $jumlah_kredit = $volume_kegiatan*$angka_kredit;
+    $total_nilai = $jumlah_kredit*$angka_kredit;
+    
 }
 ?>
 <!DOCTYPE html>
@@ -17,7 +55,7 @@ if( !isset($_SESSION['login'])){
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Homepage - Profil</title>
+    <title>Nilai</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
@@ -120,12 +158,12 @@ if( !isset($_SESSION['login'])){
         </div>
     </div>
 
+
     <!-- BEGIN: Main Menu-->
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-            <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
-                        <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
@@ -134,22 +172,13 @@ if( !isset($_SESSION['login'])){
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" navigation-header"><span>Tim Penilai</span>
                 </li>
-                <li class=" navigation-header"><span>Statistisi</span>
+                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
                 </li>
-                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
-                </li>
-                <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-edit-1"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
-                </li>
-                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">List Rekap</span></a>
-                </li>
-                <li class=" navigation-header"><span>Pimpinan</span>
-                </li>
-                <li class=" nav-item"><a href="./pimpinan.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Kelola Pimpinan</span></a>
+                <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan Statistisi</span></a>
                 </li>
             </ul>
-        </div>
         </div>
     </div>
     <!-- END: Main Menu-->
@@ -162,128 +191,144 @@ if( !isset($_SESSION['login'])){
             <div class="content-header row">
             </div>
             <div class="content-body">
-            <div class="alert alert-info no-border alert-dismissible mb-2 bg-primary bg-lighten-2" role="alert" style="color: #fff !important;">
-					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-						<span aria-hidden="true">×</span>
-					</button>
-                    <h4>Selamat datang,  <?php echo $login_session5; ?></h4></div>
-                <!-- page users view start -->
+                <!-- users edit start -->
                 <section class="page-users-view">
                     <div class="row">
                         <!-- account start -->
-                        <div class="col-12">
+                        <div class="col-7" action="detail-rekap.php" method="post"  name="form">
+                        </div>
+                        <div class="col-md-0 col-6 ">
                             <div class="card">
                                 <div class="card-header">
-                                    <div class="card-title">Akun</div>
+                                <div class="card-title">Detail Rekap Kegiatan</div>
                                 </div>
                                 <div class="card-body">
-                                    <div class="row">
-                                        <div class="users-view-image">
-                                            <img src="../app-assets/images/portrait/small/orang.png" class="users-avatar-shadow w-100 rounded mb-2 pr-2 ml-1" alt="avatar">
-                                        </div>
-                                        <div class="col-12 col-sm-9 col-md-6 col-lg-5">
                                             <table>
-                                                <tbody>
             
                                                 <tr>
-                                                    <td class="font-weight-bold">NIP</td>
-                                                    <td><?php echo $login_session2; ?></td>
+                                                    <td class="font-weight-bold">Unsur</td>
+                                                    <td><?php echo $unsur; ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="font-weight-bold">Nama</td>
-                                                    <td><?php echo $login_session; ?></td>
+                                                    <td class="font-weight-bold">Sub Unsur</td>
+                                                    <td><?php echo $sub_unsur; ?></td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="font-weight-bold">No Seri Karpeg</td>
-                                                    <td><?php echo $login_session3; ?></td>
+                                                    <td class="font-weight-bold">Butir Kegiatan</td>
+                                                    <td><?php echo $butir_kegiatan; ?></td>
                                                 </tr>
-                                                </tbody>
+                                                <tr>
+                                                    <td class="font-weight-bold">Uraian Kegiatan</td>
+                                                    <td><?php echo $uraian_kegiatan; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Volume Kegiatan</td>
+                                                    <td><?php echo $volume_kegiatan; ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="font-weight-bold">Angka Kredit</td>
+                                                    <td><?php echo $angka_kredit; ?></td>
+                                                </tr>
                                             </table>
                                         </div>
-                                        <div class="col-12 col-md-12 col-lg-5">
-                                            <table class="ml-0 ml-sm-0 ml-lg-0">
-                                            <tr>
-                                                    <td class="font-weight-bold">email</td>
-                                                    <td><?php echo $login_session14; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Unit Kerja</td>
-                                                    <td><?php echo $login_session4; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Status</td>
-                                                    <td><?php echo $login_session5; ?></td>
-                                                </tr>
-                                              
-                                            </table>
-                                        </div>
-                                        <div class="col-12">
-                                        <a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>" class="btn btn-primary mr-1"><i class="feather icon-edit-1"></i> Edit</a>
-                                        <button type="reset" class="btn btn-danger" id="confirm-color"><i class="feather icon-delete"></i> Delete</a>
-                                        </div>
+                                
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
                         <!-- account end -->
-                        <!-- information start -->
-                        <div class="col-md-6 col-12 ">
-                            <div class="card">
-                                <div class="card-header">
-                                    <div class="card-title">Informasi</div>
-                                </div>
-                                <div class="card-body">
-                                    <table>
-                                        <tr>
-                                            <td class="font-weight-bold">Tanggal Lahir </td>
-                                            <td><?php echo $login_session6; ?>, <?php echo $login_session13; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">Alamat </td>
-                                            <td><?php echo $login_session15; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">Jenis Kelamin</td>
-                                            <td><?php echo $login_session7; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">Pendidikan</td>
-                                            <td><?php echo $login_session8; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">Pangkat</td>
-                                            <td><?php echo $login_session9; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">Jabatan</td>
-                                            <td><?php echo $login_session10; ?></td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-weight-bold">Masa Kerja</td>
-                                            <td><?php echo $login_session11; ?></td>
-                                        </tr> 
-                                    </table>
-                                </div>
-
-                            </div>
-                         
-                        </div>
-                        <!-- information start -->
                     </div>
                 </section>
-                <!-- page users view end -->
+                <section class="users-edit">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs mb-1" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex align-items-center" id="account-tab"  aria-controls="account">
+                                            <i class="feather icon-search mr-1"></i><span class="d-none d-sm-block">Detail Rekap Kegiatan Statistisi</span>
+                                        </a>
+                                    </li>
+                                    </ul>
+                                    <form name="update" method="post" action="">
+                                        <div class="pt-0">
+                                        <div class="row">
+                                        <div class="col-12 col-sm-6">
+                                        <div class="form-group">
+                                        <div class="controls">
+                                        <label>Unsur</label>
+                                    <input type="text" class="form-control" name="unsur" value="<?php echo $unsur;?>">
+                                    </div>
+                                    </div>
+                                        <div class="form-group">
+                                        <div class="controls">
+                                        <label>Sub Unsur</label>
+                                    <input type="text" class="form-control" name="sub_unsur" value="<?php echo $sub_unsur;?>">
+                                    </div>
+                                    </div>
+                                        <div class="form-group">
+                                        <div class="controls">
+                                        <label>Butir Kegiatan</label>
+                                    <input type="text" class="form-control" name="butir_kegiatan" value="<?php echo $butir_kegiatan;?>">
+                                    </div>
+                                    </div>
+                                    </div>
 
+                                    <div class="col-12 col-sm-6">
+                                    <div class="form-group">
+                                        <div class="controls">
+                                        <label>uraian_kegiatan</label>
+                                        <input class="form-control"  name="uraian_kegiatan"  value="<?php echo $uraian_kegiatan;?>">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <div class="controls">
+                                        <label>Angka Kredit</label>
+                                    <input class="form-control" name="angka_kredit" value="<?php echo $angka_kredit;?>">
+                                    </div>
+                                    </div>
+                                    <div class="form-group">
+                                    <div class="controls">
+                                        <label>Volume Kegiatan</label>
+                                    <input type="text" class="form-control" name="volume_kegiatan" value="<?php echo $volume_kegiatan;?>">
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>
+                                    </div>       
+                                    <div class="row">
+                                    <div class="mb-12 col-sm-6">
+                                    <div class="form-group">
+                                    <div class="controls">
+                                        <label>Status</label>
+                                        <select class="form-control" id="data-category" name="status">
+                                                <option value="Belum Dinilai">Belum Dinilai</option>
+                                                <option value="Sedang Dinilai">Sedang Dinilai</option>
+                                                <option value="Selesai Dinilai">Selesai Dinilai</option>
+                                            </select>
+                            </div>
+                        </div>
+                     </div>
+   
+                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                        <input type="hidden"  name="id_rekap" value="<?php echo $_GET['id_rekap'];?>">
+                        <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
+                        <a type="reset" class="btn btn-danger" href="detail-rekap.php">Cancel</a>
+                    </div>
+                  </div>
+              </form>
             </div>
-        </div>
+       </section> 
+    </div>        
+    </div>
     </div>
     <!-- END: Content-->
 
-
     <div class="sidenav-overlay"></div>
-    <div class="drag-target"></div>
-                                
+    <div class="drag-target"></div>                        
+                                          
     <!-- BEGIN: Footer-->
-    <footer class="footer fixed-bottom navbar-shadow footer-light">
+    <footer class="footer footer-static footer-light">
         <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2"  target="_blank">Biro Humas Data dan Informasi,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
             <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
         </p>

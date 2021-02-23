@@ -44,7 +44,7 @@ if(isset($_POST['update']))
     <meta name="author" content="PIXINVENT">
     <title>Edit Profil</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/pages/kemenag10.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
@@ -147,6 +147,7 @@ if(isset($_POST['update']))
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
+                        <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
@@ -154,16 +155,18 @@ if(isset($_POST['update']))
         </div>
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
-            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" navigation-header"><span>Tim Penilai</span>
-                </li>
-                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
-                </li>
-                <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan Statistisi</span></a>
-                </li>
-            </ul>
-        </div>
-    </div>
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                            <li class=" navigation-header"><span>Tim Admin</span>
+                            </li>
+                            <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                            </li>
+                            <li class=" nav-item"><a href="./pengguna.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Kelola Pengguna</span></a>
+                            </li>
+                        </ul>
+</section>
+</div>
+</div>
+</div>
     <!-- END: Main Menu-->
 
 
@@ -248,8 +251,8 @@ if(isset($_POST['update']))
                                                         <label>Status</label>
                                                         <select class="form-control" name="role" value="<?php echo $login_session5;?>">
                                                         <option value="Admin">Admin</option>
-                                                        <option value="Statistisi">Statistisi</option>
                                                         <option value="Penilai">Penilai</option>
+                                                        <option value="Statistisi">Statistisi</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">
@@ -275,7 +278,7 @@ if(isset($_POST['update']))
                                                 </div>
                                                 
                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-                                                    <input type="hidden"  name="id_pengguna" value="<?php echo $_GET['id_pengguna'];?>">
+                                                    <input type="hidden"  name="nip" value="<?php echo $_GET['nip'];?>">
                                                     <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
                                                     <a type="reset" href="app-user-view.php" class="btn btn-outline-danger">Cancel</a>
                                                 </div>

@@ -15,14 +15,14 @@ if(isset($_POST['update']))
     $nip = isset($_POST['nip']) ? $_POST['nip'] : '';
     $nama = isset($_POST['nama']) ? $_POST['nama'] : '';
     $no_seri_kapreg = isset($_POST['no_seri_kapreg']) ? $_POST['no_seri_kapreg'] : '';
-    $pendidikan = isset($_POST['pendidikan']) ? $_POST['pendidikan'] : '';
+    $email = isset($_POST['email']) ? $_POST['email'] : '';
     $pangkat = isset($_POST['pangkat']) ? $_POST['pangkat'] : '';
     $jabatan = isset($_POST['jabatan']) ? $_POST['jabatan'] : '';
     $unit_kerja = isset($_POST['unit_kerja']) ? $_POST['unit_kerja'] : '';
     $role = isset($_POST['role']) ? $_POST['role'] : '';
 
     // update user data
-    $result = mysqli_query($mysqli, "UPDATE pengguna SET nip='$nip',nama='$nama',no_seri_kapreg='$no_seri_kapreg',pendidikan='$pendidikan',pangkat='$pangkat',jabatan='$jabatan',unit_kerja='$unit_kerja',role='$role' WHERE id_pengguna LIKE '%".$id_pengguna."%'");
+    $result = mysqli_query($mysqli, "UPDATE pengguna SET nip='$nip',nama='$nama',no_seri_kapreg='$no_seri_kapreg',email='$email',pangkat='$pangkat',jabatan='$jabatan',unit_kerja='$unit_kerja',role='$role' WHERE id_pengguna LIKE '%".$id_pengguna."%'");
 
     // Redirect to homepage to display updated user in list
     header("Location: ./pengguna.php");
@@ -43,7 +43,7 @@ while($user_data = mysqli_fetch_array($result))
     $nip = $user_data ['nip'];
     $nama = $user_data ['nama'];
     $no_seri_kapreg=$user_data ['no_seri_kapreg'];
-    $pendidikan=$user_data ['pendidikan'];
+    $email=$user_data ['email'];
     $pangkat=$user_data ['pangkat'];
     $jabatan=$user_data ['jabatan'];
     $unit_kerja=$user_data ['unit_kerja'];
@@ -64,7 +64,7 @@ while($user_data = mysqli_fetch_array($result))
     <meta name="author" content="PIXINVENT">
     <title>Kelola Pengguna</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/pages/kemenag10.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
@@ -101,6 +101,7 @@ while($user_data = mysqli_fetch_array($result))
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
 
     <!-- BEGIN: Header-->
+    <!-- BEGIN: Header-->
     <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
         <div class="navbar-wrapper">
             <div class="navbar-container content">
@@ -110,48 +111,67 @@ while($user_data = mysqli_fetch_array($result))
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
-                                <div class="bookmark-input search-input">
-                                    <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
-                                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="0" data-search="template-list">
-                                    <ul class="search-list search-list-bookmark"></ul>
-                                </div>
-                                <!-- select.bookmark-select-->
-                                <!--   option Chat-->
-                                <!--   option email-->
-                                <!--   option todo-->
-                                <!--   option Calendar-->
+                            <li class="nav-item d-none d-lg-block"><img src="../app-assets/images/pages/kemenag25.png"><a class="h4"> KEMENTERIAN AGAMA RI</a>
                             </li>
                         </ul>
                     </div>
-                    <li class="dropdown dropdown-user nav-item ">      				
                         <a class="dropdown-toggle nav-link dropdown-user-link section_userinfo" href="#" data-toggle="dropdown">
                             <span class="avatar avatar-online">
-                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 50px;" alt="foto"><i></i></span>
+                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 45px;" alt="foto"><i></i></span>
                             <span class="user-name" style="margin-bottom: 1rem;" >  <?php echo $login_session; ?></span></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item menu_changepass" href="#"><i class="ft-unlock"></i> Ganti Password</a>
-                                    <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="ft-power"></i> Logout</a>
-                                </div>
-                                                
+                                <a class="dropdown-item"><i class="feather icon-user"></i> <?php echo $login_session5; ?></a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item menu_changepass" href="#" data-toggle="modal" data-target="#inlineForm"><i class="feather icon-unlock"></i> Ganti Password</a>
+                                <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="feather icon-power"></i> Logout</a>   
+                                </div>                   
                     </li>
                 </div>
             </div>
         </div>
     </nav>
-    <ul class="main-search-list-defaultlist-other-list d-none">
-        <li class="auto-suggestion d-flex align-items-center justify-content-between cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100 py-50">
-                <div class="d-flex justify-content-start"><span class="mr-75 feather icon-alert-circle"></span><span>No results found.</span></div>
-            </a></li>
-    </ul>
     <!-- END: Header-->
+    <!-- Modal -->
+    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title" id="myModalLabel33">Ganti Password </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <form action="./forgot.php" method="post">
+            <input type="hidden" name="nip" value="<?= $_SESSION['nip'] ?>">
+                <div class="modal-body">
+                    <label>Password Lama: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_lama" required>
+                  </div>
+
+                    <label>Password Baru: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_baru" required>
+                  </div>
+
+                    <label>Konfirmasi Password: </label>
+                   <div class="form-group">
+                        <input type="password" class="form-control" name="konfirmasi_pass" required>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Proses</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
 
     <!-- BEGIN: Main Menu-->
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.html">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
                 <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
@@ -160,14 +180,14 @@ while($user_data = mysqli_fetch_array($result))
         </div>
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
-            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="./index.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Admin</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
-                    <ul class="menu-content">
-                        <li class="active"><a href="./pengguna.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Kelola Pengguna</span></a>
-                        </li>
-                    </ul>
-                </li>
-
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                            <li class=" navigation-header"><span>Tim Admin</span>
+                            </li>
+                            <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                            </li>
+                            <li class=" nav-item"><a href="./pengguna.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Kelola Pengguna</span></a>
+                            </li>
+                        </ul>
         </div>
     </div>
     <!-- END: Main Menu-->
@@ -186,14 +206,15 @@ while($user_data = mysqli_fetch_array($result))
                     <div class="card">
                         <div class="card-content">
                             <div class="card-body">
-                                <ul class="nav nav-tabs mb-3" role="tablist">
+                                <ul class="nav nav-tabs mb-1" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" id="account-tab"  aria-controls="account">
-                                            <i class="feather icon-user mr-25"></i><span class="d-none d-sm-block">Edit Data Pengguna</span>
+                                        <a class="nav-link d-flex align-items-center">
+                                            <i class="feather icon-user mr-1"></i><span class="d-none d-sm-block">Edit Data Pengguna</span>
                                         </a>
                                     </li>
                                     </ul>
     <form  name="update" method="post" action="./pengguna-edit.php">
+        <div class="pt-0">
         <div class="row">
         <div class="col-12 col-sm-6">
         <div class="form-group">
@@ -216,8 +237,8 @@ while($user_data = mysqli_fetch_array($result))
     </div>
     <div class="form-group">
         <div class="controls">
-        <label>Pendidikan</label>
-    <input type="text" class="form-control" name="pendidikan" value="<?php echo $pendidikan;?>">
+        <label>Email</label>
+    <input type="text" class="form-control" name="email" value="<?php echo $email;?>">
     </div>
     </div>
     </div>
@@ -232,7 +253,10 @@ while($user_data = mysqli_fetch_array($result))
     <div class="form-group">
     <div class="controls">
         <label>Jabatan</label>
-    <input type="text" class="form-control" name="jabatan" value="<?php echo $jabatan;?>">
+    <select class="custom-select form-control" id="jabatan" name="jabatan">
+    <option <?php if( $statusjabatan=='Statistisi Muda'){echo "selected"; } ?> value='Statistisi Muda'>Statistisi Muda</option>
+    <option  <?php if( $statusjabatan=='Statistisi Madya'){echo "selected"; } ?> value='Statistisi Madya'>Statistisi Madya</option>
+    </select>
     </div>
     </div>
     <div class="form-group">
@@ -243,21 +267,30 @@ while($user_data = mysqli_fetch_array($result))
     </div>
     <div class="form-group">
     <div class="controls">
-        <label>Role</label>
-    <input type="text" class="form-control" name="role" value="<?php echo $role;?>">
+        <label>Status</label>
+    <select class="custom-select form-control" id="location1" name="role" value="<?php echo $role;?>">
+        <option value="Statistisi">Statistisi</option>
+        <option value="Penilai">Penilai</option>
+        <option value="Admin">Admin</option>
+    </select>
     </div>
     </div>
     </div>
     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
         <input type="hidden"  name="id_pengguna" value="<?php echo $_GET['id_pengguna'];?>">
         <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
-        <button type="reset" class="btn btn-outline-danger">Cancel</button>
+        <a type="reset" href="pengguna.php" class="btn btn-outline-danger">Cancel</a>
     </div>
     </div>
     </form>
+                    </div>
+                </div>
+            </div>
+        </section> 
     </div>
-   </section> 
-   </div>
+    </div>
+</div>
+
     
     <!-- END: Content-->
 
@@ -266,7 +299,7 @@ while($user_data = mysqli_fetch_array($result))
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Biro Humas Data dan Informasi,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
             <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
         </p>
     </footer>

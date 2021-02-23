@@ -65,48 +65,67 @@ if( !isset($_SESSION['login'])){
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
-                                <div class="bookmark-input search-input">
-                                    <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
-                                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="0" data-search="template-list">
-                                    <ul class="search-list search-list-bookmark"></ul>
-                                </div>
-                                <!-- select.bookmark-select-->
-                                <!--   option Chat-->
-                                <!--   option email-->
-                                <!--   option todo-->
-                                <!--   option Calendar-->
+                            <li class="nav-item d-none d-lg-block"><img src="../app-assets/images/pages/kemenag25.png"><a class="h4"> KEMENTERIAN AGAMA RI</a>
                             </li>
                         </ul>
                     </div>
-                    <li class="dropdown dropdown-user nav-item ">      				
                         <a class="dropdown-toggle nav-link dropdown-user-link section_userinfo" href="#" data-toggle="dropdown">
                             <span class="avatar avatar-online">
-                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 50px;" alt="foto"><i></i></span>
+                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 45px;" alt="foto"><i></i></span>
                             <span class="user-name" style="margin-bottom: 1rem;" >  <?php echo $login_session; ?></span></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item menu_changepass" href="#"><i class="ft-unlock"></i> Ganti Password</a>
-                                    <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="ft-power"></i> Logout</a>
-                                </div>
-                                                
+                                <a class="dropdown-item"><i class="feather icon-user"></i> <?php echo $login_session5; ?></a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item menu_changepass" href="#" data-toggle="modal" data-target="#inlineForm"><i class="feather icon-unlock"></i> Ganti Password</a>
+                                <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="feather icon-power"></i> Logout</a>   
+                                </div>                   
                     </li>
                 </div>
             </div>
         </div>
     </nav>
-    <ul class="main-search-list-defaultlist-other-list d-none">
-        <li class="auto-suggestion d-flex align-items-center justify-content-between cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100 py-50">
-                <div class="d-flex justify-content-start"><span class="mr-75 feather icon-alert-circle"></span><span>No results found.</span></div>
-            </a></li>
-    </ul>
     <!-- END: Header-->
+    <!-- Modal -->
+    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title" id="myModalLabel33">Ganti Password </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <form action="./forgot.php" method="post">
+            <input type="hidden" name="nip" value="<?= $_SESSION['nip'] ?>">
+                <div class="modal-body">
+                    <label>Password Lama: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_lama" required>
+                  </div>
+
+                    <label>Password Baru: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_baru" required>
+                  </div>
+
+                    <label>Konfirmasi Password: </label>
+                   <div class="form-group">
+                        <input type="password" class="form-control" name="konfirmasi_pass" required>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Proses</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
 
     <!-- BEGIN: Main Menu-->
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="../html/ltr/vertical-menu-template-semi-dark/index.php">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
@@ -115,13 +134,11 @@ if( !isset($_SESSION['login'])){
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
-                </li>
                 <li class=" navigation-header"><span>Tim Penilai</span>
                 </li>
-                <li class=" nav-item"><a href="./data-list-berkas.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Colors">Berkas Penilaian</span></a>
+                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
                 </li>
-                <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan</span></a>
+                <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan Statistisi</span></a>
                 </li>
             </ul>
         </div>
@@ -195,7 +212,7 @@ if( !isset($_SESSION['login'])){
                                     <td class="product-buat">08-09-2020 12:20</td>
                                     <td>
                                           <div class="chip chip-warning" >
-                                            <a class="chip-text" href="./app-kegiatan-details.php">Detail</a>
+                                            <a class="chip-text" href="./detail-rekap.php">Detail</a>
                                             </div>
                                         </div>
                                     </td>
@@ -353,7 +370,7 @@ if( !isset($_SESSION['login'])){
 
     <!-- BEGIN: Footer-->
     <footer class="footer footer-static footer-light">
-        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" target="_blank">Biro Humas Data dan Informasi</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
             <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
         </p>
     </footer>

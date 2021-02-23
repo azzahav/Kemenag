@@ -10,16 +10,20 @@
         $pendidikan = $_POST['pendidikan'];
         $pangkat = $_POST['pangkat'];
         $jabatan = $_POST['jabatan'];
-        $masa_kerja = $_POST['pendidikan'];
+        $masa_kerja = $_POST['masa_kerja'];
         $unit_kerja = $_POST['unit_kerja'];
         $role = $_POST['role'];
+        $password = $_POST['password'];
+        $email = $_POST['email'];
+        $alamat = $_POST['alamat'];
+        $tgl_lahir = $_POST['tgl_lahir'];
 
 
         // include database connection file
         include_once("config.php");
 
         // Insert user data into table
-        $result = mysqli_query($mysqli, "INSERT INTO pengguna(nama,nip,no_seri_kapreg,tempat_tanggal_lahir,jenis_kelamin,pendidikan,pangkat,jabatan,masa_kerja,unit_kerja,role) VALUES('$nama','$nip','$no_seri_kapreg','$tempat_tanggal_lahir','$jenis_kelamin','$pendidikan','$pangkat','$jabatan','$masa_kerja','$unit_kerja','$role')");
+        $result = mysqli_query($mysqli, "INSERT INTO pengguna(nama,nip,no_seri_kapreg,tempat_tanggal_lahir,jenis_kelamin,pendidikan,pangkat,jabatan,masa_kerja,unit_kerja,role,password,email,alamat,tgl_lahir) VALUES('$nama','$nip','$no_seri_kapreg','$tempat_tanggal_lahir','$jenis_kelamin','$pendidikan','$pangkat','$jabatan','$masa_kerja','$unit_kerja','$role','$password','$email','$alamat','$tgl_lahir')");
 
         // Show message when user added
        
@@ -78,133 +82,128 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
-                <section class="row flexbox-container">
-                    <div class="col-xl-90 col-100 d-flex justify-content-center">
+            <section class="row flexbox-container">
+                    <div class="col-xl-8 col-10 d-flex justify-content-center">
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
-                                <div class="col-lg-90 col-100 p-0">
+                                <div class="col-lg-6 d-lg-block d-none text-center align-self-center pl-0 pr-3 py-0">
+                                    <img src="./app-assets/images/pages/kemenag10.png" alt="branding logo">
+                                </div>
+                                <div class="col-lg-6 col-12 p-0">
                                     <div class="card rounded-0 mb-0 p-2">
-                                    
-                                        <div class="card-header pt-50 pb-1">
+                                        <div class="card-header pt-100 pb-1">
                                             <div class="card-title">
-                                                <h2 class="mb-0">Create Account</h2>
+                                                <h2 class="mb-0">Register</h2>
                                             </div>
                                         </div>
-                                        <p class="px-2">Fill the below form to create a new account.</p>
                                         <div class="card-content">
                                             <div class="card-body pt-0">
                                                 <form  action="auth-register.php"  method="post"  name="form3">
-                                                <div class="col-100">
-                                                    <label for="inputName">Nama</label>
+                                                
+                                                <div class="form-group">
+                                                    <label for="nip">NIP</label>
+                                                    <input onkeypress="validate(event)" id="nip" min="0" maxlength="19" type="number" class="form-control" name="nip" placeholder="Ex : 432523543634" autofocus="">
+                                                            </div>
+
+                                                <div class="form-group">
+                                                    <label for="name">Nama</label>
+                                                    <input id="name" type="text" class="form-control" placeholder="Ex : Didik Hariyanto" name="nama">
+                                                            </div>
+
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="inputPlace">Tempat Lahir</label>
+                                                            <input id="inputPlace" type="text" class="form-control" placeholder="Mojokerto" name="tempat_tanggal_lahir">
+                                                                            </div>
+
                                                     </div>
-                                                    <div class="form-label-group">
-                                                        <input type="text" id="inputName" class="form-control" name="nama" placeholder="Nama : ex Budi Haryanto" required>
-                                                        <label for="inputName">Nama</label>
+                                                    <div class="col-sm-6">
+                                                        <div class="form-group">
+                                                            <label for="inputDate">Tanggal Lahir</label>
+                                                            <input id="inputDate" type="date" class="form-control"  name="tgl_lahir">
+                                                                            </div>
                                                     </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">NIP</label>
-                                                    </div>
-                                                    <div class="form-label-group">
-                                                        <input type="angka" id="inputName" class="form-control" name="nip" placeholder="NIP : ex 1923781234578" required>
-                                                        <label for="inputName">NIP</label>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">No Seri Kapreg</label>
-                                                    </div>
-                                                    <div class="form-label-group">
-                                                        <input type="angka" id="inputName" class="form-control" name="no_seri_kapreg" placeholder="No Seri Kapreg : ex 614/KEP/KARPEG/2010" required>
-                                                        <label for="inputName">No Seri Kapreg</label>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Tempat, Tanggal Lahir</label>
-                                                    </div>
-                                                    <div class="form-label-group">
-                                                        <input type="text" id="inputName" class="form-control" name="tempat_tanggal_lahir" placeholder="ex Sukabumi, 08 Maret 1972" required>
-                                                        <label for="inputName">Tempat, Tanggal Lahir</label>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Jenis Kelamin</label>
-                                                        <div class="form-group row">  
-                                                            <div class="col-md-8">
-                                                            <select class="custom-select form-control" id="location1" name="jenis_kelamin">
-                                                                <option value="Laki-Laki">Laki-Laki</option>
-                                                                <option value="Perempuan">Perempuan</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Pendidikan</label>
-                                                    </div>
-                                                    <div class="form-label-group">
-                                                        <input type="text" id="inputName" class="form-control" name="pendidikan" placeholder="ex : S1 Statistika" required>
-                                                        <label for="inputName">Pendidikan</label>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Pangkat</label>
-                                                    </div>
-                                                    <div class="form-label-group">
-                                                        <input type="text" id="inputName" class="form-control" name="pangkat" placeholder="ex : Penata / III/c / 1 Oktober 2016" required>
-                                                        <label for="inputName">Pangkat</label>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Jabatan</label>
-                                                        <div class="form-group row">  
-                                                            <div class="col-md-8">
-                                                            <select class="custom-select form-control" id="location1" name="jabatan">
-                                                                <option value="Muda">Muda</option>
-                                                                <option value="madya">madya</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Masa Kerja</label>
-                                                        <div class="form-group row">  
-                                                            <div class="col-md-8">
-                                                            <select class="custom-select form-control" id="location1" name="masa_kerja">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="serialCard">Nomor Seri Kartu Pegawai</label>
+                                                    <input id="serialCard" placeholder="Ex : D43F52334" type="text" class="form-control" name="no_seri_kapreg">
+                                                            </div>
+
+                                                <div class="form-group">
+                                                    <label for="inputGender">Jenis Kelamin</label>
+                                                    <select id="inputGender" name="jenis_kelamin" class="form-control">
+                                                        <option value="Laki-Laki">Laki-Laki</option>
+                                                        <option value="Perempuan">Perempuan</option>
+                                                    </select>
+                                                            </div>
+                                                <div class="form-group">
+                                                    <label for="pendidikan">Pendidikan</label>
+                                                    <input id="pendidikan" type="text" placeholder="S1-Teknik Komputer" class="form-control"  name="pendidikan">
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="pangkat">Pangkat</label>
+                                                    <input id="pangkat" type="text" placeholder="Ex : Penata / III/c / 1 Oktober 2019" class="form-control" name="pangkat">
+                                                            </div>
+
+                                                <div class="form-group">
+                                                    <label for="address">Alamat</label>
+                                                    <input id="address" type="text" placeholder="Ex : Jl Empu tantular No.45 Sooko Mojokerto" class="form-control"  name="alamat">
+                                                            </div>
+
+                                                <div class="form-group">
+                                                    <label for="email">Email</label>
+                                                    <input id="email" type="email" placeholder="Ex : didik@kemenag.go.id" class="form-control" name="email">
+                                                            </div>
+
+                                                <div class="form-group">
+                                                    <label for="masa_kerja">Masa Kerja</label>
+                                                    <select class="custom-select form-control" id="location2" name="masa_kerja">
                                                                 <option value="Lama">Lama</option>
                                                                 <option value="Baru">Baru</option>
                                                             </select>
-                                                        </div>
+
+                                                            </div>
+
+                                                <div class="form-group">
+                                                <label for="inputName">Unit Kerja</label>
+                                                <input type="text" id="inputName" class="form-control" name="unit_kerja" placeholder="ex : Biro Humas Data dan Informasi" required>
+                                                        
                                                     </div>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Unit Kerja</label>
-                                                    </div>
-                                                    <div class="form-label-group">
-                                                        <input type="text" id="inputName" class="form-control" name="unit_kerja" placeholder="ex : Biro Humas Data dan Informasi" required>
-                                                        <label for="inputName">Unit Kerja</label>
-                                                    </div>
-                                                    <div class="col-100">
-                                                    <label for="inputName">Role</label>
-                                                        <div class="form-group row">  
-                                                            <div class="col-md-8">
-                                                            <select class="custom-select form-control" id="location1" name="role">
-                                                                <option value="Statistisi">Statistisi</option>
-                                                                <option value="Penilai">Penilai</option>
-                                                                <option value="Admin">Admin</option>
+
+
+                                                <div class="form-group">
+                                                    <label for="pkPosition">Jabatan Statistisi</label>
+                                                    <select class="custom-select form-control" id="location1" name="jabatan">
+                                                                <option value="Statistisi Muda">Statistisi Muda</option>
+                                                                <option value="Statistisi Madya">Statistisi Madya</option>
                                                             </select>
-                                                        </div>
-                                                    </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="col-12">
-                                                            <fieldset class="checkbox">
-                                                                <div class="vs-checkbox-con vs-checkbox-primary">
-                                                                    <input type="checkbox" checked>
-                                                                    <span class="vs-checkbox">
-                                                                        <span class="vs-checkbox--check">
-                                                                            <i class="vs-icon feather icon-check"></i>
-                                                                        </span>
-                                                                    </span>
-                                                                    <span class=""> I accept the terms & conditions.</span>
-                                                                </div>
-                                                            </fieldset>
-                                                        </div>
-                                                    </div>
-                                                    <a href="auth-login.php" class="btn btn-outline-primary float-left btn-inline mb-50">Login</a>
-                                                    <button type="submit" name="Submit" value="Add"  class="btn btn-primary float-right btn-inline mb-50">Register</a>
+                                                            </div>
+
+                                                <div class="form-group">
+                                                    <label for="pkPosition">Status</label>
+                                                    <select class="custom-select form-control" id="location1" name="role">
+                                                        <option value="Statistisi">Statistisi</option>
+                                                        <option value="Penilai">Penilai</option>
+                                                        <option value="Admin">Admin</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-group">
+                                                    <label for="password">Password</label>
+                                                    <input id="password" type="password" class="form-control" name="password">
+                                                            </div>
+
+                                                <div class="form-group no-margin">
+                                                    <button type="submit" class="btn btn-primary btn-block" name="Submit" value="Add">
+                                                        Daftar
+                                                    </button>
+                                                </div>
+                                                <div class="margin-top20 text-center">
+                                                    <a  href="auth-login.php"  class="btn btn-outline-primary btn-block">Login</a>
+                                                </div>
                                                 </form>
                                             </div>
                                         </div>

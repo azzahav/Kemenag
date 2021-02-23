@@ -18,13 +18,15 @@
         $masa_kerja = $_POST['pendidikan'];
         $unit_kerja = $_POST['unit_kerja'];
         $role = $_POST['role'];
+        $email = $_POST['email'];
+        $alamat = $_POST['alamat'];
 
 
         // include database connection file
         include_once("../config.php");
 
         // Insert user data into table
-        $result = mysqli_query($mysqli, "INSERT INTO pengguna(nama,nip,no_seri_kapreg,tempat_tanggal_lahir,jenis_kelamin,pendidikan,pangkat,jabatan,masa_kerja,unit_kerja,role) VALUES('$nama','$nip','$no_seri_kapreg','$tempat_tanggal_lahir','$jenis_kelamin','$pendidikan','$pangkat','$jabatan','$masa_kerja','$unit_kerja','$role')");
+        $result = mysqli_query($mysqli, "INSERT INTO pengguna(nama,nip,no_seri_kapreg,tempat_tanggal_lahir,jenis_kelamin,pendidikan,pangkat,jabatan,masa_kerja,unit_kerja,role,email,alamat) VALUES('$nama','$nip','$no_seri_kapreg','$tempat_tanggal_lahir','$jenis_kelamin','$pendidikan','$pangkat','$jabatan','$masa_kerja','$unit_kerja','$role','$email','$alamat')");
 
         // Show message when user added
        
@@ -79,7 +81,6 @@
 <!-- BEGIN: Body-->
 
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
-
     <!-- BEGIN: Header-->
     <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
         <div class="navbar-wrapper">
@@ -90,41 +91,60 @@
                             <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
                         </ul>
                         <ul class="nav navbar-nav">
-                            <li class="nav-item d-none d-lg-block"><a class="nav-link bookmark-star"><i class="ficon feather icon-star warning"></i></a>
-                                <div class="bookmark-input search-input">
-                                    <div class="bookmark-input-icon"><i class="feather icon-search primary"></i></div>
-                                    <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="0" data-search="template-list">
-                                    <ul class="search-list search-list-bookmark"></ul>
-                                </div>
-                                <!-- select.bookmark-select-->
-                                <!--   option Chat-->
-                                <!--   option email-->
-                                <!--   option todo-->
-                                <!--   option Calendar-->
+                            <li class="nav-item d-none d-lg-block"><img src="../app-assets/images/pages/kemenag25.png"><a class="h4"> KEMENTERIAN AGAMA RI</a>
                             </li>
                         </ul>
                     </div>
-                    <li class="dropdown dropdown-user nav-item ">      				
                         <a class="dropdown-toggle nav-link dropdown-user-link section_userinfo" href="#" data-toggle="dropdown">
                             <span class="avatar avatar-online">
-                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 50px;" alt="foto"><i></i></span>
+                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 45px;" alt="foto"><i></i></span>
                             <span class="user-name" style="margin-bottom: 1rem;" >  <?php echo $login_session; ?></span></a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a class="dropdown-item menu_changepass" href="#"><i class="ft-unlock"></i> Ganti Password</a>
-                                    <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="ft-power"></i> Logout</a>
-                                </div>
-                                                
+                                <a class="dropdown-item"><i class="feather icon-user"></i> <?php echo $login_session5; ?></a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item menu_changepass" href="#" data-toggle="modal" data-target="#inlineForm"><i class="feather icon-unlock"></i> Ganti Password</a>
+                                <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="feather icon-power"></i> Logout</a>   
+                                </div>                   
                     </li>
                 </div>
             </div>
         </div>
     </nav>
-    <ul class="main-search-list-defaultlist-other-list d-none">
-        <li class="auto-suggestion d-flex align-items-center justify-content-between cursor-pointer"><a class="d-flex align-items-center justify-content-between w-100 py-50">
-                <div class="d-flex justify-content-start"><span class="mr-75 feather icon-alert-circle"></span><span>No results found.</span></div>
-            </a></li>
-    </ul>
     <!-- END: Header-->
+    <!-- Modal -->
+    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title" id="myModalLabel33">Ganti Password </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <form action="./forgot.php" method="post">
+            <input type="hidden" name="nip" value="<?= $_SESSION['nip'] ?>">
+                <div class="modal-body">
+                    <label>Password Lama: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_lama" required>
+                  </div>
+
+                    <label>Password Baru: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_baru" required>
+                  </div>
+
+                    <label>Konfirmasi Password: </label>
+                   <div class="form-group">
+                        <input type="password" class="form-control" name="konfirmasi_pass" required>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Proses</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
 
 
     <!-- BEGIN: Main Menu-->
@@ -132,7 +152,7 @@
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
                 <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
-                <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
+                        <div class="logo" href="../app-assets/images/ico/kemenag.png"></div>
                         <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
@@ -140,16 +160,18 @@
         </div>
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
-            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="index.html"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Admin</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
-                    <ul class="menu-content">
-                        <li class="active"><a href="./pengguna.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Kelola Pengguna</span></a>
-                        </li>
-                    </ul>
-                </li>
-
-        </div>
-    </div>
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                            <li class=" navigation-header"><span>Tim Admin</span>
+                            </li>
+                            <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                            </li>
+                            <li class=" nav-item"><a href="./pengguna.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Kelola Pengguna</span></a>
+                            </li>
+                        </ul>
+</section>
+</div>
+</div>
+</div>
     <!-- END: Main Menu-->
 
     <!-- BEGIN: Content-->
@@ -164,9 +186,7 @@
                             <h2 class="content-header-title float-left mb-0">Admin</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="#">Kelola Pengguna</a>
+                                    <li class="breadcrumb-item"><a href="app-user-view.php">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active">Data Pengguna
                                     </li>
@@ -179,21 +199,6 @@
             <div class="content-body">
                 <!-- Data list view starts -->
                 <section id="data-list-view" class="data-list-view-header">
-                    <div class="action-btns d-none">
-                        <div class="btn-dropdown mr-1 mb-1">
-                            <div class="btn-group dropdown actions-dropodown">
-                                <button type="button" class="btn btn-white px-1 py-1 dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    Actions
-                                </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#"><i class="feather icon-trash"></i>Delete</a>
-                                    <a class="dropdown-item" href="#"><i class="feather icon-archive"></i>Archive</a>
-                                    <a class="dropdown-item" href="#"><i class="feather icon-file"></i>Print</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- DataTable starts -->
                     <div class="table-responsive">
                         <table class="table data-list-view">
@@ -203,8 +208,8 @@
                                     <th>No</th>
                                     <th>NIP</th>
                                     <th>Nama</th>
+                                    <th>Email</th>
                                     <th>No Seri</th>
-                                    <th>Pendidikan</th>
                                     <th>Pangkat</th>
                                     <th>Jabatan</th>
                                     <th>Unit Kerja</th>
@@ -228,8 +233,8 @@
                                      <td></td>
                                     <td><?php echo $user_data['nip']; ?></td>
                                     <td><?php echo $user_data['nama']; ?></td>
+                                    <td><?php echo $user_data['email']; ?></td>
                                     <td><?php echo $user_data['no_seri_kapreg']; ?></td>
-                                    <td><?php echo $user_data['pendidikan']; ?></td>
                                     <td><?php echo $user_data['pangkat']; ?></td>
                                     <td><?php echo $user_data['jabatan']; ?></td>
                                     <td><?php echo $user_data['unit_kerja']; ?></td>
@@ -256,7 +261,7 @@
                         
                             <div class="div mt-2 px-2 d-flex new-data-title justify-content-between">
                                 <div>
-                                    <h4 class="text-uppercase">List View Data</h4>
+                                    <h4 class="text-uppercase">ADD DATA</h4>
                                 </div>
                                 <div class="hide-data-sidebar">
                                     <i class="feather icon-x"></i>
@@ -264,23 +269,42 @@
                             </div>
                             <div class="data-items pb-3">
                                 <div class="data-fields px-2 mt-3">
-                                    <div class="row">
-                                    <form  action=""  method="post"  name="form4">
+                                    <div class="row" >
+                                    <form  action=""  method="post" class="col-sm-12 data-field-col" name="form4" >
                                         <div class="col-sm-12 data-field-col">
                                             <label for="data-name">Nama</label>
-                                            <input type="text" class="form-control" name="nama" required>
+                                            <input type="text" class="form-control" name="nama" placeholder="Muhammad Iskandar" required>
                                         </div>
                                         <div class="col-sm-12 data-field-col">
                                             <label for="data-name">NIP</label>
-                                            <input type="text" class="form-control" name="nip" required>
+                                            <input onkeypress="validate(event)" id="nip" min="0" maxlength="19" type="number" class="form-control" name="nip" placeholder="Ex : 432523543634" autofocus="">
                                         </div>
                                         <div class="col-sm-12 data-field-col">
-                                            <label for="data-name">No Seri</label>
-                                            <input type="text" class="form-control" name="no_seri_kapreg" required>
+                                            <label for="data-name">No Seri Kartu Pegawai</label>
+                                            <input type="text" class="form-control" name="no_seri_kapreg" placeholder="614/KEP/KARPEG/2020" required>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-12 data-field-col">
+                                                    <label for="inputPlace">Tempat Lahir</label>
+                                                    <input id="inputPlace" type="text" class="form-control" placeholder="Mojokerto" name="tempat_tanggal_lahir">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="col-sm-12 data-field-col">
+                                                    <label for="inputDate">Tanggal Lahir</label>
+                                                    <input id="inputDate" type="date" class="form-control"  name="tgl_lahir">
+                                                </div>
+                                             </div>
                                         </div>
                                         <div class="col-sm-12 data-field-col">
-                                            <label for="data-name">Tempat Tanggal Lahir</label>
-                                            <input type="text" class="form-control" name="tempat_tanggal_lahir" required>
+                                            <label for="address">Alamat</label>
+                                            <input id="address" type="text" placeholder="Ex : Jl Empu tantular No.45 Sooko Mojokerto" class="form-control"  name="alamat">
+                                        </div>
+
+                                        <div class="col-sm-12 data-field-col">
+                                            <label for="email">Email</label>
+                                            <input id="email" type="email" placeholder="Ex : didik@kemenag.go.id" class="form-control" name="email">
                                         </div>
                                         <div class="col-sm-12 data-field-col">
                                             <label for="data-category"> Jenis Kelamin </label>
@@ -291,18 +315,11 @@
                                         </div>
                                         <div class="col-sm-12 data-field-col">
                                             <label for="data-name">Pendidikan</label>
-                                            <input type="text" class="form-control" name="pendidikan" required>
+                                            <input type="text" class="form-control" name="pendidikan" placeholder="S1 - Matematika" required>
                                         </div>
                                         <div class="col-sm-12 data-field-col">
                                             <label for="data-name">Pangkat</label>
-                                            <input type="text" class="form-control" name="pangkat" required>
-                                        </div>
-                                        <div class="col-sm-12 data-field-col">
-                                            <label for="data-status">Jabatan</label>
-                                            <select class="form-control" id="data-status" name="jabatan">
-                                                <option value="Muda">Muda</option>
-                                                <option value="madya">madya</option>
-                                            </select>
+                                            <input type="text" class="form-control" name="pangkat" placeholder="Penata / III/c / 1 Oktober 2019" required>
                                         </div>
                                         <div class="col-sm-12 data-field-col">
                                             <label for="data-status">Masa Kerja</label>
@@ -313,31 +330,44 @@
                                         </div>
                                         <div class="col-sm-12 data-field-col">
                                             <label for="data-price">Unit Kerja</label>
-                                            <input type="text" class="form-control" name="unit_kerja">
+                                            <input type="text" class="form-control" name="unit_kerja" placeholder="Biro Humas Data dan Informasi">
                                         </div>
                                         <div class="col-sm-12 data-field-col">
-                                            <label for="data-price">Role</label>
-                                            <input type="text" class="form-control" name="role">
-                                        </div>
+                                                    <label for="pkPosition">Jabatan Statistisi</label>
+                                                    <select class="custom-select form-control" id="location1" name="jabatan">
+                                                                <option value="Statistisi Muda">Statistisi Muda</option>
+                                                                <option value="Statistisi Madya">Statistisi Madya</option>
+                                                            </select>
+                                                            </div>
+
+                                                <div class="col-sm-12 data-field-col">
+                                                    <label for="pkPosition">Status</label>
+                                                    <select class="custom-select form-control" id="location1" name="role">
+                                                        <option value="Statistisi">Statistisi</option>
+                                                        <option value="Penilai">Penilai</option>
+                                                        <option value="Admin">Admin</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-sm-12 data-field-col">
+                                                    <label for="password">Password</label>
+                                                    <input id="password" type="password" class="form-control" name="password">
+                                                            </div>
                                         <div class="add-data-footer d-flex justify-content-around px-3 mt-2">
-                                <div class="add-data-btn">
-                                <button type="submit" name="Submit" value="Add"  class="btn btn-primary float-right btn-inline mb-50">Register</a>
-                                </div>
-                                <div class="cancel-data-btn">
-                                    <button class="btn btn-outline-danger">Cancel</button>
-                                </div>
+                                            <div class="add-data-btn">
+                                            <button type="submit" name="Submit" value="Add"  class="btn btn-primary float-right btn-inline mb-50">Register</a>
+                                            </div>
+                                        </div>
                                 </form>
                             </div>
-                                    </div>
-                                </div>
-                            </div>
-                           
-                       
                         </div>
                     </div>
-                    <!-- add new sidebar ends -->
+                </div>
             </div>
         </div>
+                    <!-- add new sidebar ends -->
+        </div>
+    </div>
     </div>
     <!-- END: Content-->
 
@@ -345,8 +375,8 @@
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
-    <footer class="footer footer-static footer-light">
-        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Biro Humas, Data, dan Informasi,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+    <footer class="footer fixed-bottom navbar-shadow footer-light">
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2"  target="_blank">Biro Humas Data dan Informasi,</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
             <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
         </p>
     </footer>

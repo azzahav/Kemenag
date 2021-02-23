@@ -14,7 +14,7 @@
     <meta name="author" content="PIXINVENT">
     <title>Home Admin</title>
     <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/pages/kemenag10.png">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->

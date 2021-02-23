@@ -12,6 +12,6 @@ $result = mysqli_query($mysqli, "DELETE FROM pengguna WHERE id_pengguna=$id_peng
 header("Location:./app-user-view.php");
 
 $result = mysqli_query($mysqli, "DELETE FROM rekap_harian WHERE id_rekap=$id_rekap");
-header("Location:./app-kegiatan-details.php");
+header("Location:./detail-rekap.php");
 
 ?>
