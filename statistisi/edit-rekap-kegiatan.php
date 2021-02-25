@@ -42,7 +42,7 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
     //update nama file di database
     mysqli_query($mysqli,"UPDATE rekap_harian SET unggah_bukti='$nama_baru' WHERE id_rekap='$data[id_rekap]' ");
         // Redirect to homepage to display updated user in list
-        header("Location: ./edit-rekap-kegiatan.php");
+        header("Location: ./detail-rekap.php");
     }
     ?>
 <?php
@@ -202,7 +202,13 @@ while($user_data = mysqli_fetch_array($result))
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
@@ -336,7 +342,7 @@ while($user_data = mysqli_fetch_array($result))
                                                             </div>
                                                             <div class="col-md">
                                                                 <div class="position-relative">
-                                                                <textarea class="form-control" type="text" name="uraian_kegiatan"  value="<?php echo $uraian_kegiatan;?>"></textarea>
+                                                                <textarea class="form-control" type="text" name="uraian_kegiatan"  ><?php echo $uraian_kegiatan ?></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -348,7 +354,7 @@ while($user_data = mysqli_fetch_array($result))
                                                             </div>
                                                             <div class="col-md">
                                                                 <div class="input-group">
-                                                                <input name="volume_kegiatan" type="number" class="touchspin" value="50" ></input>
+                                                                <input name="volume_kegiatan" type="number" class="touchspin" value="<?php echo $volume_kegiatan;?>"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -360,7 +366,7 @@ while($user_data = mysqli_fetch_array($result))
                                                             </div>
                                                             <div class="col-md">
                                                                 <div class="position-relative">
-                                                                <input class="form-control" readonly name="angka_kredit" type="text" id="angka_kredit" ></input>
+                                                                <input class="form-control" readonly name="angka_kredit" type="text" id="angka_kredit" value="<?php echo $angka_kredit;?>"></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -372,7 +378,7 @@ while($user_data = mysqli_fetch_array($result))
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="position-relative">
-                                                                    <input type="text" id="pass-icon" class="form-control" name="satuan_hasil"  value="<?php echo $satuan_hasil;?>" required autofocus>
+                                                                    <input type="text" class="form-control" name="satuan_hasil"  value="<?php echo $satuan_hasil;?>" required autofocus>
                                                                     
                                                                 </div>
                                                             </div>
@@ -385,7 +391,7 @@ while($user_data = mysqli_fetch_array($result))
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="position-relative">
-                                                                    <input type="date" id="pass-icon" class="form-control" name="tanggal" required autofocus>
+                                                                    <input type="date" class="form-control" name="tanggal" value="<?php echo $tanggal;?>" required autofocus>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -402,9 +408,10 @@ while($user_data = mysqli_fetch_array($result))
                                                             </div>
                                                         </div>
                                                     </div>   
-                                                    <div class="col-md-8 offset-md-4" >
+                                                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1" >
                                                     <input type="hidden"  name="id_rekap" value="<?php echo $_GET['id_rekap'];?>">
 			                                        <input type="submit"  class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
+                                                    <a type="reset" href="detail-rekap.php" class="btn btn-danger glow mb-1 mb-sm-0 mr-0 mr-sm-1">Cancel</a>
                                                     </div>
                                                 </div>
                                             </div>

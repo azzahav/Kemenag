@@ -1,8 +1,6 @@
 <?php
 // mengaktifkan session pada php
 session_start();
-
-
 // menghubungkan php dengan koneksi database
 include 'config.php';
 

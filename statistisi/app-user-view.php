@@ -134,7 +134,13 @@ if( !isset($_SESSION['login'])){
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
@@ -199,6 +205,9 @@ if( !isset($_SESSION['login'])){
                                                 </tr>
                                                 </tbody>
                                             </table>
+                                            <div >
+                                        <a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>" class="btn btn-primary mr-1"><i class="feather icon-edit-1"></i> Edit</a>
+                                        </div>
                                         </div>
                                         <div class="col-12 col-md-12 col-lg-5">
                                             <table class="ml-0 ml-sm-0 ml-lg-0">
@@ -216,10 +225,6 @@ if( !isset($_SESSION['login'])){
                                                 </tr>
                                               
                                             </table>
-                                        </div>
-                                        <div class="col-12">
-                                        <a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>" class="btn btn-primary mr-1"><i class="feather icon-edit-1"></i> Edit</a>
-                                        <button type="reset" class="btn btn-danger" id="confirm-color"><i class="feather icon-delete"></i> Delete</a>
                                         </div>
                                     </div>
                                 </div>

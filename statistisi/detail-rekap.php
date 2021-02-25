@@ -176,7 +176,13 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
@@ -232,10 +238,27 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead>
+                                                <tr class="table-primary">
+                                                    <th>Unsur</th>
+                                                    <th>Sub Unsur</th>
+                                                    <th>Butir Kegiatan</th>
+                                                    <th>Uraian Kegiatan</th>
+                                                    <th>Volume Kegiatan</th>
+                                                    <th>Angka Kredit</th>
+                                                    <th>Detail Kegiatan</th>
+                                                    <th>Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                            
                                     <?php 
                                     $user_check = $_SESSION['login'];
                     
-                                    $ses_sql = mysqli_query($mysqli,"SELECT * FROM rekap_harian WHERE nip = '$user_check'");
+                                    $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t2.unsur, t3.sub_unsur 
+                                    FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE nip = '$user_check'");
                                     
                                     while ($user_data = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC)){
                                     
@@ -249,50 +272,30 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                         $uraian_kegiatan = $user_data['uraian_kegiatan'];
                                         $volume_kegiatan = $user_data['volume_kegiatan'];
                                         $angka_kredit = $user_data['angka_kredit'];
-                                        $satuan_hasil = $user_data['satuan_hasil'];
+                                        $unggah_bukti = $user_data['unggah_bukti'];
                                         $tanggal = $user_data['tanggal'];
                                     ?>
-                                            <div class="col-md-6 col-12 ">
-                                            <table>
-                                            
-                                                <tr>
-                                                    <td class="font-weight-bold">Unsur</td>
-                                                    <td><?php echo $unsur; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Sub Unsur</td>
-                                                    <td><?php echo $sub_unsur; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Butir Kegiatan</td>
-                                                    <td><?php echo $butir_kegiatan; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Uraian Kegiatan</td>
-                                                    <td><?php echo $uraian_kegiatan; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Volume Kegiatan</td>
-                                                    <td><?php echo $volume_kegiatan; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Angka Kredit</td>
-                                                    <td><?php echo $angka_kredit; ?></td>
-                                                </tr>
-                                            
-                                            </table>
                                             <tr>
-                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-                                                <a href="./edit-rekap-kegiatan.php?id_rekap=<?php echo $user_data['id_rekap']; ?>" class="btn btn-primary mr-1"><i class="feather icon-edit-1"></i> Edit</a>
-                                                <a type="delete" href="./delete-rekap.php?id_rekap=<?php echo $user_data['id_rekap']; ?>" class="btn btn-danger" id="confirm-color"><i class="feather icon-delete"></i> Delete</a>
-                                                </div>
-                                                </tr>
+                                                <td><?php echo $unsur; ?></td>
+                                                <td><?php echo $sub_unsur; ?></td>
+                                                <td><?php echo $butir_kegiatan; ?></td>
+                                                <td><?php echo $uraian_kegiatan; ?></td>
+                                                <td><?php echo $volume_kegiatan; ?></td>
+                                                <td><?php echo $angka_kredit; ?></td>
+                                                <td><a  class="btn btn-icon btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat File PDF" href="view.php?id_rekap=<?php echo $user_data['id_rekap'];?>">Lihat File</a></td>
+                                                <td> 
+                                                    <a href="./edit-rekap-kegiatan.php?id_rekap=<?php echo $user_data['id_rekap']; ?>" data-toggle="tooltip" data-placement="top" title="Edit" class="btn btn-icon btn-primary"><i class="feather icon-edit-1"></i></a>
+                                                    <a href="./delete-rekap.php?id_rekap=<?php echo $user_data['id_rekap']; ?>" data-toggle="tooltip" data-placement="top" title="Delete" class="btn btn-icon btn-danger" id="confirm-color"><i class="feather icon-delete"></i></a>
+                                                    </td>
+                                            </tr>
                                         </div>
                                             <?php
                                         }
                                     
                                 ?>
-                                
+                                </tbody>
+                                </table>
+                                                                
                                     </div>
                                 </div>
                             </div>
@@ -306,6 +309,8 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
         </div>
     </div>
     <!-- END: Content-->
+
+    
 
 
     <div class="sidenav-overlay"></div>

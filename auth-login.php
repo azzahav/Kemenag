@@ -1,3 +1,9 @@
+<?php
+session_start();
+if (isset($_SESSION['login'])) {
+    echo"<script>alert('Yuk Balik Yuk');document.location.href=''</script>";
+}
+?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->

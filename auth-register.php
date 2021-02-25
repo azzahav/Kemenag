@@ -102,33 +102,33 @@
                                                 
                                                 <div class="form-group">
                                                     <label for="nip">NIP</label>
-                                                    <input onkeypress="validate(event)" id="nip" min="0" maxlength="19" type="number" class="form-control" name="nip" placeholder="Ex : 432523543634" autofocus="">
+                                                    <input onkeypress="validate(event)" id="nip" min="0" maxlength="19" type="number" class="form-control" name="nip" placeholder="Ex : 432523543634" autofocus="" required>
                                                             </div>
 
                                                 <div class="form-group">
                                                     <label for="name">Nama</label>
-                                                    <input id="name" type="text" class="form-control" placeholder="Ex : Didik Hariyanto" name="nama">
+                                                    <input id="name" type="text" class="form-control" placeholder="Ex : Didik Hariyanto" name="nama" required>
                                                             </div>
 
                                                 <div class="row">
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="inputPlace">Tempat Lahir</label>
-                                                            <input id="inputPlace" type="text" class="form-control" placeholder="Mojokerto" name="tempat_tanggal_lahir">
+                                                            <input id="inputPlace" type="text" class="form-control" placeholder="Mojokerto" name="tempat_tanggal_lahir" required>
                                                                             </div>
 
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <div class="form-group">
                                                             <label for="inputDate">Tanggal Lahir</label>
-                                                            <input id="inputDate" type="date" class="form-control"  name="tgl_lahir">
+                                                            <input id="inputDate" type="date" class="form-control"  name="tgl_lahir" required>
                                                                             </div>
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="serialCard">Nomor Seri Kartu Pegawai</label>
-                                                    <input id="serialCard" placeholder="Ex : D43F52334" type="text" class="form-control" name="no_seri_kapreg">
+                                                    <input id="serialCard" placeholder="Ex : D43F52334" type="text" class="form-control" name="no_seri_kapreg" required>
                                                             </div>
 
                                                 <div class="form-group">
@@ -140,27 +140,27 @@
                                                             </div>
                                                 <div class="form-group">
                                                     <label for="pendidikan">Pendidikan</label>
-                                                    <input id="pendidikan" type="text" placeholder="S1-Teknik Komputer" class="form-control"  name="pendidikan">
+                                                    <input id="pendidikan" type="text" placeholder="S1-Teknik Komputer" class="form-control"  name="pendidikan" required>
                                                 </div>
 
                                                 <div class="form-group">
                                                     <label for="pangkat">Pangkat</label>
-                                                    <input id="pangkat" type="text" placeholder="Ex : Penata / III/c / 1 Oktober 2019" class="form-control" name="pangkat">
+                                                    <input id="pangkat" type="text" placeholder="Ex : Penata / III/c / 1 Oktober 2019" class="form-control" name="pangkat" required>
                                                             </div>
 
                                                 <div class="form-group">
                                                     <label for="address">Alamat</label>
-                                                    <input id="address" type="text" placeholder="Ex : Jl Empu tantular No.45 Sooko Mojokerto" class="form-control"  name="alamat">
+                                                    <input id="address" type="text" placeholder="Ex : Jl Empu tantular No.45 Sooko Mojokerto" class="form-control"  name="alamat" required>
                                                             </div>
 
                                                 <div class="form-group">
                                                     <label for="email">Email</label>
-                                                    <input id="email" type="email" placeholder="Ex : didik@kemenag.go.id" class="form-control" name="email">
+                                                    <input id="email" type="email" placeholder="Ex : didik@kemenag.go.id" class="form-control" name="email" required>
                                                             </div>
 
                                                 <div class="form-group">
                                                     <label for="masa_kerja">Masa Kerja</label>
-                                                    <select class="custom-select form-control" id="location2" name="masa_kerja">
+                                                    <select class="custom-select form-control" id="location2" name="masa_kerja" required>
                                                                 <option value="Lama">Lama</option>
                                                                 <option value="Baru">Baru</option>
                                                             </select>
@@ -176,7 +176,7 @@
 
                                                 <div class="form-group">
                                                     <label for="pkPosition">Jabatan Statistisi</label>
-                                                    <select class="custom-select form-control" id="location1" name="jabatan">
+                                                    <select class="custom-select form-control" id="location1" name="jabatan" required>
                                                                 <option value="Statistisi Muda">Statistisi Muda</option>
                                                                 <option value="Statistisi Madya">Statistisi Madya</option>
                                                             </select>
@@ -184,7 +184,7 @@
 
                                                 <div class="form-group">
                                                     <label for="pkPosition">Status</label>
-                                                    <select class="custom-select form-control" id="location1" name="role">
+                                                    <select class="custom-select form-control" id="location1" name="role" required> 
                                                         <option value="Statistisi">Statistisi</option>
                                                         <option value="Penilai">Penilai</option>
                                                         <option value="Admin">Admin</option>
@@ -193,16 +193,16 @@
 
                                                 <div class="form-group">
                                                     <label for="password">Password</label>
-                                                    <input id="password" type="password" class="form-control" name="password">
+                                                    <input id="password" type="password" class="form-control" name="password" required>
                                                             </div>
 
                                                 <div class="form-group no-margin">
-                                                    <button type="submit" class="btn btn-primary btn-block" name="Submit" value="Add">
+                                                    <button type="submit" class="btn btn-primary btn-block" name="Submit" value="Add" onclick="return confirm('Yakin Sudah Terisi Semua?')">
                                                         Daftar
                                                     </button>
                                                 </div>
                                                 <div class="margin-top20 text-center">
-                                                    <a  href="auth-login.php"  class="btn btn-outline-primary btn-block">Login</a>
+                                                    <a  href="auth-login.php"  class="btn btn-outline-primary btn-block" >Login</a>
                                                 </div>
                                                 </form>
                                             </div>

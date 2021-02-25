@@ -3,7 +3,7 @@
 include_once("../config.php");
 
 // Get id from URL to delete that user
-$id_pimpinan = $_GET['id_pimpinan'];
+$id_rekap = $_GET['id_rekap'];
 
 
 // Delete user row from table based on given id_pengguna

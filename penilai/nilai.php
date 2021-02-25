@@ -8,14 +8,16 @@
 {   
     $id_rekap = isset($_POST['id_rekap']) ? $_POST['id_rekap'] : '';
     $angka_kredit = isset($_POST['angka_kredit']) ? $_POST['angka_kredit'] : '';
+    $volume_kegiatan = isset($_POST['volume_kegiatan']) ? $_POST['volume_kegiatan'] : '';
     $status = isset($_POST['status']) ? $_POST['status'] : '';
-    
+    $jumlah_kredit = $volume_kegiatan*$angka_kredit;
+    $total_nilai = $jumlah_kredit*$angka_kredit;
 
     // update user data
-    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET angka_kredit='$angka_kredit',status='$status' WHERE id_rekap LIKE '%".$id_rekap."%'");
+    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET angka_kredit='$angka_kredit',  volume_kegiatan='$volume_kegiatan', status='$status', jumlah_kredit='$jumlah_kredit', total_nilai='$total_nilai' WHERE id_rekap LIKE '%".$id_rekap."%'");
 
     // Redirect to homepage to display updated user in list
-    header("Location: ./detail-rekap.php");
+    header("Location: ./data-list-rekap.php");
 }
 ?>
 <?php
@@ -25,7 +27,9 @@ $id_rekap = isset($_GET['id_rekap']) ? $_GET['id_rekap'] : null;
 
 // Fetech user data based on id
 
-$result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap LIKE '%".$id_rekap."%'");
+$result = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil, t2.unsur, t3.sub_unsur 
+FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE id_rekap LIKE '%".$id_rekap."%'
+");
 
 while($user_data = mysqli_fetch_array($result))
 {
@@ -38,7 +42,6 @@ while($user_data = mysqli_fetch_array($result))
     $uraian_kegiatan = $user_data ['uraian_kegiatan'];
     $satuan_hasil = $user_data ['satuan_hasil'];
     $volume_kegiatan = $user_data ['volume_kegiatan'];
-    $jumlah_kredit = $user_data ['status'];
     $jumlah_kredit = $volume_kegiatan*$angka_kredit;
     $total_nilai = $jumlah_kredit*$angka_kredit;
     
@@ -174,7 +177,13 @@ while($user_data = mysqli_fetch_array($result))
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" navigation-header"><span>Tim Penilai</span>
                 </li>
-                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Penilai</span></a>
+                <ul class="menu-content">
+                     <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./app-user-edit.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan Statistisi</span></a>
                 </li>
@@ -206,8 +215,8 @@ while($user_data = mysqli_fetch_array($result))
                                             <table>
             
                                                 <tr>
-                                                    <td class="font-weight-bold">Unsur</td>
-                                                    <td><?php echo $unsur; ?></td>
+                                                    <td class="font-weight-bold" >Unsur</td>
+                                                    <td ><?php echo $unsur; ?> </td>
                                                 </tr>
                                                 <tr>
                                                     <td class="font-weight-bold">Sub Unsur</td>
@@ -256,29 +265,15 @@ while($user_data = mysqli_fetch_array($result))
                                         <div class="col-12 col-sm-6">
                                         <div class="form-group">
                                         <div class="controls">
-                                        <label>Unsur</label>
-                                    <input type="text" class="form-control" name="unsur" value="<?php echo $unsur;?>">
+                                        <th>Bukti Kegiatan</h8>
+                                        <td><a  class="btn btn-info btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat File PDF" href="view.php?id_rekap=<?php echo $user_data['id_rekap'];?>">Lihat File</a></td>
                                     </div>
                                     </div>
-                                        <div class="form-group">
-                                        <div class="controls">
-                                        <label>Sub Unsur</label>
-                                    <input type="text" class="form-control" name="sub_unsur" value="<?php echo $sub_unsur;?>">
-                                    </div>
-                                    </div>
-                                        <div class="form-group">
-                                        <div class="controls">
-                                        <label>Butir Kegiatan</label>
-                                    <input type="text" class="form-control" name="butir_kegiatan" value="<?php echo $butir_kegiatan;?>">
-                                    </div>
-                                    </div>
-                                    </div>
-
-                                    <div class="col-12 col-sm-6">
+                                   
                                     <div class="form-group">
                                         <div class="controls">
                                         <label>uraian_kegiatan</label>
-                                        <input class="form-control"  name="uraian_kegiatan"  value="<?php echo $uraian_kegiatan;?>">
+                                        <input class="form-control" readonly name="uraian_kegiatan"  value="<?php echo $uraian_kegiatan;?>">
                                     </div>
                                     </div>
                                     <div class="form-group">
@@ -301,11 +296,34 @@ while($user_data = mysqli_fetch_array($result))
                                     <div class="form-group">
                                     <div class="controls">
                                         <label>Status</label>
-                                        <select class="form-control" id="data-category" name="status">
-                                                <option value="Belum Dinilai">Belum Dinilai</option>
-                                                <option value="Sedang Dinilai">Sedang Dinilai</option>
-                                                <option value="Selesai Dinilai">Selesai Dinilai</option>
-                                            </select>
+                                        <select class="form-control" name="status" required>
+                                                    <option value="">===Pilih===</option>
+                                                    <option value="Belum Dinilai"
+                                                    <?php
+                                                    if ($status=='Belum Dinilai')
+                                                    {
+                                                        echo "selected";
+                                                    }
+                                                    ?>
+                                                    >Belum Dinilai</option>
+                                                    <option value="Sedang Dinilai"
+                                                    <?php
+                                                    if ($status=='Sedang Dinilai')
+                                                    {
+                                                        echo "selected";
+                                                    }
+                                                    ?>
+                                                    >Sedang Dinilai</option>
+                                                    <option value="Selesai Dinilai"
+                                                    <?php
+                                                    if ($status=='Selesai Dinilai')
+                                                    {
+                                                        echo "selected";
+                                                    }
+                                                    ?>
+                                                    >Selesai Dinilai</option>
+                                        </select>
+                                            
                             </div>
                         </div>
                      </div>

@@ -7,32 +7,6 @@ session_start();
 if( !isset($_SESSION['login'])){
     header('location:../auth-login.php');
 }
-// Check if form is submitted for user update, then redirect to homepage after update
-if(isset($_POST['update']))
-{   
-    $id_rekap = isset($_POST['id_rekap']) ? $_POST['id_rekap'] : '';
-    $status = isset($_POST['status']) ? $_POST['status'] : '';
-    // update user data
-    $result = mysqli_query($mysqli, "UPDATE rekap_harian SET status='$status' WHERE id_rekap LIKE '%".$id_rekap."%'");
-
-    // Redirect to homepage to display updated user in list
-    header("Location: detail-rekap.php");
-}
-?>
-<?php
-// Display selected user data based on id
-// Getting id from url
-$id_rekap = isset($_GET['id_rekap']) ? $_GET['id_rekap'] : null;
-
-// Fetech user data based on id
-
-$result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE id_rekap LIKE '%".$id_rekap."%'");
-
-while($user_data = mysqli_fetch_array($result))
-{
-    $id_rekap =$user_data ['id_rekap'];
-    $status = $user_data ['status'];
-}
 ?>
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
@@ -129,7 +103,13 @@ while($user_data = mysqli_fetch_array($result))
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" navigation-header"><span>Tim Penilai</span>
                 </li>
-                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Penilai</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./app-user-edit.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan Statistisi</span></a>
                 </li>
@@ -191,18 +171,18 @@ while($user_data = mysqli_fetch_array($result))
                                 ?>
                                 <tr>
                                 <td></td>
-                                    
-                                    <td><?php echo $user_data['nama']; ?></td>
+                                         
+                                <td><?php echo $user_data['nama']; ?></td>
                                     <td><?php echo $user_data['nip']; ?></td>
-                                    <td><a href="view.php?id_rekap=<?php echo $user_data['id_rekap'];?>">Lihat File</a></td>
+                                    <td><a  class="btn btn-icon btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat File PDF" href="view.php?id_rekap=<?php echo $user_data['id_rekap'];?>">Lihat File</a></td>
                                     <td>
-                                    <div class="chip chip-warning" >
-                                        <a class="chip-text" href="./nilai.php?id_rekap=<?php echo $user_data['id_rekap']; ?>">Nilai</a>
+                                    <div >
+                                        <a  class="btn btn-icon btn-warning" data-toggle="tooltip" data-placement="top" title="Mau Nilai"  href="./nilai.php?id_rekap=<?php echo $user_data['id_rekap']; ?>">Nilai</a>
                                     </div>
                                     </td>
                                     <td><?php echo $user_data['total_nilai']; ?></td>
                                     <td><?php echo $user_data['status']; ?></td>
-                                   <?php } ?>  
+                                    <?php } ?>  
                             </tbody>
                         </table>
                     </div>
@@ -211,7 +191,7 @@ while($user_data = mysqli_fetch_array($result))
                             <thead>
                             <tr>
                                     <th></th>
-                                    <th>No.</th>
+                                    <th>No</th>
                                     <th>Unsur</th>
                                     <th>Sub Unsur</th>
                                     <th>Butir Kegiatan</th>
@@ -229,7 +209,8 @@ while($user_data = mysqli_fetch_array($result))
                                 include_once("../config.php");
                                 $no = 1;
                                 // Fetch all users data from database
-                                $result = mysqli_query($mysqli, "SELECT * FROM rekap_harian ");
+                                $result = mysqli_query($mysqli, "SELECT t1.nama, t1.id_rekap, t1.unggah_bukti, t1.nip, t1.status, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t2.unsur, t3.sub_unsur 
+                                FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur");
 
                                 while($user_data = mysqli_fetch_array($result)) {  
 
@@ -247,34 +228,9 @@ while($user_data = mysqli_fetch_array($result))
                                     <td><?php echo $user_data['jumlah_kredit']; ?></td>
                                 </tr>
                                 <?php } ?>
-                                
                             </tbody>
                         </table>
                     </div>
-                    <div class="modal fade text-left" id="kepo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-                                                <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h4 class="modal-title" id="myModalLabel33">Ubah Nilai </h4>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <form name="update" method="post" action="">
-                                                            <div class="modal-body">
-                                                                <label>Angka Kredit </label>
-                                                                <div class="input-group">
-                                                                    <input type="number" class="touchspin"  name="angka_kredit" class="form-control" value="<?php echo $angka_kredit;?>">
-                                                                </div>
-                                                            </div>
-                                                            <div class="modal-footer">
-                                                            <input type="hidden"  name="id_rekap" value="<?php echo $_GET['id_rekap'];?>">
-			                                                <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
                 </section>
                 <!-- app ecommerce details end -->
             </div>

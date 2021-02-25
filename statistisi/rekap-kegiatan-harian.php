@@ -136,7 +136,13 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
@@ -260,7 +266,7 @@
                                                             </div>
                                                             <div class="col-md">
                                                                 <div class="position-relative">
-                                                                <textarea class="form-control" id="pass-icon" rows="3" placeholder="Uraian Kegiatan" name="uraian_kegiatan" required autofocus></textarea>
+                                                                <textarea class="form-control" rows="3" placeholder="Uraian Kegiatan" name="uraian_kegiatan" required autofocus></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -272,7 +278,7 @@
                                                             </div>
                                                             <div class="col-md">
                                                                 <div class="input-group">
-                                                                <input name="volume_kegiatan" type="number" class="touchspin" value="50" ></input>
+                                                                <input name="volume_kegiatan" type="number" class="touchspin" value="0" ></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -321,12 +327,12 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="position-relative">
-                                                                <input  id="inputGroupFile01" name="unggah_bukti"  type="file" class="form-control-file" multiple >
+                                                                <input  id="inputGroupFile01" name="unggah_bukti"  type="file"  class="form-control-file" multiple >
                                                             </div>
                                                             </div>
                                                         </div>
                                                     </div>   
-                                                    <div class="col-md-8 offset-md-4" >
+                                                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
                                                         <button type="submit" name="Submit" value="Add" class="btn btn-primary mr-1 mb-1" onclick="return confirm('Yakin')" id="type-success">Submit</button>
                                                     </div>
                                                 </div>

@@ -183,7 +183,13 @@ while($user_data = mysqli_fetch_array($result))
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                             <li class=" navigation-header"><span>Tim Admin</span>
                             </li>
-                            <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                            <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Admin</span></a>
+                            <ul class="menu-content">
+                                <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                                </li>
+                                <li><a href="./app-user-edit.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                                </li>
+                            </ul>
                             </li>
                             <li class=" nav-item"><a href="./pengguna.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Kelola Pengguna</span></a>
                             </li>

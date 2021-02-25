@@ -136,7 +136,13 @@ if( !isset($_SESSION['login'])){
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class=" navigation-header"><span>Tim Penilai</span>
                 </li>
-                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Penilai</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./app-user-edit.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan Statistisi</span></a>
                 </li>
@@ -155,12 +161,12 @@ if( !isset($_SESSION['login'])){
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-left mb-0">Rekap Kegiatan Harian Statistisi</h2>
+                            <h2 class="content-header-title float-left mb-0">Penilai</h2>
                             <div class="breadcrumb-wrapper col-12">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="../index.php">Home</a>
+                                    <li class="breadcrumb-item"><a href="app-user-view.php">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item active">List Kegiatan
+                                    <li class="breadcrumb-item active">Rekap Kegiatan Harian Statistisi
                                     </li>
                                 </ol>
                             </div>
@@ -172,49 +178,130 @@ if( !isset($_SESSION['login'])){
                 <!-- Data list view starts -->
                 <section id="data-list-view" class="data-list-view-header">
                     <!-- DataTable starts -->
+                    <div class="card">
                     <div class="table-responsive">
                         <table class="table table-striped mb-0">
-                            <thead>
-                                <tr>
-                                     <th></th>
+                            <thead >
+                                <tr class="table-success">
+
+                                <th></th>
                                     <th>Nama</th>
                                     <th>NIP</th>
+                                    <th>Unsur</th>
                                     <th>Sub Unsur</th>
-                                    <th>Butir Kegiatan</th>
-                                    <th>Tanggal</th>
+                                    <th>Menilai</th>
                                     <th>ACTION</th>
+                                    <th>Status</th>
                                 </tr>
-                            </thead>
-                            <tbody>
-                            <?php 
-                               // Create database connection using config file
-                                error_reporting(0);
-                                include_once("../config.php");
 
-                                // Fetch all users data from database
-                                $result = mysqli_query($mysqli, "SELECT * FROM rekap_harian ORDER BY id_rekap ASC");
-
-                                while($user_data = mysqli_fetch_array($result)) {  
-
-                                ?>
-                                <tr>
-                                <td></td>
-                                    <td><?php echo $user_data['nama']; ?></td>
-                                    <td><?php echo $user_data['nip']; ?></td>
-                                    <td><?php echo $user_data['sub_unsur']; ?></td>
-                                    <td><?php echo $user_data['butir_kegiatan']; ?></td>
-                                    <td><?php echo $user_data['tanggal']; ?></td>
+        </thead>  
+        <tbody>
+          <?php 
+          $query = mysqli_query($mysqli, "SELECT t1.nip,t1.nama,t1.id_rekap,t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil,t1.status, t2.unsur, t3.sub_unsur 
+          FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur");
+          $no = 1;
+          while ($data = mysqli_fetch_assoc($query)) 
+          {
+          ?>
+            <tr>
+              <td><?php echo $no++; ?></td>
+              <td><?php echo $data['nama']; ?></td>
+              <td><?php echo $data['nip']; ?></td>
+                                    <td><?php echo $data['unsur']; ?></td>
+                                    <td><?php echo $data['sub_unsur']; ?></td>
                                     <td>
-                                    <div class="chip chip-warning" >
-                                        <a class="chip-text" href="./detail-rekap.php">Detail</a>
+                                    <div >
+                                        <a  class="btn btn-icon btn-warning" data-toggle="tooltip" data-placement="top" title="Mau Nilai"  href="./nilai.php?id_rekap=<?php echo $data['id_rekap']; ?>">Nilai</a>
                                     </div>
                                     </td>
-                                </tr>
-                                <?php } ?>
-                            </tbody>
-                        </table>
+                <td>
+                    <!-- Button untuk modal -->
+                    <a href="#" type="button" class="btn btn-icon btn-primary" data-toggle="modal" data-target="#myModal<?php echo $data['id_rekap']; ?>">Detail</a>
+                </td>
+                <td><?php echo $data['status']; ?></td>
+            </tr>
+            <!-- Modal Edit Mahasiswa-->
+            <div class="modal fade" id="myModal<?php echo $data['id_rekap']; ?>" role="dialog">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-header">
+                     <h4 class="modal-title" id="exampleModalScrollableTitle">Detail Rekap Kegiatan</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+    `           </div>
+
+                  <div class="modal-body">
+                        <?php
+                        $id_rekap = $data['id_rekap']; 
+                        $query_edit = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil, t1.jumlah_kredit, t1.total_nilai, t1.tanggal, t2.unsur, t3.sub_unsur 
+                        FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE id_rekap LIKE '%".$id_rekap."%'
+                        ");
+                        while ($row = mysqli_fetch_array($query_edit)) {  
+                        ?>
+                        <input type="hidden" name="id_mhs" value="<?php echo $row['id']; ?>">
+                        <div class="form-group">
+                          <h5>Unsur</h5>
+                          <label><?php echo $row['unsur']; ?></label>  
+                        </div>
+                        <div class="form-group">
+                          <h5>Sub Unsur</h5>
+                          <label><?php echo $row['sub_unsur']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Butir Kegiatan</h5>
+                          <label><?php echo $row['butir_kegiatan']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Uraian Kegiatan</h5>
+                          <label><?php echo $row['uraian_kegiatan']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Satuan Hasil</h5>
+                          <label><?php echo $row['satuan_hasil']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Angka Kredit</h5>
+                          <label><?php echo $row['angka_kredit']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Volume Kegiatan</h5>
+                          <label><?php echo $row['volume_kegiatan']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Jumlah Kredit</h5>
+                          <label><?php echo $row['jumlah_kredit']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Total Nilai</h5>
+                          <label><?php echo $row['total_nilai']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Tanggal Kegiatan</h5>
+                          <label><?php echo $row['tanggal']; ?></label>    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
+                            </div>
+
+                        <?php 
+                        }
+                        ?>        
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php               
+          } 
+          ?>
+        </tbody>
+      </table>          
+      </div>
                     </div>
                     </section>
+
                     <!-- DataTable ends -->
                 </div>
             </div>
@@ -223,6 +310,7 @@ if( !isset($_SESSION['login'])){
         </div>
     </div>
     <!-- END: Content-->
+    
 
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>

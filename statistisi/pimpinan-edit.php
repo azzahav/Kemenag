@@ -172,7 +172,13 @@ while($user_data = mysqli_fetch_array($result))
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
@@ -240,8 +246,24 @@ while($user_data = mysqli_fetch_array($result))
     <div class="form-group">
         <div class="controls">
         <label>Jabatan</label>
-        <select class="custom-select form-control" id="location1" name="jabatan"  value="<?php echo $jabatan;?>">
-      
+        <select class="custom-select form-control"  name="jabatan"  >
+                <option value="">===Pilih===</option>
+                <option value="Statistisi Muda"
+                <?php
+                if ($jabatan=='Statistisi Muda')
+                {
+                    echo "selected";
+                }
+                ?>
+                >Statistisi Muda</option>
+                <option value="Statistisi Madya"
+                <?php
+                if ($jabatan=='Statistisi Madya')
+                {
+                    echo "selected";
+                }
+                ?>
+                >Statistisi Madya</option>
     </select>
     </div>
     </div>
