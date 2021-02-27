@@ -23,7 +23,7 @@ if (isset($_SESSION['login'])) {
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/animate/animate.css">
-    <link rel="stylesheet" type="text/css" href="./app-assets/vendors/css/extensions/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/toastr.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -38,6 +38,7 @@ if (isset($_SESSION['login'])) {
     <link rel="stylesheet" type="text/css" href="./app-assets/css/core/menu/menu-types/vertical-menu.css">
     <link rel="stylesheet" type="text/css" href="./app-assets/css/core/colors/palette-gradient.css">
     <link rel="stylesheet" type="text/css" href="./app-assets/css/pages/authentication.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/extensions/toastr.css">
     <!-- END: Page CSS-->
 
 </head>
@@ -153,7 +154,7 @@ if (isset($_SESSION['login'])) {
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
-    <script src="./app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
     <script src="./app-assets/vendors/js/extensions/polyfill.min.js"></script>
     <!-- END: Page Vendor JS-->
 
@@ -164,7 +165,7 @@ if (isset($_SESSION['login'])) {
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="./app-assets/js/scripts/extensions/sweet-alerts.js"></script>
+    <script src="../app-assets/js/scripts/extensions/toastr.js"></script>
     <!-- END: Page JS-->
 
 </body>

@@ -6,6 +6,7 @@
     }
     if(isset($_POST['update']))
 {   
+    $nip = isset($_POST['nip']) ? $_POST['nip'] : '';
     $id_rekap = isset($_POST['id_rekap']) ? $_POST['id_rekap'] : '';
     $angka_kredit = isset($_POST['angka_kredit']) ? $_POST['angka_kredit'] : '';
     $volume_kegiatan = isset($_POST['volume_kegiatan']) ? $_POST['volume_kegiatan'] : '';
@@ -23,16 +24,17 @@
 <?php
 // Display selected user data based on id
 // Getting id from url
-$id_rekap = isset($_GET['id_rekap']) ? $_GET['id_rekap'] : null;
+$nip = isset($_GET['nip']) ? $_GET['nip'] : null;
 
 // Fetech user data based on id
 
 $result = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil, t2.unsur, t3.sub_unsur 
-FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE id_rekap LIKE '%".$id_rekap."%'
+FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE nip LIKE '%".$nip."%'
 ");
 
 while($user_data = mysqli_fetch_array($result))
 {
+    $nip =$user_data ['nip'];
     $id_rekap =$user_data ['id_rekap'];
     $angka_kredit = $user_data ['angka_kredit'];
     $status = $user_data ['status'];
@@ -297,31 +299,16 @@ while($user_data = mysqli_fetch_array($result))
                                     <div class="controls">
                                         <label>Status</label>
                                         <select class="form-control" name="status" required>
-                                                    <option value="">===Pilih===</option>
-                                                    <option value="Belum Dinilai"
-                                                    <?php
-                                                    if ($status=='Belum Dinilai')
-                                                    {
-                                                        echo "selected";
-                                                    }
-                                                    ?>
-                                                    >Belum Dinilai</option>
-                                                    <option value="Sedang Dinilai"
-                                                    <?php
-                                                    if ($status=='Sedang Dinilai')
-                                                    {
-                                                        echo "selected";
-                                                    }
-                                                    ?>
-                                                    >Sedang Dinilai</option>
-                                                    <option value="Selesai Dinilai"
-                                                    <?php
-                                                    if ($status=='Selesai Dinilai')
-                                                    {
-                                                        echo "selected";
-                                                    }
-                                                    ?>
-                                                    >Selesai Dinilai</option>
+                                        <option value="">Please Select</option>
+                                                <?php
+                                                    $query = mysqli_query($mysqli, "SELECT * FROM tabel_status ORDER BY status");
+                                                    while ($row = mysqli_fetch_array($query)) { ?>
+ 
+                                                    <option value="<?php echo $row['id_status']; ?>">
+                                                        <?php echo $row['status']; ?>
+                                                    </option>
+ 
+                                                <?php } ?>
                                         </select>
                                             
                             </div>
@@ -331,7 +318,7 @@ while($user_data = mysqli_fetch_array($result))
                     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
                         <input type="hidden"  name="id_rekap" value="<?php echo $_GET['id_rekap'];?>">
                         <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
-                        <a type="reset" class="btn btn-danger" href="detail-rekap.php">Cancel</a>
+                        <a type="reset" class="btn btn-danger" href="detail-rekap.php?nip=<?php echo $nip; ?>">Cancel</a>
                     </div>
                   </div>
               </form>

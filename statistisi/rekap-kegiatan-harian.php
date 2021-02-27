@@ -27,6 +27,7 @@
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/toastr.css">
     <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/forms/spinner/jquery.bootstrap-touchspin.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/extensions/sweetalert2.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -136,21 +137,19 @@
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
                 <ul class="menu-content">
-                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View</span></a>
                         </li>
-                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit</span></a>
                         </li>
                     </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
-                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Input Kegiatan</span></a>
                 </li>
-                <li class=" nav-item"><a href="./edit-rekap-kegiatan.php"><i class="feather icon-edit-1"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Ubah Rekap Kegiatan Harian</span></a>
-                </li>
-                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">List Rekap</span></a>
+                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan</span></a>
                 </li>
                 <li class=" navigation-header"><span>Pimpinan</span>
                 </li>
@@ -266,7 +265,7 @@
                                                             </div>
                                                             <div class="col-md">
                                                                 <div class="position-relative">
-                                                                <textarea class="form-control" rows="3" placeholder="Uraian Kegiatan" name="uraian_kegiatan" required autofocus></textarea>
+                                                                <textarea class="form-control" id="pass-icon" rows="3" placeholder="Uraian Kegiatan" name="uraian_kegiatan" required autofocus></textarea>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -278,7 +277,7 @@
                                                             </div>
                                                             <div class="col-md">
                                                                 <div class="input-group">
-                                                                <input name="volume_kegiatan" type="number" class="touchspin" value="0" ></input>
+                                                                <input name="volume_kegiatan" type="number" class="touchspin" value="50" ></input>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -327,13 +326,13 @@
                                                             </div>
                                                             <div class="col-md-8">
                                                                 <div class="position-relative">
-                                                                <input  id="inputGroupFile01" name="unggah_bukti"  type="file"  class="form-control-file" multiple >
+                                                                <input  id="inputGroupFile01" name="unggah_bukti"  type="file" class="form-control-file" multiple >
                                                             </div>
                                                             </div>
                                                         </div>
                                                     </div>   
-                                                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-                                                        <button type="submit" name="Submit" value="Add" class="btn btn-primary mr-1 mb-1" onclick="return confirm('Yakin')" id="type-success">Submit</button>
+                                                    <div class="col-md-8 offset-md-4" >
+                                                    <button type="success" name="Submit" value="Add" class="btn btn-primary mb-2" id="position-top-end">Submit</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -410,6 +409,8 @@
     <!-- BEGIN: Page Vendor JS-->
     <script src="../app-assets/vendors/js/extensions/toastr.min.js"></script>
     <script src="../app-assets/vendors/js/forms/spinner/jquery.bootstrap-touchspin.js"></script>
+    <script src="../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../app-assets/vendors/js/extensions/polyfill.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -423,16 +424,10 @@
     <script src="../app-assets/js/scripts/pages/app-user.js"></script>
     <script src="../app-assets/js/scripts/extensions/toastr.js"></script>
     <script src="../app-assets/js/scripts/forms/number-input.js"></script>
+    <script src="../app-assets/js/scripts/extensions/sweet-alerts.js"></script>
     <!-- END: Page JS-->
 
 </body>
 <!-- END: Body-->
 
 </html>
-
-
-
-
-
-
-

@@ -154,7 +154,7 @@ if( !isset($_SESSION['login'])){
                                     <th>Bukti Kegiatan</th>
                                     <th>Menilai</th>
                                     <th>Total Nilai</th>
-                                    <th>Status</th>
+                                    <th>Tanggal Kegiatan</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -162,9 +162,9 @@ if( !isset($_SESSION['login'])){
                                // Create database connection using config file
                                 error_reporting(0);
                                 include_once("../config.php");
-
+                                $nip = isset($_GET['nip']) ? $_GET['nip'] : null;
                                 // Fetch all users data from database
-                                $result = mysqli_query($mysqli, "SELECT * FROM rekap_harian ORDER BY id_rekap ASC");
+                                $result = mysqli_query($mysqli, "SELECT * FROM rekap_harian WHERE nip LIKE '%".$nip."%'");
 
                                 while($user_data = mysqli_fetch_array($result)) {  
 
@@ -181,7 +181,8 @@ if( !isset($_SESSION['login'])){
                                     </div>
                                     </td>
                                     <td><?php echo $user_data['total_nilai']; ?></td>
-                                    <td><?php echo $user_data['status']; ?></td>
+                                    <td><?php echo $user_data['tanggal']; ?></td>
+                                </tr>
                                     <?php } ?>  
                             </tbody>
                         </table>
@@ -207,10 +208,16 @@ if( !isset($_SESSION['login'])){
                                // Create database connection using config file
                                 error_reporting(0);
                                 include_once("../config.php");
+
                                 $no = 1;
                                 // Fetch all users data from database
-                                $result = mysqli_query($mysqli, "SELECT t1.nama, t1.id_rekap, t1.unggah_bukti, t1.nip, t1.status, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t2.unsur, t3.sub_unsur 
-                                FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur");
+                                $nip = isset($_GET['nip']) ? $_GET['nip'] : null;
+
+                                // Fetech user data based on id
+                                
+                                $result = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit,t1.jumlah_kredit, t1.satuan_hasil, t2.unsur, t3.sub_unsur 
+                                FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE nip LIKE '%".$nip."%'
+                                ");
 
                                 while($user_data = mysqli_fetch_array($result)) {  
 

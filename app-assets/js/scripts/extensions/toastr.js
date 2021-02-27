@@ -10,7 +10,7 @@ $(document).ready(function () {
 
   // Success Type
   $('#type-success').on('click', function () {
-    toastr.success('Have fun storming the castle!', 'Miracle Max Says');
+    toastr.success('Selamat Datang Have a Good Day');
   });
 
   // Info Type

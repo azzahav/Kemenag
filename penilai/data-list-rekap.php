@@ -187,118 +187,111 @@ if( !isset($_SESSION['login'])){
                                 <th></th>
                                     <th>Nama</th>
                                     <th>NIP</th>
-                                    <th>Unsur</th>
-                                    <th>Sub Unsur</th>
-                                    <th>Menilai</th>
-                                    <th>ACTION</th>
+                                    <th>Detail</th>
                                     <th>Status</th>
                                 </tr>
 
-        </thead>  
-        <tbody>
-          <?php 
-          $query = mysqli_query($mysqli, "SELECT t1.nip,t1.nama,t1.id_rekap,t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil,t1.status, t2.unsur, t3.sub_unsur 
-          FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur");
-          $no = 1;
-          while ($data = mysqli_fetch_assoc($query)) 
-          {
-          ?>
-            <tr>
-              <td><?php echo $no++; ?></td>
-              <td><?php echo $data['nama']; ?></td>
-              <td><?php echo $data['nip']; ?></td>
-                                    <td><?php echo $data['unsur']; ?></td>
-                                    <td><?php echo $data['sub_unsur']; ?></td>
-                                    <td>
-                                    <div >
-                                        <a  class="btn btn-icon btn-warning" data-toggle="tooltip" data-placement="top" title="Mau Nilai"  href="./nilai.php?id_rekap=<?php echo $data['id_rekap']; ?>">Nilai</a>
+                            </thead>  
+                            <tbody>
+                                <?php 
+                                $user_check = $_SESSION['role'] = "Statistisi";
+                                $query = mysqli_query($mysqli, "SELECT t1.nama, t1.nip, t2.role,t2.status FROM pengguna as t1 LEFT JOIN tabel_status as t2 ON t1.role=t2.id_status 
+                                ");
+                                $no = 1;
+                                while ($data = mysqli_fetch_assoc($query)) 
+                                {
+                                ?>
+                                    <tr>
+                                    <td><?php echo $no++; ?></td>
+                                    <td><?php echo $data['nama']; ?></td>
+                                    <td><?php echo $data['nip']; ?></td>
+                                                            <td>
+                                                            <div >
+                                                                <a  class="btn btn-icon btn-warning"  href="./detail-rekap.php?nip=<?php echo $data['nip']; ?>">Lihat Kegiatan</a>
+                                                            </div>
+                                                            </td>
+                                        
+                                        <td><?php echo $data['status']; ?></td>
+                                    </tr>
+                                    <!-- Modal Edit Mahasiswa-->
+                                    <div class="modal fade" id="myModal<?php echo $data['id_rekap']; ?>" role="dialog">
+                                    <div class="modal-dialog modal-dialog-scrollable" role="document">
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title" id="exampleModalScrollableTitle">Detail Rekap Kegiatan</h4>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                </button>
+                            `           </div>
+
+                                        <div class="modal-body">
+                                                <?php
+                                                $id_rekap = $data['id_rekap']; 
+                                                $query_edit = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil, t1.jumlah_kredit, t1.total_nilai, t1.tanggal, t2.unsur, t3.sub_unsur 
+                                                FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE id_rekap LIKE '%".$id_rekap."%'
+                                                ");
+                                                while ($row = mysqli_fetch_array($query_edit)) {  
+                                                ?>
+                                                <input type="hidden" name="id_mhs" value="<?php echo $row['id']; ?>">
+                                                <div class="form-group">
+                                                <h5>Unsur</h5>
+                                                <label><?php echo $row['unsur']; ?></label>  
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Sub Unsur</h5>
+                                                <label><?php echo $row['sub_unsur']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Butir Kegiatan</h5>
+                                                <label><?php echo $row['butir_kegiatan']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Uraian Kegiatan</h5>
+                                                <label><?php echo $row['uraian_kegiatan']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Satuan Hasil</h5>
+                                                <label><?php echo $row['satuan_hasil']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Angka Kredit</h5>
+                                                <label><?php echo $row['angka_kredit']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Volume Kegiatan</h5>
+                                                <label><?php echo $row['volume_kegiatan']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Jumlah Kredit</h5>
+                                                <label><?php echo $row['jumlah_kredit']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Total Nilai</h5>
+                                                <label><?php echo $row['total_nilai']; ?></label>    
+                                                </div>
+                                                <div class="form-group">
+                                                <h5>Tanggal Kegiatan</h5>
+                                                <label><?php echo $row['tanggal']; ?></label>    
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
+                                                    </div>
+
+                                                <?php 
+                                                }
+                                                ?>        
+                                            </form>
+                                        </div>
+                                        </div>
                                     </div>
-                                    </td>
-                <td>
-                    <!-- Button untuk modal -->
-                    <a href="#" type="button" class="btn btn-icon btn-primary" data-toggle="modal" data-target="#myModal<?php echo $data['id_rekap']; ?>">Detail</a>
-                </td>
-                <td><?php echo $data['status']; ?></td>
-            </tr>
-            <!-- Modal Edit Mahasiswa-->
-            <div class="modal fade" id="myModal<?php echo $data['id_rekap']; ?>" role="dialog">
-            <div class="modal-dialog modal-dialog-scrollable" role="document">
-                <!-- Modal content-->
-                <div class="modal-content">
-                <div class="modal-header">
-                     <h4 class="modal-title" id="exampleModalScrollableTitle">Detail Rekap Kegiatan</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                         <span aria-hidden="true">&times;</span>
-                        </button>
-    `           </div>
-
-                  <div class="modal-body">
-                        <?php
-                        $id_rekap = $data['id_rekap']; 
-                        $query_edit = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil, t1.jumlah_kredit, t1.total_nilai, t1.tanggal, t2.unsur, t3.sub_unsur 
-                        FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE id_rekap LIKE '%".$id_rekap."%'
-                        ");
-                        while ($row = mysqli_fetch_array($query_edit)) {  
-                        ?>
-                        <input type="hidden" name="id_mhs" value="<?php echo $row['id']; ?>">
-                        <div class="form-group">
-                          <h5>Unsur</h5>
-                          <label><?php echo $row['unsur']; ?></label>  
-                        </div>
-                        <div class="form-group">
-                          <h5>Sub Unsur</h5>
-                          <label><?php echo $row['sub_unsur']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Butir Kegiatan</h5>
-                          <label><?php echo $row['butir_kegiatan']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Uraian Kegiatan</h5>
-                          <label><?php echo $row['uraian_kegiatan']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Satuan Hasil</h5>
-                          <label><?php echo $row['satuan_hasil']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Angka Kredit</h5>
-                          <label><?php echo $row['angka_kredit']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Volume Kegiatan</h5>
-                          <label><?php echo $row['volume_kegiatan']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Jumlah Kredit</h5>
-                          <label><?php echo $row['jumlah_kredit']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Total Nilai</h5>
-                          <label><?php echo $row['total_nilai']; ?></label>    
-                        </div>
-                        <div class="form-group">
-                          <h5>Tanggal Kegiatan</h5>
-                          <label><?php echo $row['tanggal']; ?></label>    
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
-                            </div>
-
-                        <?php 
-                        }
-                        ?>        
-                      </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-          <?php               
-          } 
-          ?>
-        </tbody>
-      </table>          
-      </div>
+                                    </div>
+                                <?php               
+                                } 
+                                ?>
+                                </tbody>
+                            </table>          
+                    </div>
                     </div>
                     </section>
 
