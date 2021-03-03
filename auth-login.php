@@ -97,7 +97,7 @@ if (isset($_SESSION['login'])) {
                                             <div class="card-body pt-1">
                                                 <form method="post" action="cek_login.php">
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                        <input type="text" class="form-control"  name="nip"  id="user-name" placeholder="Masukkan nip" required autofocus>
+                                                        <input type="number" class="form-control"  name="nip"  id="user-name" placeholder="Masukkan nip" required autofocus>
                                                         <div class="form-control-position">
                                                             <i class="feather icon-user"></i>
                                                         </div>

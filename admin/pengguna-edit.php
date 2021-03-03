@@ -260,8 +260,23 @@ while($user_data = mysqli_fetch_array($result))
     <div class="controls">
         <label>Jabatan</label>
     <select class="custom-select form-control" id="jabatan" name="jabatan">
-    <option <?php if( $statusjabatan=='Statistisi Muda'){echo "selected"; } ?> value='Statistisi Muda'>Statistisi Muda</option>
-    <option  <?php if( $statusjabatan=='Statistisi Madya'){echo "selected"; } ?> value='Statistisi Madya'>Statistisi Madya</option>
+    <option value="">===Pilih===</option>
+                <option value="Statistisi Muda"
+                <?php
+                if ($jabatan=='Statistisi Muda')
+                {
+                    echo "selected";
+                }
+                ?>
+                >Statistisi Muda</option>
+                <option value="Statistisi Madya"
+                <?php
+                if ($jabatan=='Statistisi Madya')
+                {
+                    echo "selected";
+                }
+                ?>
+                >Statistisi Madya</option>
     </select>
     </div>
     </div>
@@ -275,9 +290,32 @@ while($user_data = mysqli_fetch_array($result))
     <div class="controls">
         <label>Status</label>
     <select class="custom-select form-control" id="location1" name="role" value="<?php echo $role;?>">
-        <option value="Statistisi">Statistisi</option>
-        <option value="Penilai">Penilai</option>
-        <option value="Admin">Admin</option>
+    <option value="">===Pilih===</option>
+                <option value="Statistisi"
+                <?php
+                if ($role=='Statistisi')
+                {
+                    echo "selected";
+                }
+                ?>
+                >Statistisi</option>
+                <option value="Penilai"
+                <?php
+                if ($role=='Penilai')
+                {
+                    echo "selected";
+                }
+                ?>
+                >Penilai</option>
+                <option value="Admin"
+                <?php
+                if ($role=='Admin')
+                {
+                    echo "selected";
+                }
+                ?>
+                >Admin</option>
+      
     </select>
     </div>
     </div>

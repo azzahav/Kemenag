@@ -1,296 +1,354 @@
-<html>
+<?php
+error_reporting(0);
+include('../session_co.php');
+session_start();
+if( !isset($_SESSION['login'])){
+    header('location:../auth-login.php');
+}
+?>
+<!DOCTYPE html>
+<html class="loading" lang="en" data-textdirection="ltr">
+<!-- BEGIN: Head-->
+
 <head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="refresh" content="5; URL=javascript:window.open('http://blog.prehanto.com/','_blank');">
-  <title>blog.prehanto.com</title>
-  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-  <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Condensed" rel="stylesheet">
-  <link rel="stylesheet" href="js/bootstrap.min.css">
-  <link rel="stylesheet" href="js/bootstrapValidator.css">
-  <link href="js/sweetalert.css" rel="stylesheet" type="text/css">
-  <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-  <script src="js/jquery-2.1.3.min.js"></script>
-  <script src="js/sweetalert.min.js"></script>                
-  <script src="js/sweetalert-dev.js"></script>   
-  <script src="js/jquery.min.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/bootstrapValidator.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
+    <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
+    <meta name="author" content="PIXINVENT">
+    <title>Rekap Kegiatan</title>
+    <link rel="apple-touch-icon" href="../app-assets/images/ico/apple-icon-120.png">
+    <link rel="shortcut icon" type="image/x-icon" href="../app-assets/images/ico/kemenag.png">
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 
-  <style type="text/css">
-  body { background-color:#fafafa;}
-.container { margin:50px auto;}
+    <!-- BEGIN: Vendor CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/tables/datatable/datatables.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/file-uploaders/dropzone.min.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/vendors/css/tables/datatable/extensions/dataTables.checkboxes.css">
+    <!-- END: Vendor CSS-->
 
-.phAnimate {
-  position: relative;
-  padding-top: 20px;
-  margin-bottom: 10px;
-}
+    <!-- BEGIN: Theme CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/bootstrap-extended.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/colors.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/components.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/themes/semi-dark-layout.css">
 
-.phAnimate input { padding-left: 15px; }
+    <!-- BEGIN: Page CSS-->
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/core/menu/menu-types/vertical-menu.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/core/colors/palette-gradient.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/plugins/file-uploaders/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="../app-assets/css/pages/data-list-view.css">
+    <!-- END: Page CSS-->
 
-.phAnimate label {
-  cursor: text;
-  margin: 0;
-  padding: 0;
-  left: 15px;
-  top: 27px;
-  position: absolute;
-  font-size: 14px;
-  color: #ccc;
-  font-weight: normal;
-  transition: all 0.3s ease;
-}
+    <!-- BEGIN: Custom CSS-->
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css">
+    <!-- END: Custom CSS-->
 
-.phAnimate label.active {
-  top: 0;
-  left: 0;
-  font-size: 12px;
-}
-.sweet-alert{
+</head>
+<!-- END: Head-->
 
-  position: fixed;
-  z-index: 999999;
-}
-.modal-content{
-  margin-top: 20%;
-}
-.judul{
-  font-family: 'Ubuntu Condensed', sans-serif;
-  font-size: 46px;
-  font-weight: 700;
-}
-.phAnimate label.active.focusIn { color: #66afe9; }
-</style>
-  </head>
+<!-- BEGIN: Body-->
 
-  <body>
-  <div id="jquery-script-menu">
-<div class="jquery-script-center">
-<ul>
-</ul>
-<h1 class="judul">blog.prehanto.com</h1>
-</div>
-  <div class="container">
-              
-                <div class="page-header">
-                    <h3>Data Siswa</h3>
+<body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-floating footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
+
+    <!-- BEGIN: Header-->
+    <nav class="header-navbar navbar-expand-lg navbar navbar-with-menu floating-nav navbar-light navbar-shadow">
+        <div class="navbar-wrapper">
+            <div class="navbar-container content">
+                <div class="navbar-collapse" id="navbar-mobile">
+                    <div class="mr-auto float-left bookmark-wrapper d-flex align-items-center">
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item mobile-menu d-xl-none mr-auto"><a class="nav-link nav-menu-main menu-toggle hidden-xs" href="#"><i class="ficon feather icon-menu"></i></a></li>
+                        </ul>
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item d-none d-lg-block"><img src="../app-assets/images/pages/kemenag25.png"><a class="h4"> KEMENTERIAN AGAMA RI</a>
+                            </li>
+                        </ul>
+                    </div>
+                        <a class="dropdown-toggle nav-link dropdown-user-link section_userinfo" href="#" data-toggle="dropdown">
+                            <span class="avatar avatar-online">
+                            <img src="https://sso.undip.ac.id/assets/app/images/user.png" style="max-width: 45px;" alt="foto"><i></i></span>
+                            <span class="user-name" style="margin-bottom: 1rem;" >  <?php echo $login_session; ?></span></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                <a class="dropdown-item"><i class="feather icon-user"></i> <?php echo $login_session5; ?></a>
+                                <div class="dropdown-divider"></div><a class="dropdown-item menu_changepass" href="#" data-toggle="modal" data-target="#inlineForm"><i class="feather icon-unlock"></i> Ganti Password</a>
+                                <a class="dropdown-item menu_logout" href="../logout.php" onclick="return confirm('Yakin Mau Logout??')"><i class="feather icon-power"></i> Logout</a>   
+                                </div>                   
+                    </li>
                 </div>
-                <a href="#" class="btn btn-primary" data-target="#barang" data-toggle="modal"><i class="fa fa-user-plus" aria-hidden="true"></i> Add</a>
-                <br/>
-                <br/> 
-                    <table class="table table-striped table-bordered table-hover">
-                        <thead>
-                            <tr>
-                                <td style="width: 70px; background-color: orange"><b>NIM</b></td>
-                                <td style="width: 120px; background-color: orange"><b>Nama</b></td>
-                                <td style="width: 140px; background-color: orange"><b>Alamat</b></td>
-                                <td style="width: 80px; background-color: orange"><b>Email</b></td>
-                                <td style="width: 30px; background-color: orange"><b>Aksi</b></td>
-                            </tr>
-                        </thead>
+            </div>
+        </div>
+    </nav>
+    <!-- END: Header-->
+    <!-- Modal -->
+    <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true" >
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+               <h4 class="modal-title" id="myModalLabel33">Ganti Password </h4>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+               <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <form action="./forgot.php" method="post">
+            <input type="hidden" name="nip" value="<?= $_SESSION['nip'] ?>">
+                <div class="modal-body">
+                    <label>Password Lama: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_lama" required>
+                  </div>
+
+                    <label>Password Baru: </label>
+                  <div class="form-group">
+                      <input type="password" class="form-control" name="pass_baru" required>
+                  </div>
+
+                    <label>Konfirmasi Password: </label>
+                   <div class="form-group">
+                        <input type="password" class="form-control" name="konfirmasi_pass" required>
+                   </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Proses</button>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- BEGIN: Main Menu-->
+    <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="app-user-view.php">
+                        <h2 class="brand-text mb-0">DUPAK ONLINE</h2>
+                    </a></li>
+                <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
+            </ul>
+        </div>
+        <div class="shadow-bottom"></div>
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class=" navigation-header"><span>Tim Penilai</span>
+                </li>
+                <li class=" nav-item"><a href="./app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Penilai</span></a>
+                <ul class="menu-content">
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
+                        </li>
+                        <li><a href="./app-user-edit.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="./data-list-rekap.php"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Colors">Rekap Kegiatan Statistisi</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+                  
+    <!-- END: Main Menu-->
+
+    <!-- BEGIN: Content-->
+    <div class="app-content content">
+        <div class="content-overlay"></div>
+        <div class="header-navbar-shadow"></div>
+        <div class="content-wrapper">
+            <div class="content-header row">
+                <div class="content-header-left col-md-9 col-12 mb-2">
+                    <div class="row breadcrumbs-top">
+                        <div class="col-12">
+                            <h2 class="content-header-title float-left mb-0">Penilai</h2>
+                            <div class="breadcrumb-wrapper col-12">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="app-user-view.php">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active">Rekap Kegiatan Harian Statistisi
+                                    </li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-body">
+                <!-- Data list view starts -->
+                <section id="data-list-view" class="data-list-view-header">
+                    <!-- DataTable starts -->
+                    <div class="card">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead >
+                                <tr class="table-success">
+
+                                <th></th>
+                                    <th>Nama</th>
+                                    <th>NIP</th>
+                                    <th>Sub Unsur</th>
+                                    <th>Butir Kegiatan</th>
+                                    <th>Menilai</th>
+                                    <th>ACTION</th>
+                                    <th>Status</th>
+                                </tr>
+
+        </thead>  
+        <tbody>
+          <?php 
+          $query = mysqli_query($mysqli, "SELECT t1.nip,t1.nama,t1.id_rekap,t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil,t1.satuan_hasil, t2.unsur, t3.sub_unsur 
+          FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur");
+          $no = 1;
+          while ($data = mysqli_fetch_assoc($query)) 
+          {
+          ?>
+            <tr>
+              <td><?php echo $no++; ?></td>
+              <td><?php echo $data['nama']; ?></td>
+              <td><?php echo $data['nip']; ?></td>
+                                    <td><?php echo $data['sub_unsur']; ?></td>
+                                    <td><?php echo $data['butir_kegiatan']; ?></td>
+                                    <td>
+                                    <div >
+                                        <a  class="btn btn-icon btn-warning" data-toggle="tooltip" data-placement="top" title="Mau Nilai"  href="./nilai.php?id_rekap=<?php echo $data['id_rekap']; ?>">Nilai</a>
+                                    </div>
+                                    </td>
+                <td>
+                    <!-- Button untuk modal -->
+                    <a href="#" type="button" class="btn btn-info btn-xs" data-toggle="modal" data-target="#myModal<?php echo $data['id_rekap']; ?>">Detail</a>
+                </td>
+                <td><?php echo $data['status']; ?></td>
+            </tr>
+            <!-- Modal Edit Mahasiswa-->
+            <div class="modal fade" id="myModal<?php echo $data['id_rekap']; ?>" role="dialog">
+            <div class="modal-dialog modal-dialog-scrollable" role="document">
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-header">
+                     <h4 class="modal-title" id="exampleModalScrollableTitle">Detail Rekap Kegiatan</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                         <span aria-hidden="true">&times;</span>
+                        </button>
+    `           </div>
+
+                  <div class="modal-body">
                         <?php
-                        include "koneksi.php";
-                        $res = $mysqli->query("SELECT * FROM siswa");
-                        while ($data = $res->fetch_assoc()):
+                        $id_rekap = $data['id_rekap']; 
+                        $query_edit = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil, t1.jumlah_kredit, t1.total_nilai, t1.tanggal, t2.unsur, t3.sub_unsur 
+                        FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE id_rekap LIKE '%".$id_rekap."%'
+                        ");
+                        while ($row = mysqli_fetch_array($query_edit)) {  
                         ?>
-                        <tbody>
-                            <tr>
-                               
-                                <td><?php echo $data['nim'] ?></td>
-                                <td><?php echo $data['nama'] ?></td>
-                                <td><?php echo $data['alamat'] ?></td>
-                                <td><?php echo $data['email'] ?></td>
-                                <td>
+                        <input type="hidden" name="id_mhs" value="<?php echo $row['id']; ?>">
+                        <div class="form-group">
+                          <h5>Unsur</h5>
+                          <label><?php echo $row['unsur']; ?></label>  
+                        </div>
+                        <div class="form-group">
+                          <h5>Sub Unsur</h5>
+                          <label><?php echo $row['sub_unsur']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Butir Kegiatan</h5>
+                          <label><?php echo $row['butir_kegiatan']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Uraian Kegiatan</h5>
+                          <label><?php echo $row['uraian_kegiatan']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Satuan Hasil</h5>
+                          <label><?php echo $row['satuan_hasil']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Angka Kredit</h5>
+                          <label><?php echo $row['angka_kredit']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Volume Kegiatan</h5>
+                          <label><?php echo $row['volume_kegiatan']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Jumlah Kredit</h5>
+                          <label><?php echo $row['jumlah_kredit']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Total Nilai</h5>
+                          <label><?php echo $row['total_nilai']; ?></label>    
+                        </div>
+                        <div class="form-group">
+                          <h5>Tanggal Kegiatan</h5>
+                          <label><?php echo $row['tanggal']; ?></label>    
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Accept</button>
+                            </div>
 
-                                    <a href="#" data-target="#open_modal" data-toggle="modal" class='btn btn-warning' id='<?php echo $data['id']; ?>'><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                    <a href="index.php?id=<?php echo $data['id'] ?>" class='btn btn-danger delete-link' ><i class="fa fa-trash-o" aria-hidden="true"></i>
-                                </td>
-                                
-                            </tr>
-                            <?php
-                            endwhile;
-                            ?>
-
-                        </tbody>
-                    </table>
-                <?php
-                include "koneksi.php";
-                if(isset($_GET['id'])):
-                     $stmt = $mysqli->prepare("DELETE FROM siswa WHERE id=?");
-                     $stmt->bind_param('s', $id);
-                 
-                     $id = $_GET['id'];
-                 
-                     if($stmt->execute()):
-                          echo "<script>location.href='index.php'</script>";
-                     else:
-                          echo "<script>alert('".$stmt->error."')</script>";
-                     endif;
-                endif;
-                ?>
-
-          <div class="modal fade" id="barang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Tambah Data Barang</h4>
+                        <?php 
+                        }
+                        ?>        
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          <?php               
+          } 
+          ?>
+        </tbody>
+      </table>          
+      </div>
                     </div>
-                    <div class="modal-body">
+                    </section>
 
-                    <?php
-                      include "koneksi.php";
-                      if(isset($_POST['bts'])):
-                           $stmt = $mysqli->prepare("INSERT INTO siswa(nim,nama,alamat,email) VALUES (?,?,?,?)");
-                           $stmt->bind_param('ssss', $nim, $nama, $alamat, $email);
-                       
-                           $nim = $_POST['nim'];
-                           $nama = $_POST['nama'];
-                           $alamat = $_POST['alamat'];
-                           $email = $_POST['email'];
-                       
-                           if($stmt->execute()):
-                               
-                                echo "<script language='javascript'>swal('Selamat...', 'Data Berhasil di input!', 'success');</script>" ;
-                                echo '<meta http-equiv="Refresh" content="3; URL=index.php">';
-                           else:
-                                echo "<script language='javascript'>swal('Oops...', 'Something went wrong!', 'error');</script>" ;
-                                echo '<meta http-equiv="Refresh" content="2; URL=index.php">';
-                           endif;
-                      endif;
-                      ?>
-                        <form action="index.php" class="form-horizontal" method="POST" id="form-save">
-                        <div class="phAnimate">  
-                        <label for="firstname">NIM</label>
-                        <input type="text" name="nim" class="form-control" id="firstname">
-                      </div>
-                      <div class="phAnimate">
-                        <label for="lastname">Nama</label>
-                        <input type="text" name="nama" class="form-control" id="lastname">
-                      </div>
-                      <div class="phAnimate">
-                        <label for="password">Alamat</label>
-                        <input type="text" name="alamat" class="form-control" id="password" placeholder="Alamat">
-                      </div>
-                      <div class="phAnimate">
-                        <label>Email</label>
-                        <input type="email" name="email" class="form-control" placeholder="email">
-                      </div>
-                 
-                      <input type="submit" class="btn btn-primary" name="bts" value="save">      
-
-                        </form>
-                    </div>
+                    <!-- DataTable ends -->
                 </div>
             </div>
-        </div>
-
-        <div class="modal fade" id="open_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="myModalLabel">Tambah</h4>
-                    </div>
-                    <div class="modal-body">
-                    <?php
-                        include "koneksi.php";
-                        if(isset($_GET['id'])):
-                             if(isset($_POST['bts'])):
-                                  $stmt = $mysqli->prepare("UPDATE siswa SET nim=?, nama=?, alamat=?, email=? WHERE id=?");
-                                  $stmt->bind_param('ssss', $nim, $nama, $alamat, $email, $id);
-                         
-                                 $nim = $_POST['nim'];
-                                 $nama = $_POST['nama'];
-                                 $alamat = $_POST['alamat'];
-                                 $email = $_POST['email'];
-                                  $id = $_POST['id'];
-                         
-                                  if($stmt->execute()):
-                                       echo "<script>location.href='index.php'</script>";
-                                  else:
-                                       echo "<script>alert('".$stmt->error."')</script>";
-                                  endif;
-                             endif;
-                             $res = $mysqli->query("SELECT * FROM siswa WHERE id=".$_GET['id']);
-                             $row = $res->fetch_assoc();
-                             endif;
-                        ?>
-
-                        <form class="form-horizontal" method="POST" id="form-save">
-                        <div class="phAnimate">  
-                        <label for="firstname">NIM</label>
-                        <input type="hidden" value="<?php echo $data['id'] ?>" name="id"/>
-                        <input type="text" value="<?php echo $data['nim'] ?>" name="nim" class="form-control" id="firstname">
-                      </div>
-                      <div class="phAnimate">
-                        <label for="lastname">Nama</label>
-                        <input type="text" value="<?php echo $data['nama'] ?>" name="nama" class="form-control" id="lastname">
-                      </div>
-                      <div class="phAnimate">
-                        <label for="password">Alamat</label>
-                        <input type="text" value="<?php echo $data['alamat'] ?>" name="alamat" class="form-control" id="password" placeholder="Alamat">
-                      </div>
-                      <div class="phAnimate">
-                        <label>Email</label>
-                        <input type="email" value="<?php echo $data['email'] ?>" name="email" class="form-control" placeholder="email">
-                      </div>
-                      <input type="submit" value="Update" class="btn btn-primary" name="bts" value="save">                          
-
-                        </form>
-                    </div>
-                </div>
+                <!-- Data list view end -->
             </div>
         </div>
+    </div>
+    <!-- END: Content-->
+    
 
-  </div>
-<script type="text/javascript" src="//cdn.popcash.net/pop.js"></script>
-<script src="http://code.jquery.com/jquery-3.0.0.min.js"></script> 
-<script src="js/phanimate.jquery.js"></script>
-<script>
-$(document).ready(function() {
- $('.phAnimate input').phAnim();
-});
-</script>
-<script type="text/javascript">
-  var uid = '171291';
-  var wid = '374554';
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-36251023-1']);
-  _gaq.push(['_setDomainName', 'jqueryscript.net']);
-  _gaq.push(['_trackPageview']);
+    <div class="sidenav-overlay"></div>
+    <div class="drag-target"></div>
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+    <!-- BEGIN: Footer-->
+    <footer class="footer footer-static footer-light">
+        <p class="clearfix blue-grey lighten-2 mb-0"><span class="float-md-left d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2020<a class="text-bold-800 grey darken-2" target="_blank">Biro Humas Data dan Informasi</a>All rights Reserved</span><span class="float-md-right d-none d-md-block">Hand-crafted & Made with<i class="feather icon-heart pink"></i></span>
+            <button class="btn btn-primary btn-icon scroll-top" type="button"><i class="feather icon-arrow-up"></i></button>
+        </p>
+    </footer>
+    <!-- END: Footer-->
 
-</script>
- <script>
-        jQuery(document).ready(function($){
-            $('.delete-link').on('click',function(){
-                var getLink = $(this).attr('href');
-                swal({
-                        title: "Are you sure?",
-                        text: 'Hapus Data?',
-                        type: "warning",
-                        html: true,
-                        confirmButtonColor: '#d9534f',
 
-                        confirmButtonColor: "#DD6B55",
-                        showCancelButton: true,
-                        },function(){
-                        window.location.href = getLink
-                    });
-                return false;
-            });
-        });
-    </script>
+    <!-- BEGIN: Vendor JS-->
+    <script src="../app-assets/vendors/js/vendors.min.js"></script>
+    <!-- BEGIN Vendor JS-->
+
+    <!-- BEGIN: Page Vendor JS-->
+    <script src="../app-assets/vendors/js/extensions/dropzone.min.js"></script>
+    <script src="../app-assets/vendors/js/tables/datatable/datatables.min.js"></script>
+    <script src="../app-assets/vendors/js/tables/datatable/datatables.buttons.min.js"></script>
+    <script src="../app-assets/vendors/js/tables/datatable/datatables.bootstrap4.min.js"></script>
+    <script src="../app-assets/vendors/js/tables/datatable/buttons.bootstrap.min.js"></script>
+    <script src="../app-assets/vendors/js/tables/datatable/dataTables.select.min.js"></script>
+    <script src="../app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js"></script>
+    <!-- END: Page Vendor JS-->
+
+    <!-- BEGIN: Theme JS-->
+    <script src="../app-assets/js/core/app-menu.js"></script>
+    <script src="../app-assets/js/core/app.js"></script>
+    <script src="../app-assets/js/scripts/components.js"></script>
+    <!-- END: Theme JS-->
+
+    <!-- BEGIN: Page JS-->
+    <script src="../app-assets/js/scripts/ui/data-list-view.js"></script>
+    <!-- END: Page JS-->
 
 </body>
+<!-- END: Body-->
+
 </html>

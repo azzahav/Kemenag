@@ -201,19 +201,19 @@ while ($user_data = mysqli_fetch_array($result)) {
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
                 <ul class="menu-content">
-                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View</span></a>
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
                         </li>
-                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit</span></a>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
                         </li>
                     </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
-                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Input Kegiatan</span></a>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Input Kegiatan Harian</span></a>
                 </li>
-                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan</span></a>
+                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
                 </li>
                 <li class=" navigation-header"><span>Pimpinan</span>
                 </li>
@@ -262,7 +262,7 @@ while ($user_data = mysqli_fetch_array($result)) {
                                                     <i class="feather icon-info mr-25"></i><span class="d-none d-sm-block">Ubah Rekap Kegiatan Harian</span>
                                                 </a>
                                         </ul>
-                                        <form class="form form-horizontal" action="" method="POST" name="form3" enctype="multipart/form-data">
+                                        <form class="form form-horizontal" action="" method="POST" name="update" enctype="multipart/form-data">
                                             <div class="col-12">
                                                 <div class="form-group row">
                                                     <div class="col-md-4">
@@ -297,7 +297,7 @@ while ($user_data = mysqli_fetch_array($result)) {
                                                             <?php
                                                             $fetchUnsur = mysqli_query($mysqli, "SELECT * FROM data_unsur WHERE id_unsur LIKE '%" . $unsur . "%'");
                                                             while ($uns = mysqli_fetch_array($fetchUnsur)) {
-                                                                echo '<option name="unsur"  value="' . $uns['unsur'] . '">' . $uns['unsur'] . '</option>';
+                                                                echo '<option name="unsur"  value="' . $uns['id_unsur'] . '">' . $uns['unsur'] . '</option>';
                                                             }
                                                             ?>
 
@@ -307,7 +307,7 @@ while ($user_data = mysqli_fetch_array($result)) {
                                                             $jsArray = "var prdName = new Array();\n";
                                                             while ($row = mysqli_fetch_array($result)) {
 
-                                                                echo '<option name="unsur"  value="' . $row['unsur'] . '">' . $row['unsur'] . '</option>';
+                                                                echo '<option name="unsur"  value="' . $row['id_unsur'] . '">' . $row['unsur'] . '</option>';
 
 
                                                                 // $jsArray .= "prdName['" . $row['butir_kegiatan'] . "'] = {angka_kredit:'" . addslashes($row['angka_kredit']) . "'};\n";
@@ -323,11 +323,11 @@ while ($user_data = mysqli_fetch_array($result)) {
                                                         <span>Sub Unsur</span>
                                                     </div>
                                                     <div class="col-md-8">
-                                                        <select class="custom-select form-control" name="unsur" onchange='changeValue(this.value)' id="unsur" value="">
+                                                        <select class="custom-select form-control" name="sub_unsur" onchange='changeValue(this.value)' id="unsur" value="">
                                                             <?php
                                                             $subUnsur = mysqli_query($mysqli, "SELECT * FROM data_subunsur WHERE id_subunsur LIKE '%" . $sub_unsur . "%'");
                                                             while ($sub = mysqli_fetch_array($subUnsur)) {
-                                                                echo '<option name="unsur"  value="' . $sub['sub_unsur'] . '">' . $sub['sub_unsur'] . '</option>';
+                                                                echo '<option name="unsur"  value="' . $sub['id_subunsur'] . '">' . $sub['sub_unsur'] . '</option>';
                                                             }
                                                             ?>
 
@@ -337,7 +337,7 @@ while ($user_data = mysqli_fetch_array($result)) {
                                                             $jsArray = "var prdName = new Array();\n";
                                                             while ($row = mysqli_fetch_array($result)) {
 
-                                                                echo '<option name="unsur"  value="' . $row['sub_unsur'] . '">' . $row['sub_unsur'] . '</option>';
+                                                                echo '<option name="unsur"  value="' . $row['id_subunsur'] . '">' . $row['sub_unsur'] . '</option>';
 
 
                                                                 // $jsArray .= "prdName['" . $row['butir_kegiatan'] . "'] = {angka_kredit:'" . addslashes($row['angka_kredit']) . "'};\n";
@@ -437,6 +437,7 @@ while ($user_data = mysqli_fetch_array($result)) {
                                                     <div class="col-md-8">
                                                         <div class="position-relative">
                                                             <input id="inputGroupFile01" name="unggah_bukti" type="file" class="form-control-file" multiple>
+                                                            <a  class="" data-toggle="tooltip" data-placement="top" title="Lihat File PDF" href="./view.php?id_rekap=<?php echo $id_rekap;?>">Lihat File</a>
                                                         </div>
                                                     </div>
                                                 </div>

@@ -24,12 +24,12 @@
 <?php
 // Display selected user data based on id
 // Getting id from url
-$nip = isset($_GET['nip']) ? $_GET['nip'] : null;
+$id_rekap = isset($_GET['id_rekap']) ? $_GET['id_rekap'] : null;
 
 // Fetech user data based on id
 
 $result = mysqli_query($mysqli, "SELECT t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.satuan_hasil, t2.unsur, t3.sub_unsur 
-FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE nip LIKE '%".$nip."%'
+FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE id_rekap LIKE '%".$id_rekap."%'
 ");
 
 while($user_data = mysqli_fetch_array($result))
@@ -202,103 +202,145 @@ while($user_data = mysqli_fetch_array($result))
             <div class="content-header row">
             </div>
             <div class="content-body">
+            <div class="alert alert-primary">
+                    <i class="feather icon-info mr-1"></i> Informasi Lebih Lanjut
+                </div>
                 <!-- users edit start -->
-                <section class="page-users-view">
-                    <div class="row">
-                        <!-- account start -->
-                        <div class="col-7" action="detail-rekap.php" method="post"  name="form">
-                        </div>
-                        <div class="col-md-0 col-6 ">
-                            <div class="card">
-                                <div class="card-header">
-                                <div class="card-title">Detail Rekap Kegiatan</div>
-                                </div>
-                                <div class="card-body">
-                                            <table>
-            
-                                                <tr>
-                                                    <td class="font-weight-bold" >Unsur</td>
-                                                    <td ><?php echo $unsur; ?> </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Sub Unsur</td>
-                                                    <td><?php echo $sub_unsur; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Butir Kegiatan</td>
-                                                    <td><?php echo $butir_kegiatan; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Uraian Kegiatan</td>
-                                                    <td><?php echo $uraian_kegiatan; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Volume Kegiatan</td>
-                                                    <td><?php echo $volume_kegiatan; ?></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="font-weight-bold">Angka Kredit</td>
-                                                    <td><?php echo $angka_kredit; ?></td>
-                                                </tr>
-                                            </table>
+                <section id="content-types">
+                <div class="row">
+                <div class="col-xl-6 col-md-6 col-sm-12">
+                            <div class="card collapse-icon accordion-icon-rotate">
+                                <div class="card-body border-primary">
+                                    <div class="accordion" id="accordionExample" data-toggle-hover="true">
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingOne" data-toggle="collapse" role="button" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                                                <span class="lead collapse-title collapsed text-primary">
+                                                   Unsur Kegiatan
+                                                </span>
+                                            </div>
+
+                                            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <?php echo $unsur; ?>
+                                                </div>
+                                            </div>
                                         </div>
-                                
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingTwo" data-toggle="collapse" role="button" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                <span class="lead collapse-title collapsed text-primary">
+                                                   Sub Unsur Kegiatan
+                                                </span>
+                                            </div>
+                                            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <?php echo $sub_unsur; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingThree" data-toggle="collapse" role="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <span class="lead collapse-title text-primary">
+                                                   Butir Kegiatan
+                                                </span>
+                                            </div>
+                                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <?php echo $butir_kegiatan; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingFour" data-toggle="collapse" role="button" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                <span class="lead collapse-title text-primary">
+                                                   Uraian Kegiatan
+                                                </span>
+                                            </div>
+                                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <?php echo $uraian_kegiatan; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingThree" data-toggle="collapse" role="button" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                <span class="lead collapse-title text-primary">
+                                                   Bukti Kegiatan
+                                                </span>
+                                            </div>
+                                            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <a  class="" data-toggle="tooltip" data-placement="top" title="Lihat File PDF" href="view.php?id_rekap=<?php echo $user_data['id_rekap'];?>">Lihat File</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingFive" data-toggle="collapse" role="button" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                <span class="lead collapse-title text-primary">
+                                                  Angka Kredit
+                                                </span>
+                                            </div>
+                                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <?php echo $angka_kredit; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingsix" data-toggle="collapse" role="button" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                <span class="lead collapse-title text-primary">
+                                                  Volume Kegiatan
+                                                </span>
+                                            </div>
+                                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <?php echo $volume_kegiatan; ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="collapse-margin">
+                                            <div class="card-header" id="headingseven" data-toggle="collapse" role="button" data-target="#collapseFour" aria-expanded="true" aria-controls="collapseFour">
+                                                <span class="lead collapse-title text-primary">
+                                                  Total Nilai Kegiatan
+                                                </span>
+                                            </div>
+                                            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                                                <div class="card-body">
+                                                <?php echo $total_nilai; ?>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        
-                        <!-- account end -->
                     </div>
-                </section>
-                <section class="users-edit">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-body">
-                                <ul class="nav nav-tabs mb-1" role="tablist">
-                                    <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" id="account-tab"  aria-controls="account">
-                                            <i class="feather icon-search mr-1"></i><span class="d-none d-sm-block">Detail Rekap Kegiatan Statistisi</span>
-                                        </a>
-                                    </li>
-                                    </ul>
-                                    <form name="update" method="post" action="">
-                                        <div class="pt-0">
-                                        <div class="row">
-                                        <div class="col-12 col-sm-6">
-                                        <div class="form-group">
-                                        <div class="controls">
-                                        <th>Bukti Kegiatan</h8>
-                                        <td><a  class="btn btn-info btn-primary" data-toggle="tooltip" data-placement="top" title="Lihat File PDF" href="view.php?id_rekap=<?php echo $user_data['id_rekap'];?>">Lihat File</a></td>
+                        <div class="col-xl-6 col-md-6 col-sm-12">
+                            <div class="card">
+                                <div class="card-content border-primary">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Feedback Form</h4>
                                     </div>
-                                    </div>
-                                   
-                                    <div class="form-group">
-                                        <div class="controls">
-                                        <label>uraian_kegiatan</label>
-                                        <input class="form-control" readonly name="uraian_kegiatan"  value="<?php echo $uraian_kegiatan;?>">
-                                    </div>
-                                    </div>
-                                    <div class="form-group">
-                                    <div class="controls">
-                                        <label>Angka Kredit</label>
-                                    <input class="form-control" name="angka_kredit" value="<?php echo $angka_kredit;?>">
-                                    </div>
-                                    </div>
-                                    <div class="form-group">
-                                    <div class="controls">
-                                        <label>Volume Kegiatan</label>
-                                    <input type="text" class="form-control" name="volume_kegiatan" value="<?php echo $volume_kegiatan;?>">
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>
-                                    </div>       
-                                    <div class="row">
-                                    <div class="mb-12 col-sm-6">
-                                    <div class="form-group">
-                                    <div class="controls">
-                                        <label>Status</label>
-                                        <select class="form-control" name="status" required>
+                                    <div class="card-body">
+                                        <form name="update" method="post" action="">
+                                            <div class="form-body">
+                                                <div class="form-group">
+                                                <div >
+                                                    <span>Angka Kredit</span>
+                                                </div>
+                                                    <input class="form-control" name="angka_kredit" value="<?php echo $angka_kredit;?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                <div >
+                                                    <span>Volume Kegiatan</span>
+                                                </div>
+                                                    <input class="form-control" name="volume_kegiatan" value="<?php echo $volume_kegiatan;?>">
+                                                </div>
+
+                                                <div class="form-group">
+                                                <div >
+                                                    <span>Status Nilai</span>
+                                                </div>
+                                                    <select class="form-control" name="status" required>
                                         <option value="">Please Select</option>
                                                 <?php
                                                     $query = mysqli_query($mysqli, "SELECT * FROM tabel_status ORDER BY status");
@@ -310,20 +352,21 @@ while($user_data = mysqli_fetch_array($result))
  
                                                 <?php } ?>
                                         </select>
-                                            
+                                                </div>
+                                            </div>
+
+                                            <div class="form-actions">
+                                            <input type="hidden"  name="id_rekap" value="<?php echo $_GET['id_rekap'];?>">
+                                            <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
+                                            <a type="reset" class="btn btn-danger" href="data-list-rekap.php">Cancel</a>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                     </div>
-   
-                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
-                        <input type="hidden"  name="id_rekap" value="<?php echo $_GET['id_rekap'];?>">
-                        <input type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1" name="update" value="Update"></input>
-                        <a type="reset" class="btn btn-danger" href="detail-rekap.php?nip=<?php echo $nip; ?>">Cancel</a>
                     </div>
-                  </div>
-              </form>
-            </div>
-       </section> 
+                </section>
     </div>        
     </div>
     </div>

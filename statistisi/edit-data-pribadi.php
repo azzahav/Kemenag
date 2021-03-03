@@ -156,19 +156,19 @@ if(isset($_POST['update']))
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
                 <ul class="menu-content">
-                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View</span></a>
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
                         </li>
-                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit</span></a>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
                         </li>
                     </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
-                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Input Kegiatan</span></a>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Input Kegiatan Harian</span></a>
                 </li>
-                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan</span></a>
+                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
                 </li>
                 <li class=" navigation-header"><span>Pimpinan</span>
                 </li>
@@ -254,8 +254,23 @@ if(isset($_POST['update']))
                                                     <div class="form-group">
                                                         <label>Jabatan</label>
                                                         <select class="form-control" name="jabatan" value="<?php echo $login_session10;?>">
-                                                        <option value="Statistisi Muda">Statistisi Muda</option>
-                                                                <option value="Statistisi Madya">Statistisi Madya</option>
+                                                        <option value="">===Pilih===</option>
+                                                            <option value="Statistisi Muda"
+                                                            <?php
+                                                            if ($login_session10=='Statistisi Muda')
+                                                            {
+                                                                echo "selected";
+                                                            }
+                                                            ?>
+                                                            >Statistisi Muda</option>
+                                                            <option value="Statistisi Madya"
+                                                            <?php
+                                                            if ($login_session10=='Statistisi Madya')
+                                                            {
+                                                                echo "selected";
+                                                            }
+                                                            ?>
+                                                            >Statistisi Madya</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">

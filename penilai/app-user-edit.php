@@ -246,8 +246,23 @@ if(isset($_POST['update']))
                                                     <div class="form-group">
                                                         <label>Jabatan</label>
                                                         <select class="form-control" name="jabatan" value="<?php echo $login_session10;?>">
-                                                        <option value="Statistisi Muda">Statistisi Muda</option>
-                                                                <option value="Statistisi Madya">Statistisi Madya</option>
+                                                        <option value="">===Pilih===</option>
+                                                            <option value="Statistisi Muda"
+                                                            <?php
+                                                            if ($login_session10=='Statistisi Muda')
+                                                            {
+                                                                echo "selected";
+                                                            }
+                                                            ?>
+                                                            >Statistisi Muda</option>
+                                                            <option value="Statistisi Madya"
+                                                            <?php
+                                                            if ($login_session10=='Statistisi Madya')
+                                                            {
+                                                                echo "selected";
+                                                            }
+                                                            ?>
+                                                            >Statistisi Madya</option>
                                                         </select>
                                                     </div>
                                                     <div class="form-group">

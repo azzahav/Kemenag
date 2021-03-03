@@ -188,14 +188,13 @@ if( !isset($_SESSION['login'])){
                                     <th>Nama</th>
                                     <th>NIP</th>
                                     <th>Detail</th>
-                                    <th>Status</th>
                                 </tr>
 
                             </thead>  
                             <tbody>
                                 <?php 
                                 $user_check = $_SESSION['role'] = "Statistisi";
-                                $query = mysqli_query($mysqli, "SELECT t1.nama, t1.nip, t2.role,t2.status FROM pengguna as t1 LEFT JOIN tabel_status as t2 ON t1.role=t2.id_status 
+                                $query = mysqli_query($mysqli, "SELECT * FROM pengguna WHERE role = '$user_check'
                                 ");
                                 $no = 1;
                                 while ($data = mysqli_fetch_assoc($query)) 
@@ -205,13 +204,11 @@ if( !isset($_SESSION['login'])){
                                     <td><?php echo $no++; ?></td>
                                     <td><?php echo $data['nama']; ?></td>
                                     <td><?php echo $data['nip']; ?></td>
-                                                            <td>
-                                                            <div >
-                                                                <a  class="btn btn-icon btn-warning"  href="./detail-rekap.php?nip=<?php echo $data['nip']; ?>">Lihat Kegiatan</a>
-                                                            </div>
-                                                            </td>
-                                        
-                                        <td><?php echo $data['status']; ?></td>
+                                    <td>
+                                    <div>
+                                      <a  class="btn btn-icon btn-primary"  href="./detail-rekap.php?nip=<?php echo $data['nip']; ?>">Lihat Kegiatan</a>
+                                    </div>
+                                    </td>
                                     </tr>
                                     <!-- Modal Edit Mahasiswa-->
                                     <div class="modal fade" id="myModal<?php echo $data['id_rekap']; ?>" role="dialog">

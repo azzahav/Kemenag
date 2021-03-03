@@ -176,19 +176,19 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Pemohon</span></a>
+                <li class=" nav-item"><a href="app-user-view.php"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Profil Statistisi</span></a>
                 <ul class="menu-content">
-                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View</span></a>
+                        <li><a href="app-user-view.php"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View Profil</span></a>
                         </li>
-                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit</span></a>
+                        <li><a href="./edit-data-pribadi.php?nip=<?php echo $login_session2; ?>"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">Edit Profil</span></a>
                         </li>
                     </ul>
                 </li>
                 <li class=" navigation-header"><span>Statistisi</span>
                 </li>
-                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Input Kegiatan</span></a>
+                <li class=" nav-item"><a href="./rekap-kegiatan-harian.php"><i class="feather icon-circle"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Input Kegiatan Harian</span></a>
                 </li>
-                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan</span></a>
+                <li class=" nav-item"><a href="./detail-rekap.php"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Rekap Kerja Harian">Rekap Kegiatan Harian</span></a>
                 </li>
                 <li class=" navigation-header"><span>Pimpinan</span>
                 </li>
@@ -230,20 +230,25 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                             <div class="card">
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <ul class="nav nav-tabs mb-3" role="tablist">
+                                        <ul class="nav nav-tabs nav-fill mb-3" role="tablist" >
                                     <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center active" id="account-tab" data-toggle="tab" href="#account" aria-controls="account" role="tab" aria-selected="true">
-                                            <i class="feather icon-edit mr-25"></i><span class="d-none d-sm-block">Belum Dinilai</span>
+                                        <a class="nav-link active" id="account-tab" data-toggle="tab" href="#account" aria-controls="account" role="tab" aria-selected="true">
+                                            <i class="feather icon-edit  text-warning  mr-25"></i><span class="d-none d-sm-block">Belum Dikirim</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" id="information-tab" data-toggle="tab" href="#information" aria-controls="information" role="tab" aria-selected="false">
-                                            <i class="feather icon-check-square mr-25"></i><span class="d-none d-sm-block">Sudah Dinilai</span>
+                                        <a class="nav-link" id="dikirim-tab" data-toggle="tab" href="#dikirim" aria-controls="dikirim" role="tab" aria-selected="true">
+                                            <i class="feather icon-edit  text-warning  mr-25"></i><span class="d-none d-sm-block">Sudah Dikirim</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link d-flex align-items-center" id="social-tab" data-toggle="tab" href="#social" aria-controls="social" role="tab" aria-selected="false">
-                                            <i class="feather icon-x-square mr-25"></i><span class="d-none d-sm-block">Ditolak</span>
+                                        <a class="nav-link" id="information-tab" data-toggle="tab" href="#information" aria-controls="information" role="tab" aria-selected="false">
+                                            <i class="feather icon-check-square  text-success mr-25"></i><span class="d-none d-sm-block">Sudah Dinilai</span>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" id="social-tab" data-toggle="tab" href="#social" aria-controls="social" role="tab" aria-selected="false">
+                                            <i class="feather icon-x-square text-danger mr-25"></i><span class="d-none d-sm-block">Ditolak</span>
                                         </a>
                                     </li>
                                 </ul>
@@ -273,14 +278,14 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                             
                                                             <?php 
                                                                         $user_check = $_SESSION['status'] = "1";
-                                                        
-                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
+                                                                        $user_nip = $_SESSION['nip'];
+                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.nip, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
                                                                         FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE status = '$user_check'");
                                                                         
                                                                         while ($user_data = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC)){
                                                                         
                                                                             // collect value of input field
-                                                                        
+                                                                            
                                                                             $nama = $user_data['nama'];
                                                                             $nip = $user_data['nip'];
                                                                             $unsur = $user_data['unsur'];
@@ -291,6 +296,10 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                                             $angka_kredit = $user_data['angka_kredit'];
                                                                             $satuan_hasil = $user_data['satuan_hasil'];
                                                                             $tanggal = $user_data['tanggal'];
+                                                                            
+                                                                        ?>
+                                                                        <?php
+                                                                        if($nip==$user_nip){
                                                                         ?>
                                                                                 <tr>
                                                                                     <td><?php echo $unsur; ?></td>
@@ -308,7 +317,7 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                                             </div>
                                                                                 <?php
                                                                             }
-                                                                        
+                                                                        }
                                                                     ?>
 
                                                             </tbody>
@@ -318,6 +327,74 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                             </div>
                                         </form>
                                         <!-- users edit account form ends -->
+                                    </div>
+                                    <div class="tab-pane" id="dikirim" aria-labelledby="dikirim-tab" role="tabpanel">
+                                        <!-- users edit Info form start -->
+                                        <form novalidate>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <div class="table-responsive">
+                                                        <table class="table">
+                                                            <thead>
+                                                            <tr class="table-primary">
+                                                                <th>Unsur</th>
+                                                                <th>Sub Unsur</th>
+                                                                <th>Butir Kegiatan</th>
+                                                                <th>Uraian Kegiatan</th>
+                                                                <th>Volume Kegiatan</th>
+                                                                <th>Angka Kredit</th>
+                                                                <th>Tanggal</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            
+                                                            <?php 
+                                                                        $user_check = $_SESSION['status'] = "4";
+                                                                        $user_nip = $_SESSION['nip'];
+                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.nip, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
+                                                                        FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE status = '$user_check'");
+                                                                        
+                                                                        while ($user_data = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC)){
+                                                                        
+                                                                            // collect value of input field
+                                                                            
+                                                                            $nama = $user_data['nama'];
+                                                                            $nip = $user_data['nip'];
+                                                                            $unsur = $user_data['unsur'];
+                                                                            $sub_unsur = $user_data['sub_unsur'];
+                                                                            $butir_kegiatan = $user_data['butir_kegiatan'];
+                                                                            $uraian_kegiatan = $user_data['uraian_kegiatan'];
+                                                                            $volume_kegiatan = $user_data['volume_kegiatan'];
+                                                                            $angka_kredit = $user_data['angka_kredit'];
+                                                                            $satuan_hasil = $user_data['satuan_hasil'];
+                                                                            $tanggal = $user_data['tanggal'];
+                                                                            
+                                                                        ?>
+                                                                        <?php
+                                                                        if($nip==$user_nip){
+                                                                        ?>
+                                                                                <tr>
+                                                                                    <td><?php echo $unsur; ?></td>
+                                                                                    <td><?php echo $sub_unsur; ?></td>
+                                                                                    <td><?php echo $butir_kegiatan; ?></td>
+                                                                                    <td><?php echo $uraian_kegiatan; ?></td>
+                                                                                    <td><?php echo $volume_kegiatan; ?></td>
+                                                                                    <td><?php echo $angka_kredit; ?></td>
+                                                                                    <td><?php echo $tanggal; ?></td>
+                                                                                </tr>
+                                                                            </div>
+                                                                                <?php
+                                                                            }
+                                                                        }
+                                                                    ?>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <!-- users edit Info form ends -->
                                     </div>
                                     <div class="tab-pane" id="information" aria-labelledby="information-tab" role="tabpanel">
                                         <!-- users edit Info form start -->
@@ -341,14 +418,14 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                             
                                                             <?php 
                                                                         $user_check = $_SESSION['status'] = "2";
-                                                        
-                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
+                                                                        $user_nip = $_SESSION['nip'];
+                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.nip, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
                                                                         FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE status = '$user_check'");
                                                                         
                                                                         while ($user_data = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC)){
                                                                         
                                                                             // collect value of input field
-                                                                        
+                                                                            
                                                                             $nama = $user_data['nama'];
                                                                             $nip = $user_data['nip'];
                                                                             $unsur = $user_data['unsur'];
@@ -359,6 +436,10 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                                             $angka_kredit = $user_data['angka_kredit'];
                                                                             $satuan_hasil = $user_data['satuan_hasil'];
                                                                             $tanggal = $user_data['tanggal'];
+                                                                            
+                                                                        ?>
+                                                                        <?php
+                                                                        if($nip==$user_nip){
                                                                         ?>
                                                                                 <tr>
                                                                                     <td><?php echo $unsur; ?></td>
@@ -372,7 +453,7 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                                             </div>
                                                                                 <?php
                                                                             }
-                                                                        
+                                                                        }
                                                                     ?>
 
                                                             </tbody>
@@ -405,14 +486,14 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                             
                                                             <?php 
                                                                         $user_check = $_SESSION['status'] = "3";
-                                                        
-                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
+                                                                        $user_nip = $_SESSION['nip'];
+                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.nip, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
                                                                         FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE status = '$user_check'");
                                                                         
                                                                         while ($user_data = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC)){
                                                                         
                                                                             // collect value of input field
-                                                                        
+                                                                       
                                                                             $nama = $user_data['nama'];
                                                                             $nip = $user_data['nip'];
                                                                             $unsur = $user_data['unsur'];
@@ -423,6 +504,9 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                                             $angka_kredit = $user_data['angka_kredit'];
                                                                             $satuan_hasil = $user_data['satuan_hasil'];
                                                                             $tanggal = $user_data['tanggal'];
+                                                                        ?>
+                                                                        <?php
+                                                                            if($nip==$user_nip){
                                                                         ?>
                                                                                 <tr>
                                                                                     <td><?php echo $unsur; ?></td>
@@ -436,7 +520,7 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                                                             </div>
                                                                                 <?php
                                                                             }
-                                                                        
+                                                                        }
                                                                     ?>
 
                                                             </tbody>
