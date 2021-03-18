@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2021 at 01:02 PM
+-- Generation Time: Mar 18, 2021 at 01:52 PM
 -- Server version: 10.4.14-MariaDB
 -- PHP Version: 7.4.10
 
@@ -248,7 +248,6 @@ INSERT INTO `data_subunsur` (`id_subunsur`, `id_unsur`, `sub_unsur`) VALUES
 (1275, 12, 'Pengumpulan Data'),
 (1277, 12, 'Pengolahan'),
 (1278, 12, 'Penyajian dan Publikasi'),
-(1279, 12, 'Penunjang Kegiatan Statistisi'),
 (1371, 13, 'Analisis statistik'),
 (1373, 13, 'Pengembangan statistik'),
 (1471, 14, 'Pembuatan karya tulis/karya ilmiah di bidang statisitik'),
@@ -351,7 +350,7 @@ CREATE TABLE `pengguna` (
   `jabatan` enum('Statistisi Muda','Statistisi Madya') NOT NULL,
   `masa_kerja` varchar(100) NOT NULL,
   `unit_kerja` varchar(100) NOT NULL,
-  `role` enum('Admin','Statistisi','Penilai') CHARACTER SET utf8 NOT NULL
+  `role` varchar(255) CHARACTER SET utf8 NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -359,12 +358,11 @@ CREATE TABLE `pengguna` (
 --
 
 INSERT INTO `pengguna` (`id_pengguna`, `nama`, `nip`, `password`, `email`, `alamat`, `no_seri_kapreg`, `tempat_tanggal_lahir`, `tgl_lahir`, `jenis_kelamin`, `pendidikan`, `pangkat`, `jabatan`, `masa_kerja`, `unit_kerja`, `role`) VALUES
-(2, 'Muhammad Iskandar Muda.S.p', '5556664433322', 'mantap', 'iskandar@kemenag.co.id', 'Jl. Batang 1 Kelurahan Banyumanik Kecamatan Sedikkesano Mantap', '614/KEP/KARPEG/2020', 'Sukabumi', '1998-02-04', 'Laki-laki', 'S1-Keperawatan', 'Penata / III/c / 1 Oktober 2019', 'Statistisi Muda', 'Lama', 'Biro Humas Data dan Informasi', 'Statistisi'),
-(8, 'Indah Kumala Sari S.Sos', '112345677776555', 'admin', 'inda@kemenag.co.id', 'Jl. Batang 1 Kelurahan Banyumanik Kecamatan Sedikkesano Mantap', '614/KEP/KARPEG/2020', 'Jakarta', '1999-01-03', 'Laki-Laki', 'S1-Sosial', 'Penata / III/c / 1 Oktober 2019', 'Statistisi Muda', 'Baru', 'Biro Humas Data dan Informasi', 'Admin'),
-(10, 'Sugiyanto S.Si', '22233344455', 'penilai1', 'sugi@kemenag.co.id', 'Jl. Batang 1 Kelurahan Banyumanik Kecamatan Sedikkesano Mantap', '614/KEP/KARPEG/2020', 'Jakarta', '1996-01-03', 'Laki-Laki', 'S1-Keperawatan', 'Penata / III/c / 1 Oktober 2019', 'Statistisi Muda', 'Lama', 'Biro Humas Data dan Informasi', 'Penilai'),
-(14, 'Ardhito S.H', '44433322211', 'mantap', 'ard@kemenag.co.id', 'Jl. Batang 1 Kelurahan Banyumanik Kecamatan Sedikkesano Mantap', '614/KEP/KARPEG/2020', 'Tanggerang, 12 Juni 1999 ', '1997-05-12', 'Perempuan', 'S1-Hukum', 'Penata / III/c / 1 Oktober 2019', 'Statistisi Muda', 'Lama', 'Biro Humas Data dan Informasi', 'Statistisi'),
-(25, 'Gea Mariana Walili S.Ked', '777122121', 'oke', 'gea@kemenag.co.id', 'Jl. Batang 1 Kelurahan Banyumanik Kecamatan Sedikkesano Mantap', '614/KEP/KARPEG/2020', 'Jakarta', '1998-02-04', 'Perempuan', 'S1-Keperawatan', 'Penata / III/c / 1 Oktober 2019', 'Statistisi Madya', 'Lama', 'Biro Humas Data dan Informasi', 'Penilai'),
-(27, 'Bakwan', '2223334445512121', '', '', '', '614/KEP/KARPEG/2020', 'Surabaya', '0000-00-00', 'Laki-Laki', 'S1 - Teknik Komputer', 'Penata / III/c / 1 Oktober 2016', 'Statistisi Madya', 'S1 - Teknik Komputer', 'Biro Humas Data dan Informasi', 'Penilai');
+(28, 'Yahya Andhika', '16235511723451', 'baru1234', 'yahya@gmail.com', 'Jl. Karet Belakang Rt002/Rw002 Kelurahan Karet Kuningan Kecamatan Setiabudi Jakarta Selatan', '541/KEP/KARPEG/2019', 'Jakarta', '2000-06-03', 'Laki-Laki', 'S1-Teknik Komputer', 'Penata / III/c / 1 Oktober 2016', 'Statistisi Muda', 'Baru', 'Biro Humas Data dan Informasi', 'Statistisi'),
+(29, 'Andryanto, S.Si', '197203082008011008', 'penilai', 'adryanto@kemenang.co.id', 'Jl. Batang 1 Kelurahan Banyumanik Kecamatan Sedikkesano Mantap', '614/KEP/KARPEG/2010', 'Sukabumi', '1993-03-08', 'Laki-Laki', 'S1 Statistika', 'Penata / III/c / 1 Oktober 2015', 'Statistisi Madya', 'Lama', 'Biro Humas Data dan Informasi', 'Penilai'),
+(30, 'Dwi Handayani', '222333444551233', 'admin', 'dwi@kemenag.co.id', 'Jl. Kebon Manggang 09 Kelurahan Kebon Manggis', '712/KEP/KARPEG/2019', 'Tanggerang', '1992-01-30', 'Perempuan', 'S1-Hukum', 'Penata / III/c / 1 Oktober 2020', 'Statistisi Madya', 'Baru', 'Biro Humas Data dan Informasi', 'Admin'),
+(31, 'Muhammad Dwi Yanto', '44433322211556565', 'statistisi', 'dwi@gmail.com', 'Jl. Kebayoran Lama Mantap Kelurahan Kebon Jeruk', '614/KEP/KARPEG/2010', 'Surabaya', '1982-02-10', 'Laki-Laki', 'S1 - Teknik Industri', 'Penata / III/c / 1 Oktober 2015', 'Statistisi Madya', 'Lama', 'Biro Humas Data dan Informasi', 'Statistisi'),
+(32, 'Raisa andayani S.T', '43348921299212', 'mantap', 'raisa@gmail.com', 'Jl. Batang 1 Kelurahan Banyumanik Kecamatan Sedikkesano Mantap', '614/KEP/KARPEG/2010', 'Jakarta', '1996-12-30', 'Perempuan', 'S1-Hukum', 'Penata / III/c / 1 Oktober 2016', 'Statistisi Muda', 'Baru', 'Biro Humas Data dan Informasi', 'Statistisi');
 
 -- --------------------------------------------------------
 
@@ -386,10 +384,10 @@ CREATE TABLE `pimpinan` (
 --
 
 INSERT INTO `pimpinan` (`id_pimpinan`, `nama`, `nip`, `pangkat_golongan`, `jabatan`, `unit_kerja`) VALUES
-(3, 'Aquilla Haya Tuzzahra', 1234, 'Penata / III/c / 1 Oktober 2016', 'madya', 'Biro Humas Data dan Informasi'),
-(4, 'Muhammad Susilo', 123456, 'Penata / III/c / 1 Oktober 2020', 'Madya', 'Biro Humas Data dan Informasi'),
-(5, 'Gea Mariana ', 123456, 'Penata / III/c / 1 Oktober 2016', 'Muda', 'Biro Humas Data dan Informasi'),
-(9, 'Raisa andayani S.T', 2147483647, 'Penata / III/c / 1 Oktober 2020', 'Muda', 'Biro Humas Data dan Informasi');
+(3, 'Aquilla Haya Tuzzahra', 1234, 'Penata / III/c / 1 Oktober 2016', 'Statistisi Madya', 'Biro Humas Data dan Informasi'),
+(4, 'Muhammad Susilo', 123456, 'Penata / III/c / 1 Oktober 2020', 'Statistisi Muda', 'Biro Humas Data dan Informasi'),
+(5, 'Gea Mariana ', 123456, 'Penata / III/c / 1 Oktober 2016', 'Statistisi Muda', 'Biro Humas Data dan Informasi'),
+(9, 'Raisa andayani S.T', 2147483647, 'Penata / III/c / 1 Oktober 2020', 'Statistisi Madya', 'Biro Humas Data dan Informasi');
 
 -- --------------------------------------------------------
 
@@ -412,7 +410,7 @@ CREATE TABLE `rekap_harian` (
   `total_nilai` varchar(255) NOT NULL,
   `tanggal` date NOT NULL,
   `unggah_bukti` varchar(255) NOT NULL,
-  `status` enum('Belum Dinilai','Sedang Dinilai','Selesai Dinilai') NOT NULL
+  `status` enum('1','2','3') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -420,12 +418,80 @@ CREATE TABLE `rekap_harian` (
 --
 
 INSERT INTO `rekap_harian` (`id_rekap`, `nama`, `nip`, `unsur`, `sub_unsur`, `butir_kegiatan`, `uraian_kegiatan`, `satuan_hasil`, `angka_kredit`, `volume_kegiatan`, `jumlah_kredit`, `total_nilai`, `tanggal`, `unggah_bukti`, `status`) VALUES
-(240, 'Muhammad Iskandar Muda.S.p', '5556664433322', '11', '1171', 'Pasca Sarjana/Spesialis I (S2)', 'Bismillah nyoba', 'Tiap buku', '2', '50', '2500', '125000', '2021-02-01', 'file_240.pdf', 'Sedang Dinilai'),
-(241, 'Ardhito S.H', '44433322211', '11', '1172', 'Lamanya antara 161 - 400 jam', 'ini punya si ardito', 'Jam', '', '50', '150', '450', '2021-02-02', 'file_241.pdf', 'Selesai Dinilai'),
-(242, 'Ardhito S.H', '44433322211', '15', '1509', 'Memberikan bimbingan penuh kader statistisi sampai mencapai tingkat Pascasarjana per orang, sebagai Pembimbing Utama', 'Akhir udah full semuaaaaa', 'Tesis', '', '30', '90', '270', '2021-02-08', 'file_242.pdf', 'Belum Dinilai'),
-(244, 'Muhammad Iskandar Muda.S.p', '5556664433322', '15', '1574', 'Menjadi anggota Tim Penilai Jabatan Fungsional Statistisi', 'nyoba lagi', 'Tesis', '1', '30', '30', '30', '2021-02-02', 'file_244.pdf', 'Belum Dinilai'),
-(245, 'Ardhito S.H', '44433322211', '11', '1173', 'Pendidikaan dan pelatihan prajabatan golongan II', 'akakakakassssssas', 'Jam', '2', '50', '100', '200', '2021-02-11', 'file_245.pdf', 'Belum Dinilai'),
-(246, 'Ardhito S.H', '44433322211', '13', '1373', 'Memberikan pengarahan statistik dalam rangka penyusunan statistik kelembagaan pada tingkat lanjutan', 'cobaaaaaaaa', 'Jam', '0.006', '50', '0.3', '0.0018', '2021-02-02', 'file_246.pdf', 'Belum Dinilai');
+(253, 'Muhammad Dwi Yanto', '44433322211556565', '13', '1373', 'Melakukan penyebarluasan hasil pengumpulan data statistik dalam rangka evaluasi kegiatan kelembagaan dalam bidang statistik menengah', 'Ini punya Dwi Yanto', 'Jam', '30', '30', '900', '27000', '2021-02-01', 'file_253.pdf', '2'),
+(300, 'Yahya Andhika', '16235511723451', '13', '1371', 'Melakukan analisis mendalam satu sektor', 'Ini punya Yahya', 'Jam', '10', '45', '450', '4500', '2021-02-01', 'file_300.pdf', '2'),
+(301, 'Raisa andayani S.T', '43348921299212', '15', '1574', 'Menjadi anggota Tim Penilai Jabatan Fungsional Statistisi', 'Ini punya raisaa yaaaa', 'Jam', '20', '45', '900', '18000', '2021-02-08', 'file_301.pdf', '2'),
+(302, 'Raisa andayani S.T', '43348921299212', '11', '1173', 'Pendidikaan dan pelatihan prajabatan golongan II', 'Ini yang kedua punya raisa juga', 'Jam', '30', '45', '1350', '40500', '2021-02-22', 'file_302.pdf', '3'),
+(303, 'Yahya Andhika', '16235511723451', '13', '1371', 'Melakukan analisis sederhana lintas sektor', 'INI PUNYA YAHYA YANG KE2', 'Tiap buku', '1.9', '50', '95', '180.5', '2021-01-31', 'file_303.pdf', '1'),
+(304, 'Muhammad Dwi Yanto', '44433322211556565', '12', '1277', 'Merancang dan membuat pedoman pengolahan kegiatan statistik untuk Penyuntingan dan penyandian hasil pengumpulan data', 'Memeriksa tabel/grafik hasil kegiatan statistik yang akan disajikan, Pengumpulan data pendidikan isl', 'Tabel', '0.72', '20', '14.4', '10.368', '2021-01-31', 'file_304.pdf', '2'),
+(305, 'Muhammad Dwi Yanto', '44433322211556565', '14', '1475', 'Menerjemahkan / menyadur buku atau karya ilmiah dibidang statistik yang dipublikasikan Dalam bentuk buku yang diterbitkan dan diedarkan secara nasional', 'Rapat pembahasan pedoman tata kelola data\r\nRapat pembahasan draft PMA tata kelola data\r\nRapat penyus', 'pertemuan', '7', '50', '350', '2450', '2020-12-28', 'file_305.pdf', '1'),
+(306, 'Muhammad Dwi Yanto', '44433322211556565', '11', '1173', 'Pendidikaan dan pelatihan prajabatan golongan II', 'Pembahasan sinergi data pendidikan Kementerian Agama dengan Ditjen Bimas dan Khonghucu\r\nPembahasan i', 'Jam', '2', '20', '20', '20', '2020-12-27', 'IMG_20201108_0004.pdf', '1'),
+(308, 'Muhammad Dwi Yanto', '44433322211556565', '14', '1275', 'Melakukan pengumpulan data pada kegiatan statistik objek non rumah tangga Kuesioner sederhana', 'Peserta Kegiatan Pengembangan Jafung Ditjen Pendidikan Islam\r\nPeserta Rakornas Infrastruktur Informa', 'Kali', '0.01', '16', '0', '0', '2020-12-27', 'file_308.pdf', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rekap_harian_master`
+--
+
+CREATE TABLE `rekap_harian_master` (
+  `id_master` int(11) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `nip` varchar(255) NOT NULL,
+  `unsur` varchar(255) NOT NULL,
+  `sub_unsur` varchar(255) NOT NULL,
+  `butir_kegiatan` varchar(255) NOT NULL,
+  `uraian_kegiatan` varchar(100) NOT NULL,
+  `satuan_hasil` varchar(100) NOT NULL,
+  `angka_kredit` varchar(255) NOT NULL,
+  `volume_kegiatan` varchar(255) NOT NULL,
+  `jumlah_kredit` varchar(255) NOT NULL,
+  `total_nilai` varchar(255) NOT NULL,
+  `tanggal` date NOT NULL,
+  `unggah_bukti` varchar(255) NOT NULL,
+  `status` enum('Belum Dinilai','Sedang Dinilai','Selesai Dinilai') NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rekap_harian_master`
+--
+
+INSERT INTO `rekap_harian_master` (`id_master`, `nama`, `nip`, `unsur`, `sub_unsur`, `butir_kegiatan`, `uraian_kegiatan`, `satuan_hasil`, `angka_kredit`, `volume_kegiatan`, `jumlah_kredit`, `total_nilai`, `tanggal`, `unggah_bukti`, `status`) VALUES
+(37, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(38, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(39, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(40, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(41, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(42, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(43, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(44, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(45, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(46, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(47, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(48, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai'),
+(49, '', '', '', '', '', '', '', '', '', '0', '0', '0000-00-00', '', 'Belum Dinilai');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tabel_status`
+--
+
+CREATE TABLE `tabel_status` (
+  `id_status` int(4) NOT NULL,
+  `role` enum('Statistisi') COLLATE utf8_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+--
+-- Dumping data for table `tabel_status`
+--
+
+INSERT INTO `tabel_status` (`id_status`, `role`, `status`) VALUES
+(1, 'Statistisi', 'Belum Dikirim'),
+(2, 'Statistisi', 'Selesai Dinilai'),
+(3, 'Statistisi', 'Ditolak'),
+(4, 'Statistisi', 'Sudah Dikirim');
 
 -- --------------------------------------------------------
 
@@ -510,6 +576,19 @@ ALTER TABLE `rekap_harian`
   ADD PRIMARY KEY (`id_rekap`);
 
 --
+-- Indexes for table `rekap_harian_master`
+--
+ALTER TABLE `rekap_harian_master`
+  ADD PRIMARY KEY (`id_master`);
+
+--
+-- Indexes for table `tabel_status`
+--
+ALTER TABLE `tabel_status`
+  ADD PRIMARY KEY (`id_status`),
+  ADD KEY `regencies_province_id_index` (`role`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -535,7 +614,7 @@ ALTER TABLE `login`
 -- AUTO_INCREMENT for table `pengguna`
 --
 ALTER TABLE `pengguna`
-  MODIFY `id_pengguna` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_pengguna` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `pimpinan`
@@ -547,7 +626,13 @@ ALTER TABLE `pimpinan`
 -- AUTO_INCREMENT for table `rekap_harian`
 --
 ALTER TABLE `rekap_harian`
-  MODIFY `id_rekap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
+  MODIFY `id_rekap` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
+
+--
+-- AUTO_INCREMENT for table `rekap_harian_master`
+--
+ALTER TABLE `rekap_harian_master`
+  MODIFY `id_master` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
 -- AUTO_INCREMENT for table `user`
