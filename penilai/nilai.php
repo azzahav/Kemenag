@@ -353,6 +353,12 @@ while($user_data = mysqli_fetch_array($result))
                                                 <?php } ?>
                                         </select>
                                                 </div>
+                                                <div class="form-group">
+                                                <div >
+                                                    <span>Alasan Menolak</span>
+                                                </div>
+                                                    <input class="form-control" name="volume_kegiatan" value="<?php echo $volume_kegiatan;?>">
+                                                </div>
                                             </div>
 
                                             <div class="form-actions">

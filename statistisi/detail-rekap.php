@@ -233,12 +233,7 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                         <ul class="nav nav-tabs nav-fill mb-3" role="tablist" >
                                     <li class="nav-item">
                                         <a class="nav-link active" id="account-tab" data-toggle="tab" href="#account" aria-controls="account" role="tab" aria-selected="true">
-                                            <i class="feather icon-edit  text-warning  mr-25"></i><span class="d-none d-sm-block">Belum Dikirim</span>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" id="dikirim-tab" data-toggle="tab" href="#dikirim" aria-controls="dikirim" role="tab" aria-selected="true">
-                                            <i class="feather icon-edit  text-warning  mr-25"></i><span class="d-none d-sm-block">Sudah Dikirim</span>
+                                            <i class="feather icon-edit  text-warning  mr-25"></i><span class="d-none d-sm-block">Belum Dinilai</span>
                                         </a>
                                     </li>
                                     <li class="nav-item">
@@ -328,74 +323,7 @@ if ($tipe_file == "application/pdf") //mengecek apakah file tersebu pdf atau buk
                                         </form>
                                         <!-- users edit account form ends -->
                                     </div>
-                                    <div class="tab-pane" id="dikirim" aria-labelledby="dikirim-tab" role="tabpanel">
-                                        <!-- users edit Info form start -->
-                                        <form novalidate>
-                                            <div class="row">
-                                                <div class="col-12">
-                                                    <div class="table-responsive">
-                                                        <table class="table">
-                                                            <thead>
-                                                            <tr class="table-primary">
-                                                                <th>Unsur</th>
-                                                                <th>Sub Unsur</th>
-                                                                <th>Butir Kegiatan</th>
-                                                                <th>Uraian Kegiatan</th>
-                                                                <th>Volume Kegiatan</th>
-                                                                <th>Angka Kredit</th>
-                                                                <th>Tanggal</th>
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            
-                                                            <?php 
-                                                                        $user_check = $_SESSION['status'] = "4";
-                                                                        $user_nip = $_SESSION['nip'];
-                                                                        $ses_sql = mysqli_query($mysqli,"SELECT t1.id_rekap, t1.nip, t1.butir_kegiatan, t1.uraian_kegiatan, t1.volume_kegiatan, t1.angka_kredit, t1.tanggal, t1.status, t2.unsur, t3.sub_unsur 
-                                                                        FROM rekap_harian as t1 LEFT JOIN data_unsur as t2 ON t1.unsur=t2.id_unsur LEFT JOIN data_subunsur as t3 on t1.sub_unsur=t3.id_subunsur WHERE status = '$user_check'");
-                                                                        
-                                                                        while ($user_data = mysqli_fetch_array($ses_sql,MYSQLI_ASSOC)){
-                                                                        
-                                                                            // collect value of input field
-                                                                            
-                                                                            $nama = $user_data['nama'];
-                                                                            $nip = $user_data['nip'];
-                                                                            $unsur = $user_data['unsur'];
-                                                                            $sub_unsur = $user_data['sub_unsur'];
-                                                                            $butir_kegiatan = $user_data['butir_kegiatan'];
-                                                                            $uraian_kegiatan = $user_data['uraian_kegiatan'];
-                                                                            $volume_kegiatan = $user_data['volume_kegiatan'];
-                                                                            $angka_kredit = $user_data['angka_kredit'];
-                                                                            $satuan_hasil = $user_data['satuan_hasil'];
-                                                                            $tanggal = $user_data['tanggal'];
-                                                                            
-                                                                        ?>
-                                                                        <?php
-                                                                        if($nip==$user_nip){
-                                                                        ?>
-                                                                                <tr>
-                                                                                    <td><?php echo $unsur; ?></td>
-                                                                                    <td><?php echo $sub_unsur; ?></td>
-                                                                                    <td><?php echo $butir_kegiatan; ?></td>
-                                                                                    <td><?php echo $uraian_kegiatan; ?></td>
-                                                                                    <td><?php echo $volume_kegiatan; ?></td>
-                                                                                    <td><?php echo $angka_kredit; ?></td>
-                                                                                    <td><?php echo $tanggal; ?></td>
-                                                                                </tr>
-                                                                            </div>
-                                                                                <?php
-                                                                            }
-                                                                        }
-                                                                    ?>
-
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
-                                        <!-- users edit Info form ends -->
-                                    </div>
+                                   
                                     <div class="tab-pane" id="information" aria-labelledby="information-tab" role="tabpanel">
                                         <!-- users edit Info form start -->
                                         <form novalidate>
